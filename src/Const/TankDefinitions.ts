@@ -28,7 +28,7 @@ export type preAddonId = "dombase" | "launcher"
 export type addonId = preAddonId | postAddonId;
 
 /** The types of projectiles in the game */
-export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc";
+export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap";
 
 /** The types of barrel addons that exist in the game */
 export type barrelAddonId = "trapLauncher" | "purplebarrel";

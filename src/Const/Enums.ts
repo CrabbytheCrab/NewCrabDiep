@@ -72,7 +72,7 @@ export const ColorsHexCode: Record<Color, number> = {
 /**
  * The IDs for all the tanks, by name.
  */
-export const enum Tank {
+/*export const enum Tank {
     Basic         = 0,
     Twin          = 1,
     Triplet       = 2,
@@ -126,8 +126,35 @@ export const enum Tank {
     Factory       = 52,
     Skimmer       = 54,
     Rocketeer     = 55
-}
+}*/
 
+export const enum Tank {
+    Spike = 0,
+    Factory = 0,
+    MegaTrapper = 0,
+    Booster = 0,
+    Overlord = 0,
+    Basic         = 0,
+    Twin          = 1,
+    Sniper        = 2,
+    MachineGun    = 3,
+    FlankGuard    = 4,
+    Pounder       = 5,
+    Commander     = 6,
+    Trapper       = 7,
+    Smasher       = 8,
+    AutoTank      = 9,
+    TripleShot    = 10,
+    TwinFlank     = 11,
+    Gunner        = 12,
+    Barricade     = 13,
+    Crusier       = 14,
+    ArenaCloser   = 1000,
+    Mothership    = 1001,
+    DominatorD    = 1002,
+    DominatorG    = 1003,
+    DominatorT    = 1004,
+}
 /**
  * The IDs for all the stats, by name.
  */
