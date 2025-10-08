@@ -31,7 +31,7 @@ import { PI2 } from "../../../util";
 export default class Trap extends Bullet {
     /** Number of ticks before the trap cant collide with its own team. */
     protected collisionEnd = 0;
-
+    public bouncetrap = false;
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
 
@@ -56,7 +56,7 @@ export default class Trap extends Bullet {
     public tick(tick: number) {
         super.tick(tick);
 
-        if (tick - this.spawnTick === this.collisionEnd) {
+        if (tick - this.spawnTick === this.collisionEnd && !this.bouncetrap) {
             if (this.physicsData.values.flags & PhysicsFlags.onlySameOwnerCollision) this.physicsData.flags ^= PhysicsFlags.onlySameOwnerCollision;
             this.physicsData.values.flags |= PhysicsFlags.noOwnTeamCollision;
         }

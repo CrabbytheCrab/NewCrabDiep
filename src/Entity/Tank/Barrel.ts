@@ -178,6 +178,10 @@ export default class Barrel extends ObjectEntity {
             case 'trap':
                 projectile = new Trap(this, this.tank, tankDefinition, angle);
                 break;
+            case 'bouncetrap':
+                const trap = new Trap(this, this.tank, tankDefinition, angle);
+                trap.bouncetrap = true;
+                break;
             case 'drone':
                 projectile = new Drone(this, this.tank, tankDefinition, angle);
                 break;
