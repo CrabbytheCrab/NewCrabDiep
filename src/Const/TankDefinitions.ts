@@ -21,17 +21,17 @@ import { Tank, Color } from "./Enums";
 import _TankDefinitions from "./TankDefinitions.json";
 
 /** The types of post addons that exist in the game, by their id. */
-export type postAddonId = "dompronounced" | "auto5" | "auto3" | "autosmasher" | "spike" | "pronounced" | "smasher" | "landmine" | "autoturret" | "weirdspike" | "auto2" | "auto7" | "autorocket" | "spiesk"
+export type postAddonId = "dompronounced" | "auto5" | "auto3" | "autosmasher" | "spike" | "pronounced" | "smasher" | "landmine" | "autoturret" | "weirdspike" | "auto2" | "auto7" | "autorocket" | "spiesk" | "blasterpronounced" | "Xpronounced" | "cuck" | "shotgunpronounced" | "auto4" | "spectre" | "joint3" | "lich" | "minelayer" | "megasmasher" | "saw";
 /** The types of post addons that exist in the game, by their id. */
-export type preAddonId = "dombase" | "launcher"
+export type preAddonId = "dombase" | "launcher" | "launchermissile" | "glider"
 /** A joint list of all post addon ids and pre addon ids. */
 export type addonId = preAddonId | postAddonId;
 
 /** The types of projectiles in the game */
-export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap";
+export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "basher" | "destroyerminion" | "shotgun10" | "shotgun3" | "miniminion" | "lichdrone" | "megabomb" | "claymore" | "mine";
 
 /** The types of barrel addons that exist in the game */
-export type barrelAddonId = "trapLauncher" | "purplebarrel";
+export type barrelAddonId = "trapLauncher" | "purplebarrel" | "minionLauncher" | "engineerLauncher" | "bombLauncher" | "reversetrap" | "noScaleTrapLauncher" | "claymoreLauncher";
 
 /** Increase in opacity when taking damage. */
 export const visibilityRateDamage = 0.2;
@@ -82,6 +82,8 @@ export interface BarrelDefinition {
     reload: number;
     /** Used to calculate the recoil of a barrel's shot. */
     recoil: number;
+    /** Whether or not recoil is effected by scatterRate. */
+    nonRandomRecoil?: boolean
     /** Example: Machine Gun's barrel is a trapezoid. */
     isTrapezoid: boolean;
     /** Direction that the trapezoid is facing. Machine Gun's `trapezoidalDirection` is `0`, and Stalker's is `π`. */
@@ -92,6 +94,8 @@ export interface BarrelDefinition {
     droneCount?: number;
     /** Whether or not the drones are controllable - only present if `bullet.type` === 'drone'. */
     canControlDrones?: boolean;
+    /** Whether or not you need to press left click or right click to fire a barrel. */
+    inverseFire?: boolean;
     /** Whether or not the barrel should always shoot (Trapper Dominator, Defender). */
     forceFire?: boolean;
     /** Barrel color - by default this is set to the 'Barrel' color id. */
@@ -130,6 +134,8 @@ export interface TankDefinition {
         zoomAbility: boolean;
         /** If the tank can claim squares by killing them (necro). */
         canClaimSquares?: boolean;
+        /** If the tank can claim pentagons by killing them (lich). */
+        canClaimPentagons?: boolean;
         /** If the tank requires devmode to access (unused). */
         devOnly: boolean;
         /** If the tank should be rendered as a star (eg. traps are stars with 3 sides). */
