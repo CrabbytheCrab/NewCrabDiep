@@ -27,6 +27,7 @@ export default class FFAArena extends ArenaEntity {
     static override GAMEMODE_ID: string = "ffa";
     public constructor(game: GameServer) {
         super(game);
-        this.state = ArenaState.OPEN; // Sandbox should start instantly, no countdown
+        this.state = ArenaState.OPEN; // FFA should start instantly, no countdown
+        this.arenaData.values.flags |= ArenaFlags.canFastLevel;
     }
 }

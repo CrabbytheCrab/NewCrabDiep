@@ -21,10 +21,9 @@ const CDN = "https://static.diep.io/";
 const API_URL = `${window.location.href}api/`;
 
 const CHANGELOG = [
-    "Updated recently",
+    "Crab Diep is back",
     "",
-    "Check out the GitHub repository!: github.com/ABCxFF/diepcustom",
-    "Join our Discord server: discord.gg/SyxWdxgHnT :)"
+    "Join Diepcustoms Discord server: https://discord.gg/SyxWdxgHnT :)"
 ];
 
 // Only send pings every 500ms
