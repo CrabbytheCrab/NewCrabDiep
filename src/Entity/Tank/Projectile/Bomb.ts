@@ -50,7 +50,7 @@ export default class Bomb extends Trap implements BarrelBase  {
     /** If the proejctile has went off or not*/
     public exploded = false;
     /** How the proejctile should rotate*/
-    public spinning = true;
+    public spinSpeed = 0.7;
     public direction = (Math.random() < .5 ? -1 : 1);
     public ExplosionBarrelDefinition: BarrelDefinition = {
         angle: 0,
@@ -118,9 +118,10 @@ export default class Bomb extends Trap implements BarrelBase  {
                 particle.positionData.values.y = y + (Math.sin(this.positionData.values.angle) * this.bombAddon.physicsData.values.size ) + Math.cos(this.positionData.values.angle) * this.sizeFactor + Math.sin(this.positionData.values.angle);
         }
         super.tick(tick);
-        if(this.spinning && tick > this.spawnTick + 2) {
-            this.positionData.angle += (Math.min(1, this.velocity.magnitude/50) * this.direction);
-            if(this.velocity.magnitude <= 1) this.spinning = false;
+        if(tick > this.spawnTick + 1) {
+            this.positionData.angle += (Math.min(1, this.spinSpeed) * this.direction);
+            this.spinSpeed *= 0.9;
+            if(this.spinSpeed <= 0.01) this.spinSpeed = 0;
         }
     }
     public destroy(animate=true) {
