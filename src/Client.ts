@@ -428,6 +428,17 @@ export default class Client {
                 }
                 executeCommand(this, cmd, args);
                 return;
+            case ServerBound.passiveMode: {
+                const player = camera.cameraData.values.player;
+                if (!Entity.exists(player) || !(player instanceof ObjectEntity)) return;
+                player.isPassiveMode = !player.isPassiveMode;
+                if(player.isPassiveMode){
+                    this.notify("Passive Mode: On", 0x0000FF, 5000, "passive_mode");
+                    return;
+                }
+                this.notify("Passive Mode: Off", 0x0000FF, 5000, "passive_mode");
+                return;
+            }
             default:
                 util.log("Suspicious activies have been evaded")
                 return this.ban();

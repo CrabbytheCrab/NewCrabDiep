@@ -8457,7 +8457,7 @@
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
-                    "type": "basher",
+                    "type": "blunt",
                     "sizeRatio": 0.8,
                     "health": 2.25,
                     "damage": 2.75,
@@ -10935,7 +10935,7 @@
     },
     {
         "id": 96,
-        "name": "Hatchery",
+        "name": "Hatcher",
         "upgradeMessage": "",
         "levelRequirement": 45,
         "upgrades": [],

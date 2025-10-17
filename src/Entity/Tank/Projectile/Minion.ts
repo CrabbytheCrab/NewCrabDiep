@@ -69,6 +69,8 @@ export default class Minion extends Drone implements BarrelBase {
     public inputs = new Inputs();
     /** If true, minions wont spin around the focus */
     public noRotate = false;
+    /** The multiplier for FOCUS_RADIUS */
+    public focusMult = 1;
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
 
@@ -106,13 +108,13 @@ export default class Minion extends Drone implements BarrelBase {
         if (usingAI && this.ai.state === AIState.idle) {
             this.movementAngle = this.positionData.values.angle;
         } else {
-            this.inputs.flags |= InputFlags.leftclick;
+            if(!this.isPassiveMode) this.inputs.flags |= InputFlags.leftclick;
 
             const dist = inputs.mouse.distanceToSQ(this.positionData.values);
 
-            if (dist < Minion.FOCUS_RADIUS / 7) {
+            if (dist < Minion.FOCUS_RADIUS * this.focusMult / 7) {
                 this.movementAngle = this.positionData.values.angle + Math.PI;
-            } else if (dist < Minion.FOCUS_RADIUS && !this.noRotate) {
+            } else if (dist < Minion.FOCUS_RADIUS * this.focusMult && !this.noRotate) {
                 this.movementAngle = this.positionData.values.angle + Math.PI / 2;
             } else this.movementAngle = this.positionData.values.angle;
         }

@@ -96,7 +96,7 @@ export default class Bullet extends LivingEntity {
         this.lifeLength = bulletDefinition.lifeLength * 75;
 
         const {x, y} = tank.getWorldPosition();
-        
+        this.isPassiveMode = this.tank.rootParent.isPassiveMode
         this.positionData.values.x = x + (Math.cos(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * barrel.tank.sizeFactor))) - Math.sin(shootAngle) * barrel.definition.offset * sizeFactor + Math.cos(shootAngle) * (barrel.definition.distance || 0);
         this.positionData.values.y = y + (Math.sin(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * barrel.tank.sizeFactor))) + Math.cos(shootAngle) * barrel.definition.offset * sizeFactor + Math.sin(shootAngle) * (barrel.definition.distance || 0);
         this.positionData.values.angle = shootAngle;
@@ -108,7 +108,10 @@ export default class Bullet extends LivingEntity {
     }
 
     public tick(tick: number) {
+        if(this.tank)this.isPassiveMode = this.tank.rootParent.isPassiveMode;
+
         super.tick(tick);
+        if(this.tank)this.isPassiveMode = this.tank.rootParent.isPassiveMode;
 
         if (tick === this.spawnTick + 1) this.addAcceleration(this.movementAngle, this.baseSpeed);
         else this.maintainVelocity(this.usePosAngle ? this.positionData.values.angle : this.movementAngle, this.baseAccel);

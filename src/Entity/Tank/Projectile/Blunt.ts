@@ -33,17 +33,17 @@ import * as util from "../../../util";
 import { CameraEntity } from "../../../Native/Camera";
 
 /**
- * Represents all bashers rockets in game.
+ * Represents all blunt bullets in game.
  */
-export default class Basher extends Bullet implements BarrelBase{
-    /** The size ratio of the bashers. */
+export default class Blunt extends Bullet implements BarrelBase{
+    /** The size ratio of the blunt. */
     public sizeFactor: number;
-    /** The camera entity (used as team) of the bashers. */
+    /** The camera entity (used as team) of the blunt. */
     public cameraEntity: CameraEntity;
-    /** The reload time of the bashers's barrel. */
+    /** The reload time of the blunt's barrel. */
     public reloadTime = 15;
     public deff: boolean
-    /** The inputs for when to shoot or not. (bashers) */
+    /** The inputs for when to shoot or not. (blunt) */
     public inputs: Inputs;
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);

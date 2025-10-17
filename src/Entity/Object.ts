@@ -102,6 +102,8 @@ export default class ObjectEntity extends Entity {
     private cachedCollisions: ObjectEntity[] = [];
     /** Tick that the cache was taken. */
     private cachedTick = 0;
+    /** Whether or not something is in passive mode. */
+    public isPassiveMode = false;
 
     public constructor(game: GameServer) {
         super(game);

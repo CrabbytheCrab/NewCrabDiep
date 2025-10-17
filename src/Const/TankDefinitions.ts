@@ -28,7 +28,7 @@ export type preAddonId = "dombase" | "launcher" | "launchermissile" | "glider"
 export type addonId = preAddonId | postAddonId;
 
 /** The types of projectiles in the game */
-export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "basher" | "destroyerminion" | "shotgun10" | "shotgun3" | "miniminion" | "lichdrone" | "megabomb" | "claymore" | "mine";
+export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "blunt" | "destroyerminion" | "shotgun10" | "shotgun3" | "miniminion" | "lichdrone" | "megabomb" | "claymore" | "mine";
 
 /** The types of barrel addons that exist in the game */
 export type barrelAddonId = "trapLauncher" | "purplebarrel" | "minionLauncher" | "engineerLauncher" | "bombLauncher" | "reversetrap" | "noScaleTrapLauncher" | "claymoreLauncher";
