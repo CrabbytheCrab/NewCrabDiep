@@ -48,7 +48,7 @@ export default class Boomerang extends Bullet {
         this.usePosAngle = false;
         if (this.physicsData.values.flags & PhysicsFlags.noOwnTeamCollision) this.physicsData.values.flags ^= PhysicsFlags.noOwnTeamCollision;
         this.physicsData.values.flags |= PhysicsFlags.onlySameOwnerCollision;
-        this.physicsData.values.sides = bulletDefinition.sides ?? 5;
+        this.physicsData.values.sides = 5;
         if (this.physicsData.values.flags & PhysicsFlags.noOwnTeamCollision) this.physicsData.values.flags ^= PhysicsFlags.noOwnTeamCollision;
         this.physicsData.values.flags |= PhysicsFlags.onlySameOwnerCollision;
         this.styleData.values.flags &= ~StyleFlags.hasNoDmgIndicator;

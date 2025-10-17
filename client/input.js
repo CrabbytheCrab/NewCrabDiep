@@ -53,13 +53,19 @@ window.setupInput = () => {
     /firefox/i.test(navigator.userAgent) ? document.addEventListener("DOMMouseScroll", onMouseWheel) : document.body.onmousewheel = onMouseWheel;
 
     let isTyping = false;
-    let PressedV = false;
+    let pressedV = false;
+    let reversedMode = false;
 
     const scale = window.localStorage.getItem("no_retina") ? 1 : window.devicePixelRatio;
     const canvas = document.getElementById("canvas");
     const loading = document.getElementById('loading');
 
-    canvas.onmousemove = e => window.input.mouse(e.clientX * scale, e.clientY * scale);
+    canvas.onmousemove = e => {
+        if(reversedMode){
+            window.input.mouse(canvas.width - e.clientX * scale, canvas.height - e.clientY * scale);
+        }
+        window.input.mouse(e.clientX * scale, e.clientY * scale);
+    }
     
     canvas.onmousedown = e => {
         window.input.flushInputHooks();
@@ -76,7 +82,7 @@ window.setupInput = () => {
         if(e.keyCode >= 112 && e.keyCode <= 130 && e.keyCode !== 113) return;
         window.input.keyDown(e.keyCode);
         if(e.keyCode === 9 || !isTyping && e.ctrlKey && e.metaKey) e.preventDefault();
-        if(e.keyCode === 86 && !PressedV){ 
+        if(e.keyCode === 86 && !pressedV){ 
             Game.socket.send(new Uint8Array([0xC]));
             PressedV = true;
         }
@@ -87,7 +93,7 @@ window.setupInput = () => {
         if(e.keyCode >= 112 && e.keyCode <= 130 && e.keyCode !== 113) return;
         window.input.keyUp(e.keyCode);
         if(e.keyCode === 9 || !isTyping && e.ctrlKey && e.metaKey) e.preventDefault();
-        if(e.keyCode === 86 && PressedV){ 
+        if(e.keyCode === 86 && pressedV){ 
             PressedV = false;
         }
     }

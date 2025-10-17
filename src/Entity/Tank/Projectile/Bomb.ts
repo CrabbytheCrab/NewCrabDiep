@@ -81,7 +81,7 @@ export default class Bomb extends Trap implements BarrelBase  {
 
         this.cameraEntity = tank.cameraEntity;
         const bulletDefinition = barrel.definition.bullet;
-        this.physicsData.values.sides = bulletDefinition.sides ?? 1;
+        this.physicsData.values.sides = 1;
         this.styleData.values.flags ^= StyleFlags.isStar;
         this.bouncetrap = true
 
