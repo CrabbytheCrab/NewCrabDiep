@@ -313,16 +313,16 @@ export default class Client {
 
                 if (flags & InputFlags.levelup) {
                     // If full access, or if the game allows cheating and lvl is < maxLevel, or if the player is a BT access level and lvl is < maxLevel
-                    if ((this.accessLevel === config.AccessLevel.FullAccess) || (camera.cameraData.values.level < config.maxPlayerLevel && ((this.game.arena.arenaData.values.flags & ArenaFlags.canUseCheats) || (this.accessLevel === config.AccessLevel.BetaAccess)))) {
-                        this.setHasCheated(true);
+                    if ((this.accessLevel === config.AccessLevel.FullAccess) || (camera.cameraData.values.level < config.maxPlayerLevel && ((this.game.arena.arenaData.values.flags & ArenaFlags.canUseCheats) || (this.accessLevel === config.AccessLevel.PublicAccess)))) {
+                        //this.setHasCheated(true);
                         
                         camera.setLevel(camera.cameraData.values.level + 1);
                     }
                 }
 
-                if ((flags & InputFlags.suicide) && (!player.deletionAnimation)) {
-                    if (this.accessLevel >= config.AccessLevel.BetaAccess || (this.game.arena.arenaData.values.flags & ArenaFlags.canUseCheats)) {
-                        this.setHasCheated(true);
+                if ((flags & InputFlags.suicide) && (!player.deletionAnimation || !player.deletionAnimation) && !this.inputs.isPossessing) {
+                    if (this.accessLevel >= config.AccessLevel.PublicAccess || (this.game.arena.arenaData.values.flags & ArenaFlags.canUseCheats)) {
+                        //this.setHasCheated(true);
 
                         player.destroy();
                         player.onKill(player);
