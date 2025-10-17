@@ -16,11 +16,17 @@
     along with this program. If not, see <https://www.gnu.org/licenses/>
 */
 
-import ArenaEntity from "../Native/Arena";
+import { ArenaFlags } from "../Const/Enums";
+import GameServer from "../Game";
+import ArenaEntity, { ArenaState } from "../Native/Arena";
 
 /**
  * FFA Gamemode Arena
  */
 export default class FFAArena extends ArenaEntity {
     static override GAMEMODE_ID: string = "ffa";
+    public constructor(game: GameServer) {
+        super(game);
+        this.state = ArenaState.OPEN; // Sandbox should start instantly, no countdown
+    }
 }
