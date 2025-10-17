@@ -333,7 +333,8 @@ export const enum ArenaFlags {
     showsLeaderArrow = 1 << 1,
     hiddenScores     = 1 << 2,
     gameReadyStart   = 1 << 3,
-    canUseCheats     = 1 << 4
+    canUseCheats     = 1 << 4,
+    canFastLevel     = 1 << 5,
 }
 /**
  * The flag names for the team field group.
