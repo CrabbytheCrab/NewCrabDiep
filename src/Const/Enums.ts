@@ -226,7 +226,7 @@ export const enum Tank {
     Overkill      = 93,
     Manager       = 94,
     Factory       = 95,
-    Hatchery      = 96,
+    Hatcher       = 96,
     Necromancer   = 97,
     Wizard        = 98,
     Lich          = 99,
@@ -287,7 +287,8 @@ export const enum ServerBound {
     TCPInit         = 0x6,
     ExtensionFound  = 0x7,
     ToRespawn       = 0x8,
-    TakeTank        = 0x9
+    TakeTank        = 0x9,
+    passiveMode     = 0xC
 }
 /**
  * Packet headers for the [clientbound packets](https://github.com/ABCxFF/diepindepth/blob/main/protocol/clientbound.md).
@@ -304,7 +305,7 @@ export const enum ClientBound {
     Achievement     = 0x8,
     InvalidParty    = 0x9,
     PlayerCount     = 0xA,
-    ProofOfWork     = 0xB
+    ProofOfWork     = 0xB,
 }
 
 /**

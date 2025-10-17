@@ -46,12 +46,12 @@ import Particle, { ParticleState } from "../Misc/Particle";
 import Bomb from "./Projectile/Bomb";
 import Explosion from "./Projectile/Explosion";
 import Striker from "./Projectile/Striker";
-import Basher from "./Projectile/Basher";
 import DestroyerMinion from "./Projectile/Minions/DestroyerMinion";
 import MiniMinion from "./Projectile/Minions/MiniMinion";
 import NecromancerPentagon from "./Projectile/NecromancerPentagon";
 import { PI2 } from "../../util";
 import Mine from "./Projectile/Mine";
+import Blunt from "./Projectile/Blunt";
 
 
 /**
@@ -273,8 +273,8 @@ export default class Barrel extends ObjectEntity {
             case 'boomerang':
                 new Boomerang(this, this.tank, tankDefinition, angle);
                 break;
-            case 'basher':
-                new Basher(this, this.tank, tankDefinition, angle);
+            case 'blunt':
+                new Blunt(this, this.tank, tankDefinition, angle);
                 break;
             case 'shotgun3': {
                 for (let i = 0; i < 3; ++i) {

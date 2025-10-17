@@ -54,5 +54,6 @@ export default class MiniMinion extends Minion {
 
         this.minionBarrel.delete();
         this.minionBarrel = new Barrel(this, MinionBarrelDefinition);
+        this.focusMult = 0.5
     }
 }

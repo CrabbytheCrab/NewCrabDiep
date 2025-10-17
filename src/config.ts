@@ -101,7 +101,7 @@ export const enum AccessLevel {
 export const unbannableLevelMinimum: AccessLevel = AccessLevel.FullAccess;
 
 /** Default access level, client's without valid password's will get set to this */
-export const defaultAccessLevel: AccessLevel = AccessLevel.PublicAccess;
+export const defaultAccessLevel: AccessLevel = AccessLevel.BetaAccess;
 
 /** Maximum level that player tanks can have. Default: 45 */
 export const maxPlayerLevel = 45;

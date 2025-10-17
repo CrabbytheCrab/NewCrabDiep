@@ -125,6 +125,7 @@ export class AI {
     /* Finds the closest entity in a different team */
     public findTarget(tick: number) {
         // If there's a target interval, wait a cycle till looking for new target
+        if (this.owner.rootParent.isPassiveMode)return;
         if (this._findTargetInterval !== 0 && ((tick + this._creationTick) % this._findTargetInterval) !== 1) {
             return Entity.exists(this.target) ? this.target : (this.target = null);
         }
@@ -257,7 +258,7 @@ export class AI {
 
         const target = this.findTarget(tick);
 
-        if (!target) {
+        if (!target || this.owner.rootParent.isPassiveMode) {
             this.inputs.flags = 0;
             this.state = AIState.idle;
             const angle = this.inputs.mouse.angle + this.passiveRotation;
