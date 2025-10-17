@@ -33,13 +33,13 @@ export default class Bullet extends LivingEntity {
     /** The tick this entity was created in. */
     protected spawnTick = 0;
     /** Speed the bullet will accelerate at. */
-    protected baseAccel = 0;
+    public baseAccel = 0;
     /** Starting velocity of the bullet. */
-    protected baseSpeed = 0;
+    public baseSpeed = 0;
     /** Percent of accel applied when dying. */
     protected deathAccelFactor = 0.5;
     /** Life length in ticks before the bullet dies. */
-    protected lifeLength = 0;
+    public lifeLength = 0;
     /** Angle the projectile is shot at. */
     protected movementAngle = 0;
     /** Definition of the tank (if existant) shooting the bullet. */
@@ -97,8 +97,8 @@ export default class Bullet extends LivingEntity {
 
         const {x, y} = tank.getWorldPosition();
         
-        this.positionData.values.x = x + (Math.cos(shootAngle) * barrel.physicsData.values.size) - Math.sin(shootAngle) * barrel.definition.offset * sizeFactor + Math.cos(shootAngle) * (barrel.definition.distance || 0);
-        this.positionData.values.y = y + (Math.sin(shootAngle) * barrel.physicsData.values.size) + Math.cos(shootAngle) * barrel.definition.offset * sizeFactor + Math.sin(shootAngle) * (barrel.definition.distance || 0);
+        this.positionData.values.x = x + (Math.cos(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * barrel.tank.sizeFactor))) - Math.sin(shootAngle) * barrel.definition.offset * sizeFactor + Math.cos(shootAngle) * (barrel.definition.distance || 0);
+        this.positionData.values.y = y + (Math.sin(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * barrel.tank.sizeFactor))) + Math.cos(shootAngle) * barrel.definition.offset * sizeFactor + Math.sin(shootAngle) * (barrel.definition.distance || 0);
         this.positionData.values.angle = shootAngle;
     }
 

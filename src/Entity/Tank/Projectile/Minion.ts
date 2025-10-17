@@ -59,7 +59,7 @@ export default class Minion extends Drone implements BarrelBase {
     public static FOCUS_RADIUS = 800 ** 2;
 
     /** The minion's barrel */
-    private minionBarrel: Barrel;
+    public minionBarrel: Barrel;
 
     /** The camera entity (used as team) of the minion. */
     public cameraEntity: CameraEntity;
@@ -67,7 +67,8 @@ export default class Minion extends Drone implements BarrelBase {
     public reloadTime = 1;
     /** The inputs for when to shoot or not. */
     public inputs = new Inputs();
-
+    /** If true, minions wont spin around the focus */
+    public noRotate = false;
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
 
@@ -111,7 +112,7 @@ export default class Minion extends Drone implements BarrelBase {
 
             if (dist < Minion.FOCUS_RADIUS / 7) {
                 this.movementAngle = this.positionData.values.angle + Math.PI;
-            } else if (dist < Minion.FOCUS_RADIUS) {
+            } else if (dist < Minion.FOCUS_RADIUS && !this.noRotate) {
                 this.movementAngle = this.positionData.values.angle + Math.PI / 2;
             } else this.movementAngle = this.positionData.values.angle;
         }

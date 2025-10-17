@@ -36,6 +36,8 @@ import { DevTank } from "../../Const/DevTankDefinitions";
 import { Inputs } from "../AI";
 import { ArenaState } from "../../Native/Arena";
 import { AccessLevel, maxPlayerLevel } from "../../config";
+import Pentagon from "../Shape/Pentagon";
+import NecromancerPentagon from "./Projectile/NecromancerPentagon";
 
 /**
  * Abstract type of entity which barrels can connect to.
@@ -122,6 +124,7 @@ export default class TankBody extends LivingEntity implements BarrelBase {
         this.children = [];
         this.barrels = [];
         this.addons = [];
+        if (this.positionData.values.flags & PositionFlags.absoluteRotation) this.positionData.values.flags ^= PositionFlags.absoluteRotation;
 
         // Get the new tank data
         const tank = getTankById(id);
@@ -145,7 +148,7 @@ export default class TankBody extends LivingEntity implements BarrelBase {
         }
 
         // Size ratios
-        this.baseSize = tank.baseSizeOverride ?? tank.sides === 4 ? Math.SQRT2 * 32.5 : tank.sides === 16 ? Math.SQRT2 * 25 : 50;
+        this.baseSize = tank.baseSizeOverride ?? tank.sides === 4 ? Math.SQRT2 * 32.5 :  tank.sides === 5 ? Math.SQRT2 * 27.75 : tank.sides === 16 ? Math.SQRT2 * 25 : 50;
         this.physicsData.absorbtionFactor = this.isInvulnerable ? 0 : tank.absorbtionFactor;
         if (tank.absorbtionFactor === 0) this.positionData.flags |= PositionFlags.canMoveThroughWalls;
         else if (this.positionData.flags & PositionFlags.canMoveThroughWalls) this.positionData.flags ^= PositionFlags.canMoveThroughWalls;
@@ -190,7 +193,8 @@ export default class TankBody extends LivingEntity implements BarrelBase {
         // This is actually not how necromancers claim squares.
         if (entity instanceof Square && this.definition.flags.canClaimSquares && this.barrels.length) {
             // If can claim, pick a random barrel that has drones it can still shoot, then shoot
-            const MAX_DRONES_PER_BARREL = 11 + this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload];
+            let MAX_DRONES_PER_BARREL = 11 + this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload];
+            if(this.currentTank == Tank.Sepulcher)MAX_DRONES_PER_BARREL = 16 + this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload];
             const barrelsToShoot = this.barrels.filter((e) => e.definition.bullet.type === "necrodrone" && e.droneCount < MAX_DRONES_PER_BARREL);
 
             if (barrelsToShoot.length) {
@@ -205,6 +209,25 @@ export default class TankBody extends LivingEntity implements BarrelBase {
                 }
 
                 const sunchip = NecromancerSquare.fromShape(barrelToShoot, this, this.definition, entity);
+            }
+        }
+        if (entity instanceof Pentagon && this.definition.flags.canClaimPentagons && this.barrels.length) {
+            // If can claim, pick a random barrel that has drones it can still shoot, then shoot
+            let MAX_DRONES_PER_BARREL = 1;
+            const barrelsToShoot = this.barrels.filter((e) => e.definition.bullet.type === "lichdrone" && e.droneCount < MAX_DRONES_PER_BARREL);
+
+            if (barrelsToShoot.length) {
+                const barrelToShoot = barrelsToShoot[~~(Math.random()*barrelsToShoot.length)];
+
+                // No destroy it on the next tick to make it look more like the way diep does it.
+                entity.destroy(true);
+                if (entity.deletionAnimation) {
+                    entity.deletionAnimation.frame = 0;
+                    entity.styleData.opacity = 1;
+                    entity.healthData.flags = HealthFlags.hiddenHealthbar
+                }
+
+                const sunchip = NecromancerPentagon.fromShape(barrelToShoot, this, this.definition, entity);
             }
         }
     }
@@ -282,7 +305,9 @@ export default class TankBody extends LivingEntity implements BarrelBase {
         }
         if (!this.deletionAnimation && !this.inputs.deleted) this.physicsData.size = this.baseSize * this.cameraEntity.sizeFactor;
         else this.regenPerTick = 0;
-
+        if (this._currentTank === Tank.Saw) {
+            this.addAcceleration(this.velocity.angle, this.velocity.magnitude * -0.05);
+        }
         super.tick(tick);
 
         // If we're currently in a deletion animation

@@ -27,9 +27,9 @@ import { PositionFlags, PhysicsFlags } from "../Const/Enums";
 /**
  * The animator for how entities delete (the opacity and size fade out).
  */
-class DeletionAnimation {
+export class DeletionAnimation {
     /** The entity being animated. */
-    private entity: ObjectEntity;
+    public entity: ObjectEntity;
     /** The current frame of the deletion animation. */
     public frame = 5;
 
@@ -255,7 +255,7 @@ export default class ObjectEntity extends Entity {
     }
 
     /** Applies knockback after hitting `entity` */
-    protected receiveKnockback(entity: ObjectEntity) {
+    public receiveKnockback(entity: ObjectEntity) {
         let kbMagnitude = this.physicsData.values.absorbtionFactor * entity.physicsData.values.pushFactor;
         let kbAngle: number;
         let diffY = this.positionData.values.y - entity.positionData.values.y;

@@ -95,7 +95,8 @@ export class AI {
     public aimSpeed = 1;
     /** If the AI should predict enemy's movements, and aim accordingly. */
     public doAimPrediction: boolean = false;
-
+    /** If the AI should target and aim at projectiles or not. */
+    public targetBullets: boolean = false;
     /** Optionally filter targets for health */
     public targetFilterNonLiving = true;
     /** Target filter letting owner classes filter what can't be a target by position - false = not valid target */
@@ -178,7 +179,7 @@ export class AI {
                 // Check if the target is a base
                 if (entity.physicsData.values.flags & PhysicsFlags.isBase) continue;
                 // Don't target entities who have an object owner
-                if (entity.relationsData.values.owner !== null && entity.relationsData.values.owner.positionData) continue;
+                if (!this.targetBullets && (entity.relationsData.values.owner !== null && entity.relationsData.values.owner.positionData)) continue;
                 // Check if target is own team
                 if (entity.relationsData.values.team === team) continue;
                 // Check if target has a collider

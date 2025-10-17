@@ -21,9 +21,10 @@ import * as util from "../../util";
 import Bullet from "./Projectile/Bullet";
 import Trap from "./Projectile/Trap";
 import Drone from "./Projectile/Drone";
-import Rocket from "./Projectile/Rocket";
 import Skimmer from "./Projectile/Skimmer";
 import Minion from "./Projectile/Minion";
+import Missile from "./Projectile/Rockets/Missile";
+import Rocket from "./Projectile/Rockets/Rocket";
 import ObjectEntity from "../Object";
 import TankBody, { BarrelBase } from "./TankBody";
 
@@ -37,6 +38,22 @@ import CrocSkimmer from "./Projectile/CrocSkimmer";
 import { BarrelAddon, BarrelAddonById } from "./BarrelAddons";
 import { Swarm } from "./Projectile/Swarm";
 import NecromancerSquare from "./Projectile/NecromancerSquare";
+import Glider from "./Projectile/Rockets/Glider";
+import Boomerang from "./Projectile/Boomerang";
+import Shotgun from "./Projectile/ShotGun";
+import AutoTrap from "./Projectile/AutoTrap";
+import Particle, { ParticleState } from "../Misc/Particle";
+import Bomb from "./Projectile/Bomb";
+import Explosion from "./Projectile/Explosion";
+import Striker from "./Projectile/Striker";
+import Basher from "./Projectile/Basher";
+import DestroyerMinion from "./Projectile/Minions/DestroyerMinion";
+import MiniMinion from "./Projectile/Minions/MiniMinion";
+import NecromancerPentagon from "./Projectile/NecromancerPentagon";
+import { PI2 } from "../../util";
+import Mine from "./Projectile/Mine";
+
+
 /**
  * Class that determines when barrels can shoot, and when they can't.
  */
@@ -61,7 +78,7 @@ export class ShootCycle {
             this.reloadTime = reloadTime;
         }
 
-        const alwaysShoot = (this.barrelEntity.definition.forceFire) || (this.barrelEntity.definition.bullet.type === 'drone') || (this.barrelEntity.definition.bullet.type === 'minion');
+        const alwaysShoot = (this.barrelEntity.definition.forceFire) || (this.barrelEntity.definition.bullet.type === 'drone') || (this.barrelEntity.definition.bullet.type === 'minion') || (this.barrelEntity.definition.bullet.type === 'destroyerminion') || (this.barrelEntity.definition.bullet.type === 'miniminion');
 
         if (this.pos >= reloadTime) {
             // When its not shooting dont shoot, unless its a drone
@@ -104,12 +121,15 @@ export default class Barrel extends ObjectEntity {
     public bulletAccel = 20;
     /** Number of drones that this barrel shot that are still alive. */
     public droneCount = 0;
-
+    
     /** The barrel's addons */
     public addons: BarrelAddon[] = [];
 
     /** Always existant barrel field group, present on all barrels. */
     public barrelData: BarrelGroup = new BarrelGroup(this);
+
+    /** The offet for bullet spawning. */
+    public spawnOffset: number = 0;
 
     public constructor(owner: BarrelBase, barrelDefinition: BarrelDefinition) {
         super(owner.game);
@@ -153,9 +173,14 @@ export default class Barrel extends ObjectEntity {
         // No this is not correct
         const scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
         let angle = this.definition.angle + scatterAngle + this.tank.positionData.values.angle;
-
-        this.rootParent.addAcceleration(angle + Math.PI, this.definition.recoil * 2);
-
+        let recoilAnlge = this.definition.angle + this.tank.positionData.values.angle;
+        // Map angles unto
+        // let e: Entity | null | undefined = this;
+        // while (!((e?.position?.flags || 0) & MotionFlags.absoluteRotation) && (e = e.relations?.values.parent) instanceof ObjectEntity) angle += e.position.values.angle;
+        if(!this.definition.nonRandomRecoil) {
+            recoilAnlge = angle;
+        } 
+        this.rootParent.addAcceleration(recoilAnlge + Math.PI, this.definition.recoil * 2);
         let tankDefinition: TankDefinition | null = null;
 
         if (this.rootParent instanceof TankBody) tankDefinition = this.rootParent.definition;
@@ -168,6 +193,12 @@ export default class Barrel extends ObjectEntity {
                 break;
             case "rocket":
                 new Rocket(this, this.tank, tankDefinition, angle);
+                break;
+            case "glider":
+                new Glider(this, this.tank, tankDefinition, angle);
+                break;
+            case "missile":
+                new Missile(this, this.tank, tankDefinition, angle);
                 break;
             case 'bullet': {
                 projectile = new Bullet(this, this.tank, tankDefinition, angle);
@@ -182,17 +213,132 @@ export default class Barrel extends ObjectEntity {
                 const trap = new Trap(this, this.tank, tankDefinition, angle);
                 trap.bouncetrap = true;
                 break;
+            case 'striker':
+                new Striker(this, this.tank, tankDefinition, angle);
+                break;
+            case 'bomb':
+                new Bomb(this, this.tank, tankDefinition, angle);
+                break;
+            case 'mine':
+                new Mine(this, this.tank, tankDefinition, angle);
+                break;
+            case 'megabomb':
+                let bomb = new Bomb(this, this.tank, tankDefinition, angle);
+                bomb.ExplosionBarrelDefinition.bullet.damage = 5;
+                bomb.ExplosionBarrelDefinition.bullet.sizeRatio = 6;
+                break;
+            case 'claymore':
+                let claymore = new Bomb(this, this.tank, tankDefinition, angle);
+                claymore.ExplosionBarrelDefinition.bullet.damage = 2;
+                claymore.ExplosionBarrelDefinition.bullet.sizeRatio = 3.5;
+                const explodeClaymore = claymore.explode;
+                claymore.explode = () => {
+                    const Bombshot: BarrelDefinition = {
+                        angle: 0,
+                        offset: 0,
+                        size: 0,
+                        width: 63,
+                        delay: 0,
+                        reload: 100,
+                        recoil: 1,
+                        isTrapezoid: false,
+                        forceFire: true,
+                        trapezoidDirection: 0,
+                        addon: null,
+                        bullet: {
+                            type: "bullet",
+                            health: 0.5,
+                            damage: 1,
+                            speed: 0.8,
+                            scatterRate: 0.3,
+                            lifeLength: 0.25,
+                            sizeRatio: 1,
+                            absorbtionFactor: 0.3
+                        }
+                    }
+                    for (let n = 0; n < 8; n++) {
+                        const barr = new Barrel(claymore, {
+                        ...Bombshot,
+                        angle: PI2 * (n / 8)
+                        });
+                        barr.shoot()
+                        barr.delete()
+                    }
+                    explodeClaymore.call(claymore);
+                }
+                break;
+            case 'autotrap':
+                new AutoTrap(this, this.tank, tankDefinition, angle);
+                break;
+            case 'boomerang':
+                new Boomerang(this, this.tank, tankDefinition, angle);
+                break;
+            case 'basher':
+                new Basher(this, this.tank, tankDefinition, angle);
+                break;
+            case 'shotgun3': {
+                for (let i = 0; i < 3; ++i) {
+                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
+                    let bullet = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
+                
+                }
+                break;
+            }
+            case 'shotgun4': {
+                for (let i = 0; i < 4; ++i) {
+                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
+                    let bullet = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
+                
+                }
+                break;
+            }
+            case 'shotgun10': {
+                for (let i = 0; i < 10; ++i) {
+                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
+                    let bullet = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
+                
+                }
+                break;
+            }
+            case 'shotgun20': {
+                for (let i = 0; i < 20; ++i) {
+                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
+                    let bullet = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
+                    bullet.lifeLength = 5
+                }
+                break;
+            }
+            case 'triplebullet': {
+                for (let i = 0; i < 3; ++i) {
+                    let scatterAmount = this.definition.bullet.scatterRate * (Math.random() - .5) * 10
+                    let scatterAngle = (Math.PI / 180) * scatterAmount;
+                    let bullet = new Bullet(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
+                    bullet.baseAccel = this.bulletAccel + scatterAmount
+                    scatterAmount = this.definition.bullet.scatterRate * (Math.random() - .5) * 40;
+                    bullet.baseSpeed = this.bulletAccel + 30 + scatterAmount;
+                }
+                break;
+            }
             case 'drone':
                 projectile = new Drone(this, this.tank, tankDefinition, angle);
                 break;
             case 'necrodrone':
                 projectile = new NecromancerSquare(this, this.tank, tankDefinition, angle);
                 break;
+            case 'lichdrone':
+                new NecromancerPentagon(this, this.tank, tankDefinition, angle);
+                break;
             case 'swarm':
                 projectile = new Swarm(this, this.tank, tankDefinition, angle);
                 break;
             case 'minion':
                 projectile = new Minion(this, this.tank, tankDefinition, angle);
+                break;
+            case 'destroyerminion':
+                new DestroyerMinion(this, this.tank, tankDefinition, angle);
+                break;
+            case 'miniminion':
+                new MiniMinion(this, this.tank, tankDefinition, angle);
                 break;
             case 'flame':
                 projectile = new Flame(this, this.tank, tankDefinition, angle);
@@ -239,7 +385,7 @@ export default class Barrel extends ObjectEntity {
         this.relationsData.values.team = this.tank.relationsData.values.team;
 
         if (!this.tank.rootParent.deletionAnimation){
-            this.attemptingShot = this.tank.inputs.attemptingShot();
+            this.attemptingShot = this.definition.inverseFire? this.tank.inputs.attemptingRepel() : this.tank.inputs.attemptingShot();
             this.shootCycle.tick();
         }
 
