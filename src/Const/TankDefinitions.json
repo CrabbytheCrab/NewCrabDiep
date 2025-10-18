@@ -9708,7 +9708,7 @@
                 "addon": "engineerLauncher",
                 "bullet": {
                     "type": "autotrap",
-                    "sizeRatio": 0.9,
+                    "sizeRatio": 0.8,
                     "health": 2,
                     "damage": 0.7,
                     "speed": 2,
@@ -9754,7 +9754,7 @@
                 "addon": "engineerLauncher",
                 "bullet": {
                     "type": "autotrap",
-                    "sizeRatio": 0.9,
+                    "sizeRatio": 0.8,
                     "health": 2,
                     "damage": 0.7,
                     "speed": 2,
@@ -9800,7 +9800,7 @@
                 "addon": "engineerLauncher",
                 "bullet": {
                     "type": "autotrap",
-                    "sizeRatio": 0.9,
+                    "sizeRatio": 0.8,
                     "health": 2,
                     "damage": 0.7,
                     "speed": 2,
