@@ -43,9 +43,9 @@ export default class StalkingSentry extends Sentry {
         const count = 3
         for (let i = 0; i < count; ++i) {
             const angle = util.PI2 * ((i / count) + 1 / (count * 2))
-            const sizeRatio = 30 / 50;
-            const widthRatio = 50 / 50;
-            const offsetRatio = 40 / 50;
+            const sizeRatio = 20 / 50;
+            const widthRatio = 1;
+            const offsetRatio = 45 / 50;
             const size = this.physicsData.values.size;
             const pronounce = new ObjectEntity(this.game)
             pronounce.setParent(this);
@@ -88,7 +88,7 @@ export default class StalkingSentry extends Sentry {
             this.styleData.opacity -= 0.025
         }
             
-        this.styleData.opacity = util.constrain(this.styleData.values.opacity, 0.1, 1);
+        this.styleData.opacity = util.constrain(this.styleData.values.opacity, 1, 1);
         super.tick(tick);
     }
 }
