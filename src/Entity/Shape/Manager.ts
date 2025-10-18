@@ -25,6 +25,12 @@ import Triangle from "./Triangle";
 import Square from "./Square";
 import AbstractShape from "./AbstractShape";
 import { removeFast } from "../../util";
+import GuardingSentry from "./SentryVariants/GuardingSentry";
+import ProtectiveSentry from "./SentryVariants/ProtectiveSentry";
+import BeholdingSentry from "./SentryVariants/BeholdingSentry";
+import AutomatedSentry from "./SentryVariants/AutomatedSentry";
+import SpinnerSentry from "./SentryVariants/SpinnerSentry";
+import StalkingSentry from "./SentryVariants/StalkingSentry";
 
 /**
  * Used to balance out shape count in the arena, as well
@@ -62,9 +68,12 @@ export default class ShapeManager {
             shape.relationsData.values.owner = shape.relationsData.values.team = this.arena;
         } else if (Math.max(x, y) < rightX / 5 && Math.min(x, y) > leftX / 5) {
             // Crasher Zone
-            const isBig = Math.random() < .2;
-
-            shape = new Crasher(this.game, isBig);
+            if (Math.random() < .1) { // if rand < 10%
+                shape = this.SpawnSentry();
+            } else {
+                const isBig = Math.random() < .2; // if rand < 18%
+                shape = new Crasher(this.game, isBig);
+            }
             
             shape.positionData.values.x = x;
             shape.positionData.values.y = y;
@@ -107,6 +116,13 @@ export default class ShapeManager {
 
     protected get wantedShapes() {
         return 1000;
+    }
+    /** Spawns a random Sentry type */
+    protected SpawnSentry() {
+        const TSentry = [GuardingSentry, ProtectiveSentry, BeholdingSentry, AutomatedSentry, SpinnerSentry, StalkingSentry]
+            [~~(Math.random() * 6)];
+        
+        return new TSentry(this.game)
     }
 
     public tick() {

@@ -52,6 +52,7 @@ import NecromancerPentagon from "./Projectile/NecromancerPentagon";
 import { PI2 } from "../../util";
 import Mine from "./Projectile/Mine";
 import Blunt from "./Projectile/Blunt";
+import ReloadBullet from "./Projectile/ReloadBullet";
 
 
 /**
@@ -318,6 +319,10 @@ export default class Barrel extends ObjectEntity {
             }
             case 'drone':
                 projectile = new Drone(this, this.tank, tankDefinition, angle);
+                break;
+            case 'reloadbullet':
+                this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.Reload] || 0) * 3) * this.definition.bullet.speed;
+                projectile = new ReloadBullet(this, this.tank, tankDefinition, angle);
                 break;
             case 'necrodrone':
                 projectile = new NecromancerSquare(this, this.tank, tankDefinition, angle);

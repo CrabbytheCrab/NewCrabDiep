@@ -36,6 +36,7 @@ import { AI, AIState, Inputs } from "./Entity/AI";
 import AbstractBoss from "./Entity/Boss/AbstractBoss";
 import { executeCommand } from "./Const/Commands";
 import { bannedClients } from ".";
+import LivingEntity from "./Entity/Live";
 
 /** XORed onto the tank id in the Tank Upgrade packet. */
 const TANK_XOR = config.magicNum % TankCount;
@@ -430,7 +431,7 @@ export default class Client {
                 return;
             case ServerBound.passiveMode: {
                 const player = camera.cameraData.values.player;
-                if (!Entity.exists(player) || !(player instanceof ObjectEntity)) return;
+                if (!Entity.exists(player) || !(player instanceof LivingEntity)) return;
                 player.isPassiveMode = !player.isPassiveMode;
                 if(player.isPassiveMode){
                     this.notify("Passive Mode: On", 0x0000FF, 5000, "passive_mode");

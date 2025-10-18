@@ -37,7 +37,7 @@ export const enum DevTank {
     Spectator = -12,
     TheCroc = -13,
     Railgun = -14,
-    Commander = -15
+    Commander = -15,m
 };
 
 /**
@@ -1468,7 +1468,7 @@ const DevTankDefinitions: TankDefinition[] = [
         flags: {
             invisibility: true,
             zoomAbility: false,
-            devOnly: true
+            devOnly: false
         },
         visibilityRateShooting: 0.0,
         visibilityRateMoving: 0.0,

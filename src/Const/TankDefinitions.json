@@ -12099,20 +12099,20 @@
                 "max": 10
             },
             {
-                "name": "Reload",
+                "name": "Bullet Strength",
                 "max": 10
             },
             {
                 "name": "Bullet Damage",
-                "max": 10
+                "max": 0
             },
             {
                 "name": "Bullet Penetration",
-                "max": 10
+                "max": 0
             },
             {
                 "name": "Bullet Speed",
-                "max": 10
+                "max": 0
             },
             {
                 "name": "Body Damage",

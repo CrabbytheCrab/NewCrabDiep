@@ -422,16 +422,16 @@ export const AutoSmasherTurretDefinition: BarrelDefinition = {
     size: 55,
     width: 42 * 0.7,
     delay: 0.01,
-    reload: 0.7,
+    reload: 0.8,
     recoil: 0,
     isTrapezoid: false,
     trapezoidDirection: 0,
     addon: null,
     bullet: {
-        type: "bullet",
-        health: 1.4,
+        type: "reloadbullet",
+        health: 1.2,
         damage: 0.5,
-        speed: 1.5,
+        speed: 1.3,
         scatterRate: 1,
         lifeLength: 1,
         sizeRatio: 1,
@@ -552,7 +552,7 @@ class SawAddon extends Addon {
     public constructor(owner: BarrelBase) {
         super(owner);
 
-        this.createGuard(4, 1.5, 0, .15);
+        this.createGuard(4, 1.65, 0, .15);
     }
 }
 /** Landmine addon. */
