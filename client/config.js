@@ -807,7 +807,7 @@ const CUSTOM_ADDONS = {
         rotator.positionData.angle = 0;
         rotator.positionData.isAngleAbsolute = true;
         rotator.styleData.isVisible = true;
-        rotator.physicsData.size = 50 * 1.5 * Math.SQRT1_2;
+        rotator.physicsData.size = 50 * 1.65 * Math.SQRT1_2;
     },
 }
 

@@ -33,8 +33,16 @@ export default class Crasher extends AbstractShape {
 
     /** Whether or not the crasher is large. */
     public isLarge: boolean;
-    /** The max speed the crasher can move when targetting a player.s */
-    private targettingSpeed: number;
+    /** The max speed the crasher can move when targetting a player*/
+    protected targettingSpeed: number;
+    /**Whether or not the crasher will rotate when targetting a player*/
+    protected shouldRotate: boolean = false;
+    /**The current rotation speed while moving*/
+    protected currentRotationSpeed = 0;
+    /**The max rotation speed while moving*/
+    protected maxRotationSpeed = 0.5;
+    /**The build up of rotation while moving*/
+    protected rotationSpeedBuildUp = 0.01;
 
     public constructor(game: GameServer, large=false) {
         super(game);
@@ -67,9 +75,20 @@ export default class Crasher extends AbstractShape {
         
         if (this.ai.state === AIState.idle) {
             this.doIdleRotate = true;
+            this.positionData.angle += this.currentRotationSpeed;
+            this.currentRotationSpeed *= 0.8;
+            if(this.currentRotationSpeed < 0.01)this.currentRotationSpeed = 0;
         } else {
             this.doIdleRotate = false;
-            this.positionData.angle = Math.atan2(this.ai.inputs.mouse.y - this.positionData.values.y, this.ai.inputs.mouse.x - this.positionData.values.x);
+            if (this.shouldRotate) {
+                this.currentRotationSpeed *= 1.05;
+                this.currentRotationSpeed += this.rotationSpeedBuildUp;
+                this.currentRotationSpeed = Math.min(this.currentRotationSpeed, this.maxRotationSpeed)
+                this.positionData.angle += this.currentRotationSpeed;
+            }
+            else {
+                this.positionData.angle = Math.atan2(this.ai.inputs.mouse.y - this.positionData.values.y, this.ai.inputs.mouse.x - this.positionData.values.x);
+            }
             this.velocity.add({
                 x: this.ai.inputs.movement.x * this.targettingSpeed,
                 y: this.ai.inputs.movement.y * this.targettingSpeed
