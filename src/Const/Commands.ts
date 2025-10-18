@@ -27,6 +27,13 @@ import { Entity, EntityStateFlags } from "../Native/Entity";
 import { saveToVLog } from "../util";
 import { ClientBound, Stat, StatCount, PhysicsFlags, StyleFlags, Tank } from "./Enums";
 import { getTankByName } from "./TankDefinitions";
+import Haxxor from "../Entity/Boss/Special/Haxxor";
+import GuardingSentry from "../Entity/Shape/SentryVariants/GuardingSentry";
+import ProtectiveSentry from "../Entity/Shape/SentryVariants/ProtectiveSentry";
+import BeholdingSentry from "../Entity/Shape/SentryVariants/BeholdingSentry";
+import AutomatedSentry from "../Entity/Shape/SentryVariants/AutomatedSentry";
+import StalkingSentry from "../Entity/Shape/SentryVariants/StalkingSentry";
+import SpinnerSentry from "../Entity/Shape/SentryVariants/SpinnerSentry";
 
 const RELATIVE_POS_REGEX = new RegExp(/~(-?\d+)?/);
 
@@ -293,6 +300,7 @@ export const commandCallbacks = {
         const game = client.camera?.game;
         const TEntity = new Map([
             ["Defender", Defender],
+            ["Haxxor", Haxxor],
             ["Summoner", Summoner],
             ["Guardian", Guardian],
             ["FallenOverlord", FallenOverlord],
@@ -303,6 +311,12 @@ export const commandCallbacks = {
             ["ArenaCloser", ArenaCloser],
             ["Mothership", Mothership],
             ["Crasher", Crasher],
+            ["GuardingSentry", GuardingSentry],
+            ["ProtectiveSentry", ProtectiveSentry],
+            ["BeholdingSentry", BeholdingSentry],
+            ["AutomatedSentry", AutomatedSentry],
+            ["SpinnerSentry", SpinnerSentry],
+            ["StalkingSentry", StalkingSentry],
             ["Pentagon", Pentagon],
             ["Square", Square],
             ["Triangle", Triangle]

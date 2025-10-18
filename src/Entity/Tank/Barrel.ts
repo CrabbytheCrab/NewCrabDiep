@@ -46,8 +46,6 @@ import Particle, { ParticleState } from "../Misc/Particle";
 import Bomb from "./Projectile/Bomb";
 import Explosion from "./Projectile/Explosion";
 import Striker from "./Projectile/Striker";
-import DestroyerMinion from "./Projectile/Minions/DestroyerMinion";
-import MiniMinion from "./Projectile/Minions/MiniMinion";
 import NecromancerPentagon from "./Projectile/NecromancerPentagon";
 import { PI2 } from "../../util";
 import Mine from "./Projectile/Mine";
@@ -79,7 +77,7 @@ export class ShootCycle {
             this.reloadTime = reloadTime;
         }
 
-        const alwaysShoot = (this.barrelEntity.definition.forceFire) || (this.barrelEntity.definition.bullet.type === 'drone') || (this.barrelEntity.definition.bullet.type === 'minion') || (this.barrelEntity.definition.bullet.type === 'destroyerminion') || (this.barrelEntity.definition.bullet.type === 'miniminion');
+        const alwaysShoot = (this.barrelEntity.definition.forceFire) || (this.barrelEntity.definition.bullet.type === 'drone') || (this.barrelEntity.definition.bullet.type === 'minion');
 
         if (this.pos >= reloadTime) {
             // When its not shooting dont shoot, unless its a drone
@@ -269,7 +267,8 @@ export default class Barrel extends ObjectEntity {
                 }
                 break;
             case 'autotrap':
-                projectile = new AutoTrap(this, this.tank, tankDefinition, angle);
+                projectile = new AutoTrap(this, this.tank, tankDefinition, angle, this.definition.bullet.barrels);
+                if (tankDefinition && (tankDefinition.id === Tank.Arsenal)) (projectile as AutoTrap).bouncetrap = true;
                 break;
             case 'boomerang':
                 projectile = new Boomerang(this, this.tank, tankDefinition, angle);
@@ -334,13 +333,8 @@ export default class Barrel extends ObjectEntity {
                 projectile = new Swarm(this, this.tank, tankDefinition, angle);
                 break;
             case 'minion':
-                projectile = new Minion(this, this.tank, tankDefinition, angle);
-                break;
-            case 'destroyerminion':
-                projectile = new DestroyerMinion(this, this.tank, tankDefinition, angle);
-                break;
-            case 'miniminion':
-                projectile = new MiniMinion(this, this.tank, tankDefinition, angle);
+                projectile = new Minion(this, this.tank, tankDefinition, angle, this.definition.bullet.barrels);
+                if (tankDefinition && (tankDefinition.id === Tank.Manufacturer)) (projectile as Minion).noRotate = true;
                 break;
             case 'flame':
                 projectile = new Flame(this, this.tank, tankDefinition, angle);

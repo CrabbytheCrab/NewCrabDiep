@@ -28,7 +28,7 @@ export type preAddonId = "dombase" | "launcher" | "launchermissile" | "glider"
 export type addonId = preAddonId | postAddonId;
 
 /** The types of projectiles in the game */
-export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "blunt" | "destroyerminion" | "shotgun10" | "shotgun3" | "miniminion" | "lichdrone" | "megabomb" | "claymore" | "mine" | "reloadbullet";
+export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "blunt" | "shotgun10" | "shotgun3" | "lichdrone" | "megabomb" | "claymore" | "mine" | "reloadbullet";
 
 /** The types of barrel addons that exist in the game */
 export type barrelAddonId = "trapLauncher" | "purplebarrel" | "minionLauncher" | "engineerLauncher" | "bombLauncher" | "reversetrap" | "noScaleTrapLauncher" | "claymoreLauncher";
@@ -60,6 +60,12 @@ export interface BulletDefinition {
     color?: Color;
     /** Overrides number of sides for projectile. */
     sides?: number;
+    /** Overrides barrel definition for factory drones and engineer traps. */
+    barrels?: BarrelDefinition[];
+    /** Overrides Ai Range for factory drones. */
+    aiRange?: number
+    /** used for focus range factory drones and auto cannon size for auto traps. */
+    generalMultiplier?: number
 }
 
 /**

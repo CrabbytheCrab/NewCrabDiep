@@ -54,28 +54,74 @@ const AutomatedSentryDefinition: BarrelDefinition = {
     }
 };
 
-const AutomatedSentryAutoCannonDefinition: BarrelDefinition = {
-    angle: 0,
-    offset: 0,
-    size: 65,
-    width: 42 * 0.7,
-    delay: 0.01,
-    reload: 1,
-    recoil: 0,
-    isTrapezoid: false,
-    trapezoidDirection: 0,
-    addon: null,
-    bullet: {
-        type: "bullet",
-        sizeRatio: 1,
-        health: 1.5,
-        damage: 1.6,
-        speed: 1,
-        scatterRate: 1,
-        lifeLength: 1,
-        absorbtionFactor: 0.1
+const AutomatedSentryAutoCannonDefinition: BarrelDefinition[] = [
+    {
+        angle: -0.39269908169872414,
+        offset: 0,
+        size: 55,
+        width: 42 * 0.7,
+        delay: 0.01,
+        reload: 1,
+        recoil: 0,
+        isTrapezoid: false,
+        trapezoidDirection: 0,
+        addon: null,
+        bullet: {
+            type: "bullet",
+            sizeRatio: 1,
+            health: 1.5,
+            damage: 1.6,
+            speed: 1,
+            scatterRate: 1,
+            lifeLength: 1,
+            absorbtionFactor: 0.1
+        }
+    },
+    {
+        angle: 0.39269908169872414,
+        offset: 0,
+        size: 55,
+        width: 42 * 0.7,
+        delay: 0.01,
+        reload: 1,
+        recoil: 0,
+        isTrapezoid: false,
+        trapezoidDirection: 0,
+        addon: null,
+        bullet: {
+            type: "bullet",
+            sizeRatio: 1,
+            health: 1.5,
+            damage: 1.6,
+            speed: 1,
+            scatterRate: 1,
+            lifeLength: 1,
+            absorbtionFactor: 0.1
+        }
+    },
+    {
+        angle: 0,
+        offset: 0,
+        size: 65,
+        width: 42 * 0.7,
+        delay: 0.01,
+        reload: 1,
+        recoil: 0,
+        isTrapezoid: false,
+        trapezoidDirection: 0,
+        addon: null,
+        bullet: {
+            type: "bullet",
+            sizeRatio: 1,
+            health: 1.5,
+            damage: 1.6,
+            speed: 1,
+            scatterRate: 1,
+            lifeLength: 1,
+            absorbtionFactor: 0.1
+        }
     }
-};
+];
 
 
 
@@ -92,9 +138,7 @@ export default class AutomatedSentry extends Sentry {
         const MAX_ANGLE_RANGE = PI2 / 3; // keep within 120 each side
 
         for (let i = 0; i < 2; ++i) {
-            const base  = new AutoTurret(this, {...AutomatedSentryAutoCannonDefinition,size: 55, angle: 0.39269908169872414});
-            base.turret.push(new Barrel(base, {...AutomatedSentryAutoCannonDefinition,size: 55, angle: -0.39269908169872414}));
-            base.turret.push(new Barrel(base, AutomatedSentryAutoCannonDefinition));
+            const base  = new AutoTurret(this, AutomatedSentryAutoCannonDefinition);
 
             base.influencedByOwnerInputs = true;
             base.baseSize *= 1.1;

@@ -32,162 +32,55 @@ import { CameraEntity } from "../../../Native/Camera";
 /**
  * The auto trap class represents the auto trap (projectile) entity in crab diep.
  */
+/**
+ * Barrel definition for the auto trap's auto cannon barrel.
+ */
+const EngineerTurretDefinition: BarrelDefinition = {
+        angle: 0,
+        offset: 0,
+        size: 65,
+        width: 33.6,
+        delay: 0.01,
+        reload: 1.75,
+        recoil: 0,
+        isTrapezoid: false,
+        trapezoidDirection: 0,
+        addon: null,
+        bullet: {
+        type: "bullet",
+        sizeRatio: 1,
+        health: 0.65,
+        damage: 0.5,
+        speed: 1,
+        scatterRate: 1,
+        lifeLength: 0.75,
+        absorbtionFactor: 1
+    }
+};
 
-/** The barrels for Arsenal. */
-const ArsenalBarrel1: BarrelDefinition = {
-    angle: 0,
-    offset: -20,
-    size: 68,
-    width: 25.2,
-    delay: 0.01,
-    reload: 2.5,
-    recoil: 0,
-    isTrapezoid: false,
-    trapezoidDirection: 0,
-    addon: null,
-    bullet: {
-        type: "bullet",
-        sizeRatio: 1,
-        health: 0.675,
-        damage: 0.4,
-        speed: 1,
-        scatterRate: 1,
-        lifeLength: 0.75,
-        absorbtionFactor: 0.1
-    }
-};
-const ArsenalBarrel2: BarrelDefinition = {
-    angle: 0,
-    offset: 20,
-    size: 68,
-    width: 25.2,
-    delay: 0.51,
-    reload: 2.5,
-    recoil: 0,
-    isTrapezoid: false,
-    trapezoidDirection: 0,
-    addon: null,
-    bullet: {
-        type: "bullet",
-        sizeRatio: 1,
-        health: 0.675,
-        damage: 0.4,
-        speed: 1,
-        scatterRate: 1,
-        lifeLength: 0.75,
-        absorbtionFactor: 0.1
-    }
-};
 export default class AutoTrap extends Trap implements BarrelBase {
 
     /** The camera entity (used as team) of the rocket. */
     public cameraEntity: CameraEntity;
     /** The reload time of the traps's auto cannon barrel. */
-    public reloadTime = 1;
+    public reloadTime = 15;
     /** The inputs for when to shoot or not. (Rocket) */
     public inputs = new Inputs();
 
+    public autoTurret: AutoTurret;
 
-    public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
+    public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number, turretDefinition: BarrelDefinition[] | BarrelDefinition = EngineerTurretDefinition) {
         super(barrel, tank, tankDefinition, shootAngle);
         
         this.cameraEntity = tank.cameraEntity;
-        if ( tankDefinition && tankDefinition.id === Tank.Raider) {
-            const turret = new AutoTurret(this, {
-                angle: 0,
-                offset: 0,
-                size: 85,
-                width: 46.2,
-                delay: 0.01,
-                reload: 5.5,
-                recoil: 0,
-                isTrapezoid: false,
-                trapezoidDirection: 0,
-                addon: null,
-                bullet: {
-                    type: "bullet",
-                    sizeRatio: 1,
-                    health: 0.8,
-                    damage: 1,
-                    speed: 1.3,
-                    scatterRate: 0.3,
-                    lifeLength: 1,
-                    absorbtionFactor: 0.1
-                }
-            });
-            turret.baseSize *= 1.425
-            turret.positionData.values.angle = shootAngle
-            //turret.ai.passiveRotation = this.movementAngle
-            turret.styleData.values.flags |= StyleFlags.showsAboveParent;
-            turret.ai.viewRange = 1500
-        }
-        else if (tankDefinition && tankDefinition.id === Tank.Arsenal){
-                const turret  = new AutoTurret(this, ArsenalBarrel1);
-                turret.turret.push(new Barrel(turret, ArsenalBarrel2))
-                turret.baseSize *= 1.25
-                turret.positionData.values.angle = shootAngle
-                turret.turret[1].physicsData.values.flags |= PhysicsFlags.doChildrenCollision;
-                turret.styleData.values.flags |= StyleFlags.showsAboveParent;
-                turret.ai.viewRange = 1000
-                this.bouncetrap = true
-            }
-        else if (tankDefinition && tankDefinition.id === Tank.Mechanic) {
-            const turret = new AutoTurret(this, {
-                angle: 0,
-                offset: 0,
-                size: 65,
-                width: 33.6,
-                delay: 0.01,
-                reload: 2,
-                recoil: 0,
-                isTrapezoid: false,
-                trapezoidDirection: 0,
-                addon: null,
-                bullet: {
-                    type: "bullet",
-                    sizeRatio: 1,
-                    health: 0.5,
-                    damage: 0.3,
-                    speed: 1,
-                    scatterRate: 1,
-                    lifeLength: 0.75,
-                    absorbtionFactor: 0.1
-                }
-            });
-            turret.baseSize *= 1.25
-            turret.positionData.values.angle = shootAngle
-            //turret.ai.passiveRotation = this.movementAngle
-            turret.styleData.values.flags |= StyleFlags.showsAboveParent;
-            turret.ai.viewRange = 1000
-        } else {
-            const turret = new AutoTurret(this, {
-                angle: 0,
-                offset: 0,
-                size: 65,
-                width: 33.6,
-                delay: 0.01,
-                reload: 1.75,
-                recoil: 0,
-                isTrapezoid: false,
-                trapezoidDirection: 0,
-                addon: null,
-                bullet: {
-                    type: "bullet",
-                    sizeRatio: 1,
-                    health: 0.65,
-                    damage: 0.5,
-                    speed: 1,
-                    scatterRate: 1,
-                    lifeLength: 0.75,
-                    absorbtionFactor: 0.1
-                }
-            });
-                turret.baseSize *= 1.25
-                turret.positionData.values.angle = shootAngle
-            //turret.ai.passiveRotation = this.movementAngle
-            turret.ai.viewRange = 1000
-        }
-        //this.styleData.values.flags ^= StyleFlags.isCachable;
+        this.reloadTime = tank.reloadTime;
+        const bulletDefinition = barrel.definition.bullet;
+
+        this.autoTurret = new AutoTurret(this, turretDefinition)
+        this.autoTurret.ai.viewRange = bulletDefinition.aiRange ?? 900;
+        this.autoTurret.baseSize *= bulletDefinition.generalMultiplier ?? 1.25;
+        this.autoTurret.positionData.values.angle = this.positionData.angle;
+        this.autoTurret.styleData.values.flags |= StyleFlags.showsAboveParent;
     }
 
     public get sizeFactor() {

@@ -28,7 +28,7 @@ import { CameraEntity } from "../../../Native/Camera";
 /**
  * Barrel definition for the factory minion's barrel.
  */
- const MinionBarrelDefinition: BarrelDefinition = {
+export const MinionBarrelDefinition: BarrelDefinition[] = [{
     angle: 0,
     offset: 0,
     size: 85,
@@ -49,7 +49,7 @@ import { CameraEntity } from "../../../Native/Camera";
         sizeRatio: 1,
         absorbtionFactor: 1
     }
-};
+}];
 
 /**
  * The drone class represents the minion (projectile) entity in diep.
@@ -59,7 +59,7 @@ export default class Minion extends Drone implements BarrelBase {
     public static FOCUS_RADIUS = 800 ** 2;
 
     /** The minion's barrel */
-    public minionBarrel: Barrel;
+    private barrels: Barrel[] = [];
 
     /** The camera entity (used as team) of the minion. */
     public cameraEntity: CameraEntity;
@@ -69,15 +69,17 @@ export default class Minion extends Drone implements BarrelBase {
     public inputs = new Inputs();
     /** If true, minions wont spin around the focus */
     public noRotate = false;
-    /** The multiplier for FOCUS_RADIUS */
+    /** The multiplier for the focus radius. */
     public focusMult = 1;
-    public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
-        super(barrel, tank, tankDefinition, shootAngle);
 
+    public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number, barrelDefinition: BarrelDefinition[] = MinionBarrelDefinition) {
+        super(barrel, tank, tankDefinition, shootAngle);
+        
         const bulletDefinition = barrel.definition.bullet;
 
         this.inputs = this.ai.inputs;
-        this.ai.viewRange = 900;
+        this.ai.viewRange = bulletDefinition.aiRange ?? 900;
+        this.focusMult = bulletDefinition.generalMultiplier ?? 1;
         this.usePosAngle = false;
 
         this.physicsData.values.sides = 1;
@@ -90,7 +92,10 @@ export default class Minion extends Drone implements BarrelBase {
 
         this.cameraEntity = tank.cameraEntity;
 
-        this.minionBarrel = new Barrel(this, MinionBarrelDefinition);
+        for (let i = 0; i < barrelDefinition.length; ++i) {
+            this.barrels.push(new Barrel(this, barrelDefinition[i]));
+        }
+
         this.ai.movementSpeed = this.ai.aimSpeed = this.baseAccel;
     }
 
