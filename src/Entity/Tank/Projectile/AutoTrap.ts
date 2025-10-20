@@ -76,9 +76,9 @@ export default class AutoTrap extends Trap implements BarrelBase {
         this.reloadTime = tank.reloadTime;
         const bulletDefinition = barrel.definition.bullet;
 
-        this.autoTurret = new AutoTurret(this, turretDefinition)
+        this.autoTurret = new AutoTurret(this, turretDefinition, 25 * (bulletDefinition.generalMultiplier ?? 1.25));
+        this.autoTurret.reloadTime = tank.reloadTime;
         this.autoTurret.ai.viewRange = bulletDefinition.aiRange ?? 900;
-        this.autoTurret.baseSize *= bulletDefinition.generalMultiplier ?? 1.25;
         this.autoTurret.positionData.values.angle = this.positionData.angle;
         this.autoTurret.styleData.values.flags |= StyleFlags.showsAboveParent;
     }

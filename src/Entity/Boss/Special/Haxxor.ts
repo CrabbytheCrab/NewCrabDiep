@@ -40,14 +40,16 @@ const MountedTurretDefinition: BarrelDefinition = {
     ...AutoTurretDefinition,
     width: 10.5,
     size: 25,
+    reload: 1.5,
     bullet: {
     
         ...AutoTurretDefinition.bullet,
-        speed: 1.5,
-        damage: 3,
-        health: 3
+        speed: 3,
+        damage: 2,
+        health: 5.75,
     }
 };
+
 const enum HaxxorState {
     Idle = 0,
     Dash = 1,
@@ -103,9 +105,9 @@ export default class Haxxor extends AbstractBoss {
         this.posY = 0
         this.haxxorState = 0
         this.physicsData.absorbtionFactor = 0
-        this.healthData.values.health = this.healthData.values.maxHealth = 4500;
-        this.scoreReward = 45000 * this.game.arena.shapeScoreRewardMultiplier;
-
+        this.healthData.values.health = this.healthData.values.maxHealth = 6000;
+        this.scoreReward = 75000 * this.game.arena.shapeScoreRewardMultiplier;
+        this.ai.passiveRotation *= 2;
         const pronounce = new ObjectEntity(this.game);
         const size = this.physicsData.values.size;
 
@@ -142,9 +144,10 @@ export default class Haxxor extends AbstractBoss {
 
         pronounce2.tick = (tick: number) => {
             const size = this.physicsData.values.size;
-
+            pronounce2.styleData.opacity = this.styleData.values.opacity;
             pronounce2.physicsData.size = size * 0.8;
             tickBase2.call(pronounce2, tick);
+            pronounce2.styleData.opacity = this.styleData.values.opacity;
         }
 
 
@@ -164,9 +167,12 @@ export default class Haxxor extends AbstractBoss {
 
         pronounce3.tick = (tick: number) => {
             const size = this.physicsData.values.size;
+            pronounce3.styleData.opacity = this.styleData.values.opacity;
 
             pronounce3.physicsData.size = size * 0.75;
             tickBase3.call(pronounce3, tick);
+            pronounce3.styleData.opacity = this.styleData.values.opacity;
+
         }
         for (let i = 0; i < 8; ++i) {
             const base = new AutoTurret(this, MountedTurretDefinition);
@@ -281,8 +287,8 @@ export default class Haxxor extends AbstractBoss {
                 this.tankSpawnTimer--
                 if(this.currentTankAmount > 20) return;
                 if(this.tankSpawnTimer <= 0){
-                    if(this.healthData.health <= this.healthData.maxHealth/5){
-                        this.tankSpawnTimer = 150
+                    if(this.healthData.health <= this.healthData.maxHealth/4){
+                        this.tankSpawnTimer = 120
                         for(let i = 0; i < 3; i++){    
                             setTimeout(() =>{
                                 const tonk = new AiTank(this.game,this, true)
@@ -294,7 +300,7 @@ export default class Haxxor extends AbstractBoss {
                             }, 300 * i)
                         }
                     }else{
-                        this.tankSpawnTimer = 45
+                        this.tankSpawnTimer = 30
                         const tonk = new AiTank(this.game,this)
                         tonk.positionData.values.x = this.rootParent.positionData.values.x
                         tonk.positionData.values.y = this.rootParent.positionData.values.y

@@ -23,6 +23,8 @@ import Vector from "../Physics/Vector";
 import { PhysicsGroup, PositionGroup, RelationsGroup, StyleGroup } from "../Native/FieldGroups";
 import { Entity } from "../Native/Entity";
 import { PositionFlags, PhysicsFlags } from "../Const/Enums";
+import Drone from "./Tank/Projectile/Drone";
+import Trap from "./Tank/Projectile/Trap";
 
 /**
  * The animator for how entities delete (the opacity and size fade out).
@@ -268,10 +270,14 @@ export default class ObjectEntity extends Entity {
 
         if ((entity.physicsData.values.flags & PhysicsFlags.isSolidWall || entity.physicsData.values.flags & PhysicsFlags.isBase) && !(this.positionData.values.flags & PositionFlags.canMoveThroughWalls))  {
             if (entity.physicsData.values.flags & PhysicsFlags.isSolidWall) {
+                kbMagnitude /= this.physicsData.values.absorbtionFactor
                 if (this.relationsData.values.owner?.positionData && this.relationsData.values.team !== entity.relationsData.values.team) {
-                    this.setVelocity(0, 0);
-                    this.destroy(true) // Kills off bullets etc
-                    return;
+                    // this is a bit off still. k
+                    if(!(this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls)){
+                        this.setVelocity(0, 0);
+                        this.destroy(true) // Kills off bullets etc
+                        return;
+                    }
                 }
 
                 this.velocity.magnitude *= 0.3;
@@ -286,14 +292,35 @@ export default class ObjectEntity extends Entity {
                 const relB = Math.sin(kbAngle + entity.positionData.values.angle) / entity.physicsData.values.width;
                 if (Math.abs(relA) <= Math.abs(relB)) {
                     if (relB < 0) {
+                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
+                            this.positionData.y = entity.positionData.y - (this.physicsData.size + (entity.physicsData.size)/2);
+                            this.setVelocity(this.velocity.x, 0);
+                            this.accel.y = 0
+                        }*/
                         this.addAcceleration(Math.PI * 3 / 2, kbMagnitude);
                     } else {
+                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
+                            this.positionData.y = entity.positionData.y + (this.physicsData.size + (entity.physicsData.size)/2);
+                            this.setVelocity(this.velocity.x, 0);
+                            this.accel.y = 0
+                        }*/
                         this.addAcceleration(Math.PI * 1 / 2, kbMagnitude);
                     }
                 } else {
                     if (relA < 0) {
+                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
+                            this.positionData.x = entity.positionData.x - (this.physicsData.size + (entity.physicsData.size)/2);
+                            this.setVelocity(0, this.velocity.y);
+                            this.accel.x = 0
+                        }*/
                         this.addAcceleration(Math.PI, kbMagnitude);
                     } else {
+                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
+                            this.positionData.x = entity.positionData.x + (this.physicsData.size + (entity.physicsData.size)/2);
+                            this.setVelocity(0, this.velocity.y);
+                            this.accel.x = 0
+                        }*/
+                    
                         this.addAcceleration(0, kbMagnitude);
                     }
                 }

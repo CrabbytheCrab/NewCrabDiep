@@ -78,8 +78,6 @@ export default class Minion extends Drone implements BarrelBase {
         const bulletDefinition = barrel.definition.bullet;
 
         this.inputs = this.ai.inputs;
-        this.ai.viewRange = bulletDefinition.aiRange ?? 900;
-        this.focusMult = bulletDefinition.generalMultiplier ?? 1;
         this.usePosAngle = false;
 
         this.physicsData.values.sides = 1;
@@ -123,7 +121,10 @@ export default class Minion extends Drone implements BarrelBase {
                 this.movementAngle = this.positionData.values.angle + Math.PI / 2;
             } else this.movementAngle = this.positionData.values.angle;
         }
-
+        if (!usingAI) { 
+            this.inputs.mouse.x = this.tank.inputs.mouse.x;
+            this.inputs.mouse.y = this.tank.inputs.mouse.y;
+        }
         super.tickMixin(tick);
     }
 }

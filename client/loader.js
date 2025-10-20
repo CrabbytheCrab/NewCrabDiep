@@ -69,7 +69,7 @@ Module.permissionLevel = -1;
 Module.reloadServersInterval = -2;
 Module.reloadTanksInterval = -2;
 Module.reloadCommandsInterval = -2;
-Module.reloadColorsInterval = -2;
+Module.reloadColorsInterval = 0;
 
 // Run frames via requestAnimationFrame or setTimeout
 Module.scheduler = window.requestAnimationFrame;

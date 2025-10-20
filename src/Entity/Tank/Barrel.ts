@@ -51,6 +51,8 @@ import { PI2 } from "../../util";
 import Mine from "./Projectile/Mine";
 import Blunt from "./Projectile/Blunt";
 import ReloadBullet from "./Projectile/ReloadBullet";
+import Eye from "../Misc/Eye";
+import Sassafras from "../Boss/Rift/Sassafras";
 
 
 /**
@@ -335,6 +337,7 @@ export default class Barrel extends ObjectEntity {
             case 'minion':
                 projectile = new Minion(this, this.tank, tankDefinition, angle, this.definition.bullet.barrels);
                 if (tankDefinition && (tankDefinition.id === Tank.Manufacturer)) (projectile as Minion).noRotate = true;
+                if(this.tank instanceof Sassafras) new Eye(projectile as Minion, Color.Neutral, 30)
                 break;
             case 'flame':
                 projectile = new Flame(this, this.tank, tankDefinition, angle);

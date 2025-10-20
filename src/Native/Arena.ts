@@ -24,7 +24,7 @@ import ArenaCloser from "../Entity/Misc/ArenaCloser";
 import { VectorAbstract } from "../Physics/Vector";
 import { ArenaGroup, TeamGroup } from "./FieldGroups";
 import { Entity } from "./Entity";
-import { Color, ArenaFlags, CameraFlags, ValidScoreboardIndex } from "../Const/Enums";
+import { Color, ArenaFlags, CameraFlags, ValidScoreboardIndex, ColorsHexCode } from "../Const/Enums";
 import { PI2, saveToLog } from "../util";
 import { TeamGroupEntity } from "../Entity/Misc/TeamEntity";
 
@@ -345,11 +345,27 @@ export default class ArenaEntity extends Entity implements TeamGroupEntity {
         this.boss.positionData.values.y = y;
     }
 
+    public HSLToHex(h: number, s: number, l: number) {
+        const hDecimal = l / 100;
+        const a = (s * Math.min(hDecimal, 1 - hDecimal)) / 100;
+        const f = (n: number) => {
+            const k = (n + h / 30) % 12;
+            const color = hDecimal - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+
+            // Convert to Hex and prefix with "0" if required
+            return Math.round(255 * color)
+            .toString(16)
+            .padStart(2, "0");
+        };
+        return `0x${f(0)}${f(8)}${f(4)}`;
+    }
+
     public tick(tick: number) {
         this.shapes.tick();
         this.updateArenaState();
         this.manageCountdown();
 
+        ColorsHexCode[Color.Radiant] = Number(this.HSLToHex(this.game.tick,80,60));
         if (this.leader && this.arenaData.values.flags & ArenaFlags.showsLeaderArrow) {
             this.arenaData.leaderX = this.leader.positionData.values.x;
             this.arenaData.leaderY = this.leader.positionData.values.y;

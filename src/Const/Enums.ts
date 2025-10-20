@@ -41,8 +41,9 @@ export const enum Color {
     NecromancerSquare = 16,
     Fallen = 17,
     NecromancerPentagon = 18,
+    Radiant = 19,
 
-    kMaxColors = 19
+    kMaxColors = 20
 }
 
 /**
@@ -68,6 +69,7 @@ export const ColorsHexCode: Record<Color, number> = {
     [Color.NecromancerSquare]: 0xFCC376,
     [Color.Fallen]: 0xC0C0C0,
     [Color.NecromancerPentagon]: 0x7368FF,
+    [Color.Radiant]: 0xFFE869,
     [Color.kMaxColors]: 0x000000
 }
 
@@ -383,7 +385,8 @@ export const enum PhysicsFlags {
     onlySameOwnerCollision  = 1 << 5,
     isBase                  = 1 << 6,
     _unknown1               = 1 << 7,
-    canEscapeArena          = 1 << 8
+    canEscapeArena          = 1 << 8,
+    canCollideWithWalls     = 1 << 9
 }
 /**
  * The flag names for the barrel field group.

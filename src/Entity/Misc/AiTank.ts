@@ -41,6 +41,8 @@ export default class AiTank extends TankBody {
     public camera: CameraEntity
     public owner: ObjectEntity
     public static RETURN_RANGE = 200 ** 2;
+    /** How close will the tank go. */
+    public static FOCUS_RADIUS = 250 ** 2;
     public spawnTick: number
     /** If the mothership's AI ever gets possessed, this is the tick that the possession started. */
     public possessionStartTick: number = -1;
@@ -171,6 +173,12 @@ export default class AiTank extends TankBody {
         this.inputs = this.ai.inputs;
         if(this.spawnTick + 75 >= tick){
             this.styleData.zIndex = this.game.entities.zIndex++;
+        }
+        if(this.ai.state === AIState.hasTarget){
+            const dist = this.inputs.mouse.distanceToSQ(this.positionData.values);
+            if (dist < AiTank.FOCUS_RADIUS && !(this.currentTank == Tank.TriAngle || this.currentTank == Tank.Smasher)) {
+                this.inputs.movement.angle = this.positionData.values.angle + Math.PI;
+             }
         }
         if (this.ai.state === AIState.idle) {
             const angle = this.positionData.values.angle + this.ai.passiveRotation;

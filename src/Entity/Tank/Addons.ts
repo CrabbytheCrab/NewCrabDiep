@@ -552,7 +552,7 @@ class SawAddon extends Addon {
     public constructor(owner: BarrelBase) {
         super(owner);
 
-        this.createGuard(4, 1.65, 0, .15);
+        this.createGuard(4, 1.65, Math.PI, .15);
     }
 }
 /** Landmine addon. */

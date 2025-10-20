@@ -804,7 +804,7 @@ const CUSTOM_ADDONS = {
         const rotator = entity.createChild(false);
         rotator.defaults();
         rotator.physicsData.sides = 4
-        rotator.positionData.angle = 0;
+        rotator.positionData.angle += Math.PI/4;
         rotator.positionData.isAngleAbsolute = true;
         rotator.styleData.isVisible = true;
         rotator.physicsData.size = 50 * 1.65 * Math.SQRT1_2;

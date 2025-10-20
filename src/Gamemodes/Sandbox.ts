@@ -21,6 +21,7 @@ import ArenaEntity, { ArenaState } from "../Native/Arena";
 
 import ShapeManager from "../Entity/Shape/Manager";
 import { ArenaFlags } from "../Const/Enums";
+import MazeWall from "../Entity/Misc/MazeWall";
 
 /**
  * Manage shape count
@@ -50,7 +51,7 @@ export default class SandboxArena extends ArenaEntity {
         this.updateBounds(2500, 2500);
         this.arenaData.values.flags |= ArenaFlags.canUseCheats;
         this.state = ArenaState.OPEN; // Sandbox should start instantly, no countdown
-        // const w1 = new MazeWall(this.game, 0, 0, 500, 500);
+        //const w1 = new MazeWall(this.game, 0, 0, 500, 500);
     }
 
     public tick(tick: number) {

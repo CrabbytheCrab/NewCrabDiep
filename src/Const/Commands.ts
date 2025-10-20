@@ -34,6 +34,9 @@ import BeholdingSentry from "../Entity/Shape/SentryVariants/BeholdingSentry";
 import AutomatedSentry from "../Entity/Shape/SentryVariants/AutomatedSentry";
 import StalkingSentry from "../Entity/Shape/SentryVariants/StalkingSentry";
 import SpinnerSentry from "../Entity/Shape/SentryVariants/SpinnerSentry";
+import Sassafras from "../Entity/Boss/Rift/Sassafras";
+import Peacekeeper from "../Entity/Boss/Rift/Peacekeeper";
+import RoguePalisade from "../Entity/Boss/Rift/RoguePalisade";
 
 const RELATIVE_POS_REGEX = new RegExp(/~(-?\d+)?/);
 
@@ -301,6 +304,9 @@ export const commandCallbacks = {
         const TEntity = new Map([
             ["Defender", Defender],
             ["Haxxor", Haxxor],
+            ["Sassafras", Sassafras],
+            ["Peacekeeper", Peacekeeper],
+            ["RoguePalisade", RoguePalisade],
             ["Summoner", Summoner],
             ["Guardian", Guardian],
             ["FallenOverlord", FallenOverlord],
