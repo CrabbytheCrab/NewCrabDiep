@@ -26,8 +26,11 @@ import { ArenaGroup, TeamGroup } from "./FieldGroups";
 import { Entity } from "./Entity";
 import { Color, ArenaFlags, CameraFlags, ValidScoreboardIndex, ColorsHexCode } from "../Const/Enums";
 import { PI2, saveToLog } from "../util";
-import { TeamGroupEntity } from "../Entity/Misc/TeamEntity";
 
+import Portal from "../Entity/Misc/Portal";
+import ClientCamera from "./Camera";
+
+import { TeamEntity, TeamGroupEntity } from "../Entity/Misc/TeamEntity";
 import Client from "../Client";
 
 import AbstractBoss from "../Entity/Boss/AbstractBoss";

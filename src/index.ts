@@ -40,7 +40,8 @@ export const bannedClients = new Set<string>();
 const connections = new Map<string, number>();
 const allClients = new Set<Client>();
 const app = App({});
-const games: GameServer[] = [];
+export const games: GameServer[] = [];
+export const gamesMap: Map<string, GameServer> = new Map();
 
 app.ws("/*", {
     compression: SHARED_COMPRESSOR,
@@ -159,6 +160,11 @@ app.listen(PORT, (success) => {
     const sbx = new GameServer(SandboxArena, "Sandbox");
     
     games.push(ffa, sbx);
+
+
+    for (const game of games) { // So it can be accessed via transferClient
+        gamesMap.set(game.gamemode, game);
+    }
 
     util.saveToLog("Servers up", "All servers booted up.", 0x37F554);
     util.log("Dumping endpoint -> gamemode routing table");

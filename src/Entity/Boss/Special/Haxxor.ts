@@ -253,7 +253,7 @@ export default class Haxxor extends AbstractBoss {
         if(this.dashTimer <= 45){
             this.inputs.movement.x = Math.cos(Math.atan2(this.angleY - this.posY,this.angleX - this.posX));
             this.inputs.movement.y = Math.sin(Math.atan2(this.angleY - this.posY,this.angleX - this.posX));
-            this.accel.add({
+            this.velocity.add({
                 x: this.inputs.movement.x * 5,
                 y: this.inputs.movement.y * 5,
             });

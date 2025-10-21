@@ -25,7 +25,7 @@ import ArenaEntity from "./Native/Arena";
 import FFAArena from "./Gamemodes/FFA";
 import Teams2Arena from "./Gamemodes/Team2";
 import SandboxArena from "./Gamemodes/Sandbox";
-import { ClientBound } from "./Const/Enums";
+import { ClientBound, Stat, StatCount } from "./Const/Enums";
 import Teams4Arena from "./Gamemodes/Team4";
 import DominationArena from "./Gamemodes/Domination";
 import MothershipArena from "./Gamemodes/Mothership";
@@ -38,6 +38,10 @@ import BallArena from "./Gamemodes/Misc/Ball";
 import MazeArena from "./Gamemodes/Maze";
 import TagArena from "./Gamemodes/Tag";
 import SurvivalArena from "./Gamemodes/Survival";
+import TankBody from "./Entity/Tank/TankBody";
+import ClientCamera from "./Native/Camera";
+import { Entity } from "./Native/Entity";
+import { CameraTable } from "./Native/FieldGroups";
 
 /**
  * WriterStream that broadcasts to all of the game's WebSockets.
@@ -228,5 +232,60 @@ export default class GameServer {
         this.entities.tick(this.tick);
 
         this.entities.collisionManager.postTick(this.tick);
+    }
+
+    public transferClient(client: Client) {
+        const game = client.game;
+
+        client.game = this;
+        game.clients.delete(client);
+        this.clients.add(client);
+
+        client.write().u8(ClientBound.ServerInfo).stringNT(client.game.gamemode).stringNT("diepcustom-" + client.game.gamemode).send();
+        client.write().u8(ClientBound.Accept).vi(client.accessLevel).send();
+
+        if(Entity.exists(client.camera)) {
+            const cam = new ClientCamera(this, client);
+            cam.sizeFactor = client.camera.sizeFactor;
+            cam.spectatee = null;
+
+            cam.cameraData.values = { ...client.camera.cameraData.values };
+            cam.cameraData.values.player = null;
+            cam.cameraData.values.statNames = new CameraTable("", 9, cam.cameraData);
+            cam.cameraData.values.statLevels = new CameraTable(0, 10, cam.cameraData);
+            cam.cameraData.values.statLimits = new CameraTable(0, 11, cam.cameraData);
+
+            for(let i = 0; i < StatCount; ++i) {
+                cam.cameraData.statNames[i as Stat] = client.camera.cameraData.statNames[i as Stat];
+                cam.cameraData.statLimits[i as Stat] = client.camera.cameraData.statLimits[i as Stat];
+                cam.cameraData.statLevels[i as Stat] = client.camera.cameraData.statLevels[i as Stat];
+            }
+
+            if(Entity.exists(client.camera.cameraData.player)) {
+                client.camera.cameraData.player.delete();
+                let tank;
+                if(client.camera.cameraData.player instanceof TankBody) {
+                    tank = cam.cameraData.player = cam.relationsData.owner = cam.relationsData.parent = new TankBody(this, cam, client.inputs);
+                    tank.setTank(client.camera.cameraData.player.currentTank);
+                    tank.nameData.values.name = client.camera.cameraData.player.nameData.values.name;
+                } else {
+                    tank = cam.cameraData.player = cam.relationsData.owner = cam.relationsData.parent = new TankBody(this, cam, client.inputs);
+                    tank.nameData.values.name = "";
+                }
+                tank.scoreData.values.score = cam.cameraData.values.score;
+                tank.scoreReward = cam.cameraData.values.score;
+
+                this.arena.spawnPlayer(tank, client);
+            }
+
+            client.camera.delete();
+            client.camera = cam;
+        }
+
+
+        if(client.hasCheated()) client.setHasCheated(true);
+
+        client.inputs.isPossessing = false;
+        client.inputs.movement.magnitude = 0;
     }
 }
