@@ -369,8 +369,8 @@ export default class ObjectEntity extends Entity {
         return pos;
     }
     
-    public setGlobalEntity() {
-        this.physicsData.flags |= PhysicsFlags.showsOnMap;
+    public setGlobalEntity(showsOnMiniMap: boolean = true) {
+        if(showsOnMiniMap) this.physicsData.flags |= PhysicsFlags.showsOnMap;
         
         this.game.entities.globalEntities.push(this.id);
     }

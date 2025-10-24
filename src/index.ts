@@ -24,10 +24,13 @@ import * as util from "./util";
 import GameServer from "./Game";
 import TankDefinitions from "./Const/TankDefinitions";
 import { commandDefinitions } from "./Const/Commands";
-import { ColorsHexCode } from "./Const/Enums";
+import { ColorsHexCode, CurrentArenaColors } from "./Const/Enums";
 
 import FFAArena from "./Gamemodes/FFA";
 import SandboxArena from "./Gamemodes/Sandbox";
+import HugeMapArena from "./Gamemodes/Benchmark/HugeMap";
+import SanctuaryArena from "./Gamemodes/Sanctuary";
+import MazeArena from "./Gamemodes/Maze";
 
 const PORT = config.serverPort;
 const ENABLE_API = config.enableApi && config.apiLocation;
@@ -107,6 +110,9 @@ app.get("/*", (res, req) => {
             case "/colors":
                 res.writeStatus("200 OK").end(JSON.stringify(ColorsHexCode));
                 return;
+            case "/arena_colors":
+                res.writeStatus("200 OK").end(JSON.stringify(CurrentArenaColors));
+                return;
         }
     }
 
@@ -157,9 +163,11 @@ app.listen(PORT, (success) => {
     //
     // NOTES(0): As of now, both servers run on the same process (and thread) here
     const ffa = new GameServer(FFAArena, "FFA");
+    const maze = new GameServer(MazeArena, "Maze");
     const sbx = new GameServer(SandboxArena, "Sandbox");
+    const sanctuary = new GameServer(SanctuaryArena, "Sanctuary");
     
-    games.push(ffa, sbx);
+    games.push(ffa, maze, sanctuary, sbx);
 
 
     for (const game of games) { // So it can be accessed via transferClient

@@ -24,7 +24,7 @@ import ArenaCloser from "../Entity/Misc/ArenaCloser";
 import { VectorAbstract } from "../Physics/Vector";
 import { ArenaGroup, TeamGroup } from "./FieldGroups";
 import { Entity } from "./Entity";
-import { Color, ArenaFlags, CameraFlags, ValidScoreboardIndex, ColorsHexCode } from "../Const/Enums";
+import { Color, ArenaFlags, CameraFlags, ValidScoreboardIndex, ColorsHexCode, ArenaColor, ArenaColorsHexCodes, changeArenaColor } from "../Const/Enums";
 import { PI2, saveToLog } from "../util";
 
 import Portal from "../Entity/Misc/Portal";
@@ -91,14 +91,20 @@ export default class ArenaEntity extends Entity implements TeamGroupEntity {
     /** Controller of all shapes in the arena. */
     protected shapes = new ShapeManager(this);
 
+    /** The colors that make up the arena. */
+    public arenaColors = ArenaColorsHexCodes[ArenaColor.Regular];
+
     /** Padding between arena size and maximum movement border. */
     public ARENA_PADDING: number = 200;
+
+    /** The team Celestials are on. */
+    public celestialTeam: TeamEntity;
 
     public constructor(game: GameServer) {
         super(game);
 
         this.updateBounds(this.width = 22300, this.height = 22300);
-
+        this.celestialTeam = new TeamEntity(this.game, Color.EnemyCrasher)
         this.arenaData.values.topY = -this.height / 2;
         this.arenaData.values.bottomY = this.height / 2;
         this.arenaData.values.leftX = -this.width / 2;
@@ -300,12 +306,26 @@ export default class ArenaEntity extends Entity implements TeamGroupEntity {
      * Allows the arena to decide how players are spawned into the game.
      */
     public spawnPlayer(tank: TankBody, client: Client) {
+        changeArenaColor(this.arenaColors);
+        if(tank.isCelestial) {
+            tank.relationsData.values.team = this.celestialTeam;
+            tank.styleData.values.color = this.celestialTeam.teamData.values.teamColor;
+            if (client.camera) client.camera.relationsData.team = tank.relationsData.values.team;
+            this.spawnCelestials(tank, client)
+            return;
+        }
+        this.actuallySpawnPlayer(tank, client);
+    }
+    public actuallySpawnPlayer(tank: TankBody, client: Client) {
         const { x, y } = this.findSpawnLocation(true);
-
         tank.positionData.values.x = x;
         tank.positionData.values.y = y;
     }
-
+    public spawnCelestials(tank: TankBody, client: Client) {
+        const { x, y } = this.findSpawnLocation(true);
+        tank.positionData.values.x = x;
+        tank.positionData.values.y = y;
+    }
     /**
      * Closes the arena.
      */
@@ -379,3 +399,4 @@ export default class ArenaEntity extends Entity implements TeamGroupEntity {
         }
     }
 }
+

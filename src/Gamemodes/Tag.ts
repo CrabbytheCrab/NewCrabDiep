@@ -88,7 +88,7 @@ export default class TagArena extends ArenaEntity {
         this.updateBounds(arenaSize * 2, arenaSize * 2);
     }
 
-    public spawnPlayer(tank: TankBody, client: Client) {
+    public actuallySpawnPlayerS(tank: TankBody, client: Client) {
         this.updateArenaState();
         const deathMixin = tank.onDeath.bind(tank); 
         tank.onDeath = (killer: LivingEntity) => {

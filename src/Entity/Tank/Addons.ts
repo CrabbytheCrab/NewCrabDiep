@@ -1056,11 +1056,172 @@ class SpieskAddon extends Addon {
         this.createGuard(4, 1.3, 2 * Math.PI / 6, 0.17);
     }
 }
+/** Prime Celestial's guard addon. */
 
+class PrimePreAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const guard = new ObjectEntity(this.game);
+
+        guard.setParent(this.owner);
+        guard.relationsData.values.owner = this.owner;
+        guard.relationsData.values.team = this.owner.relationsData.values.team
+
+        guard.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.2;
+
+        guard.styleData.values.color = Color.Border
+        guard.physicsData.values.sides = 3;
+        guard.tick = () => {
+            guard.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.2;
+        }
+    }
+}
+/** Prime Celestial's upper body addon. */
+class PrimePostAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        if(this.owner.styleData.flags & StyleFlags.isVisible) this.owner.styleData.flags ^= StyleFlags.isVisible;
+        
+        const body = new ObjectEntity(this.game);
+
+        body.setParent(this.owner);
+        body.relationsData.values.owner = this.owner;
+        body.relationsData.values.team = this.owner.relationsData.values.team
+
+        body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+
+        body.styleData.values.color = this.owner.styleData.color;
+        body.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body.tick = () => {
+            body.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+        }
+        const segment1 = new ObjectEntity(this.game);
+
+        segment1.setParent(this.owner);
+        segment1.relationsData.values.owner = this.owner;
+        segment1.relationsData.values.team = this.owner.relationsData.values.team
+
+        segment1.physicsData.values.size = body.physicsData.size * 0.85;
+
+        segment1.styleData.values.color = Color.Border;
+        segment1.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        segment1.tick = () => {
+            segment1.physicsData.size = body.physicsData.size * 0.85;
+        }
+
+        const segment2 = new ObjectEntity(this.game);
+
+        segment2.setParent(this.owner);
+        segment2.relationsData.values.owner = this.owner;
+        segment2.relationsData.values.team = this.owner.relationsData.values.team
+
+        segment2.physicsData.values.size = body.physicsData.size * 0.65;
+
+        segment2.styleData.values.color = this.owner.styleData.color;
+        segment2.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        segment2.tick = () => {
+            segment2.physicsData.size = body.physicsData.size * 0.65;
+        }
+
+        const segment3 = new ObjectEntity(this.game);
+
+        segment3.setParent(this.owner);
+        segment3.relationsData.values.owner = this.owner;
+        segment3.relationsData.values.team = this.owner.relationsData.values.team
+
+        segment3.physicsData.values.size = body.physicsData.size * 0.4;
+
+        segment3.styleData.values.color = Color.Border;
+        segment3.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        segment3.tick = () => {
+            segment3.physicsData.size = body.physicsData.size * 0.4;
+        }
+
+        const segment4 = new ObjectEntity(this.game);
+
+        segment4.setParent(this.owner);
+        segment4.relationsData.values.owner = this.owner;
+        segment4.relationsData.values.team = this.owner.relationsData.values.team
+
+        segment4.physicsData.values.size = body.physicsData.size * 0.25;
+
+        segment4.styleData.values.color = Color.Barrel;
+        segment4.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        segment4.tick = () => {
+            segment4.physicsData.size = body.physicsData.size * 0.25;
+        }
+
+        const segment5 = new ObjectEntity(this.game);
+
+        segment5.setParent(this.owner);
+        segment5.relationsData.values.owner = this.owner;
+        segment5.relationsData.values.team = this.owner.relationsData.values.team
+
+        segment5.physicsData.values.size = body.physicsData.size * 0.15;
+
+        segment5.styleData.values.color = this.owner.styleData.color;
+        segment5.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        segment5.tick = () => {
+            segment5.physicsData.size = body.physicsData.size * 0.15;
+        }
+
+        const glow = new ObjectEntity(this.game);
+
+        glow.setParent(this.owner);
+        glow.relationsData.values.owner = this.owner;
+        glow.relationsData.values.team = this.owner.relationsData.values.team
+
+        glow.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 3;
+
+        glow.styleData.values.color = this.owner.styleData.color
+        glow.physicsData.values.sides = 3;
+        //glow.styleData.values.borderWidth = 0
+        glow.styleData.values.opacity = 0.3
+        glow.tick = () => {
+            glow.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 3;
+        }
+
+    }
+}
+
+/** Celestial's body addon. */
+class CelestialAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        if(this.owner.styleData.flags & StyleFlags.isVisible) this.owner.styleData.flags ^= StyleFlags.isVisible;
+        
+        const body = new ObjectEntity(this.game);
+
+        body.setParent(this.owner);
+        body.relationsData.values.owner = this.owner;
+        body.relationsData.values.team = this.owner.relationsData.values.team
+
+        body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+
+        body.styleData.values.color = this.owner.styleData.color;
+        body.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body.tick = () => {
+            body.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+        }
+    }
+}
 /**
  * All addons in the game by their ID.
  */
 export const AddonById: Record<addonId, typeof Addon | null> = {
+    celestial: CelestialAddon,
+    primepost: PrimePostAddon,
+    primepre: PrimePreAddon,
     spike: SpikeAddon,
     dombase: DomBaseAddon,
     launcher: LauncherAddon,

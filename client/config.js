@@ -809,6 +809,12 @@ const CUSTOM_ADDONS = {
         rotator.styleData.isVisible = true;
         rotator.physicsData.size = 50 * 1.65 * Math.SQRT1_2;
     },
+    "celestial": entity => {
+        if(!(entity instanceof $Entity)) return;
+        entity.physicsData.sides = 3
+        entity.styleData.color = 11
+        entity.physicsData.size = Math.SQRT2 * 25;
+    }
 }
 
 const CUSTOM_COMMANDS = [

@@ -59,7 +59,6 @@ export default class Portal extends ObjectEntity {
     }
 
     public tick(tick: number) {
-        super.tick(tick);
         const entities = this.game.entities.collisionManager.retrieveEntitiesByEntity(this);
         let entityIntersects = false;
         for (let i = 0; i < entities.data.length; ++i) {

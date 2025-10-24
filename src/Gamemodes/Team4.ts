@@ -57,7 +57,7 @@ export default class Teams4Arena extends ArenaEntity {
         this.purpleTeamBase = new TeamBase(game, new TeamEntity(this.game, Color.TeamPurple), arenaSize - baseSize / 2, -arenaSize + baseSize / 2, baseSize, baseSize);
     }
 
-    public spawnPlayer(tank: TankBody, client: Client) {
+    public actuallySpawnPlayer(tank: TankBody, client: Client) {
         tank.positionData.values.y = arenaSize * Math.random() - arenaSize;
 
         const xOffset = (Math.random() - 0.5) * baseSize,

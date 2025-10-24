@@ -17,6 +17,10 @@
 */
 
 import { maxPlayerLevel } from "../config";
+import ObjectEntity from "../Entity/Object";
+import type { isTankBody } from "../Entity/Tank/TankBody";
+import { CameraEntity } from "../Native/Camera";
+import { Entity } from "../Native/Entity";
 
 /**
  * The IDs for all the team colors, by name.
@@ -132,6 +136,38 @@ export const ColorsHexCode: Record<Color, number> = {
     Rocketeer     = 55
 }*/
 
+/**
+ * The IDs for all the arena colors, by name.
+ */
+export const enum ArenaColor {
+    Regular = 0,
+    Sanctuary = 1,
+    Underneath = 2,
+    kMaxColors = 3
+};
+/**
+ * The hex color codes of each arena color (by ID), expressed as an int (0x00RRGGBB) or float. 
+ * 0 is Arena Color/Mini Map, 
+ * 1 is Arena Grid Color, 
+ * 2 is Arena Grid Alpha, 
+ * 3 is Arena Border Color, 
+ * 4 is Arena Border Alpha, 
+ * 5 is for Minimap Color, 
+ * 6 is for Minimap Border Color, 
+ * 7 is for Wall Color. 
+ */
+export const ArenaColorsHexCodes: Record<ArenaColor, number[]> = {
+    [ArenaColor.Regular]: [0xCDCDCD, 0x000000, 0.1, 0x000000, 0.1, 0xCDCDCD, 0x555555, 0xBBBBBB],
+    [ArenaColor.Sanctuary]: [0x585858, 0x000000, 0.5, 0x000000, 0.2, 0x585858, 0x3F3F3F, 0xAAAAAA],
+    [ArenaColor.Underneath]: [0],
+    [ArenaColor.kMaxColors]: [0x000000,0x000000,0,0x000000,0,0x000000,0x000000,0x000000]
+}
+
+export let CurrentArenaColors: number[] = ArenaColorsHexCodes[ArenaColor.Regular];
+
+export function changeArenaColor(arenaColor: number[]) {
+    CurrentArenaColors = arenaColor;
+}
 export const enum Tank {
     Basic         = 0,
     Twin          = 1,
@@ -189,12 +225,10 @@ export const enum Tank {
     Ranger        = 54,
     Stalker       = 55,
     Marksman      = 56,
-    Rifle         = 57,
     Predator      = 58,
     XHunter       = 59,
     Blunderbuss   = 60,
     Bunkerer      = 61,
-    AutoScope     = 62,
     Skimmer       = 63,
     Rocketeer     = 64,
     Glider        = 65,
@@ -244,13 +278,16 @@ export const enum Tank {
     Spike         = 109,
     Saw           = 110,
     //Celestials
-
+    Nova          = 500,
     //Special tanks
     ArenaCloser   = 1000,
     Mothership    = 1001,
     DominatorD    = 1002,
     DominatorG    = 1003,
     DominatorT    = 1004,
+    DominatorF    = 1005,
+    DominatorC    = 1006,
+
 }
 /**
  * The IDs for all the stats, by name.
@@ -351,7 +388,8 @@ export const enum TeamFlags {
 export const enum CameraFlags {
     usesCameraCoords      = 1 << 0,
     showingDeathStats     = 1 << 1,
-    gameWaitingStart      = 1 << 2
+    gameWaitingStart      = 1 << 2,
+    isCelestial           = 1 << 3
 }
 /**
  * The flag names for the tsyle field group.
@@ -414,10 +452,19 @@ export const enum NameFlags {
  * 
  * `[index: level]->score at level`
  */
-export const levelToScoreTable = Array(maxPlayerLevel).fill(0);
-
-for (let i = 1; i < maxPlayerLevel; ++i) {
-    levelToScoreTable[i] = levelToScoreTable[i - 1] + (40 / 9 * 1.06 ** (i - 1) * Math.min(31, i));
+export function levelToScore(level: number, camera: CameraEntity): number {
+    const levelToScoreTable = Array(camera.maxPlayerLevel).fill(0)
+    for (let i = 1; i < camera.maxPlayerLevel; ++i) {
+        const player = camera.cameraData.values.player;
+        levelToScoreTable[i] = levelToScoreTable[i - 1] + (40 / 9 * 1.06 ** (i - 1) * Math.min(31, i));
+        if (Entity.exists(player)) {
+            //if(isTankBody(player)){
+            //}
+        }
+    }
+    if (level >= camera.maxPlayerLevel) return levelToScoreTable[camera.maxPlayerLevel - 1];
+    if (level <= 0) return 0;
+    return levelToScoreTable[level - 1];
 }
 
 /**
@@ -428,9 +475,16 @@ for (let i = 1; i < maxPlayerLevel; ++i) {
  * 
  * `(level)->score at level`
  */
-export function levelToScore(level: number): number {
-    if (level >= maxPlayerLevel) return levelToScoreTable[maxPlayerLevel - 1];
+export function scoreToLevel(level: number, camera: CameraEntity): number {
+    const player = camera.cameraData.values.player;
+    for (let i = 1; i < camera.maxPlayerLevel; ++i) {
+        level = level - (40 * 9 / 1.06 ^ (i + 1) / Math.max(31,i));
+        if (Entity.exists(player)) {
+            //if(isTankBody(player)){
+            //}
+        }
+    }
+    if (level >= camera.maxPlayerLevel) return camera.maxPlayerLevel - 1;
     if (level <= 0) return 0;
-
-    return levelToScoreTable[level - 1];
+    return level
 }

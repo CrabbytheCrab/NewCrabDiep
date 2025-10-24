@@ -136,7 +136,8 @@ class Socket extends ObjectEntity {
         this.relationsData.values.team = eye.relationsData.values.team;
 
         this.physicsData.values.sides = 1;
-        this.physicsData.values.size = this.eye.physicsData.values.size + this.eye.owner.styleData.values.borderWidth;
+        this.physicsData.values.size = this.eye.physicsData.values.size;
+        this.styleData.values.borderWidth = this.eye.owner.styleData.values.borderWidth * 2 * Math.SQRT2;
 
         this.styleData.values.color = this.eye.owner.styleData.values.color;
 
@@ -144,7 +145,8 @@ class Socket extends ObjectEntity {
     }
 
     public tick(tick: number) {
-        this.physicsData.size = this.eye.physicsData.values.size + this.eye.owner.styleData.values.borderWidth;
+        this.physicsData.size = this.eye.physicsData.values.size;
+        this.styleData.borderWidth = this.eye.owner.styleData.values.borderWidth * 2 * Math.SQRT2;
         this.styleData.color = this.eye.owner.styleData.values.color;
         this.styleData.opacity = this.eye.styleData.values.opacity;
     }

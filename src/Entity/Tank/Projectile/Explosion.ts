@@ -53,11 +53,11 @@ class ExplosiveDeletionAnimation extends DeletionAnimation {
             }
             case 8:
                 this.entity.styleData.opacity = 1 - (1 / 9);
-                this.entity.physicsData.size = this.entity.physicsData.size/2
-                this.entity.physicsData.size /= (1 + ((this.frame * 2)/50))
+                //this.entity.physicsData.size = this.entity.physicsData.size/2
+                //this.entity.physicsData.size /= (1 + ((this.frame * 2)/50))
             default:
-                this.entity.physicsData.size *= (1 + ((this.frame * 2)/50));
-                this.entity.physicsData.width *= (1 + ((this.frame * 2)/50));
+                //this.entity.physicsData.size *= (1 + ((this.frame * 2)/50));
+                //this.entity.physicsData.width *= (1 + ((this.frame * 2)/50));
                 this.entity.styleData.opacity -= 1 / 9;
                 if (this.entity.styleData.values.opacity < 0) this.entity.styleData.opacity = 0;
                 break;
@@ -87,17 +87,32 @@ export default class Explosion extends Bullet {
 
     public tick(tick: number) {
         if(!this.deletionAnimation) {
-            const collidedEntities = this.findCollisions();
+        const entities = this.game.entities.collisionManager.retrieve(
+                this.positionData.values.x, this.positionData.values.y,
+                this.physicsData.size/2, this.physicsData.size/2
+            );
 
-            for (let i = 0; i < collidedEntities.length; ++i) {
-                if (!(collidedEntities[i] instanceof Object)) continue;
 
-                collidedEntities[i].receiveKnockback(this);
-                
-                if (!(collidedEntities[i] instanceof LivingEntity)) continue;
+            for (let i = 0; i < entities.data.length; ++i) {
+                let chunk = entities.data[i];
 
-                if (collidedEntities[i].relationsData.values.team !== this.relationsData.values.team) {
-                    LivingEntity.applyDamage(collidedEntities[i] as LivingEntity, this);
+                while (chunk) {
+                    const bitValue = chunk & -chunk;
+                    const bitIdx = 31 - Math.clz32(bitValue);
+                    chunk ^= bitValue;
+                    const id = 32 * i + bitIdx;
+
+                    const entity = this.game.entities.inner[id] as ObjectEntity;
+                    if (!entity || entity.hash === 0) continue;
+
+
+                    entity.receiveKnockback(this);
+                    
+                    if (!(entity instanceof LivingEntity)) continue;
+
+                    if (entity.relationsData.values.team !== this.relationsData.values.team) {
+                        LivingEntity.handleCollision(entity as LivingEntity, this);
+                    }
                 }
             }
         }

@@ -68,7 +68,7 @@ export default class MothershipArena extends ArenaEntity {
         this.updateBounds(arenaSize * 2, arenaSize * 2);
     }
 
-    public spawnPlayer(tank: TankBody, client: Client) {
+    public actuallySpawnPlayer(tank: TankBody, client: Client) {
         if (!this.motherships.length && !this.playerTeamMotMap.has(client)) {
             const team = this.teams[~~(Math.random()*this.teams.length)];
             const { x, y } = this.findSpawnLocation();

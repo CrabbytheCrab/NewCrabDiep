@@ -24,7 +24,7 @@ import ObjectEntity from "../Entity/Object";
 
 import { Entity, EntityStateFlags } from "./Entity";
 import { CameraGroup, RelationsGroup } from "./FieldGroups";
-import { CameraFlags, ClientBound, levelToScore, levelToScoreTable, PhysicsFlags, Stat } from "../Const/Enums";
+import { CameraFlags, ClientBound, levelToScore, PhysicsFlags, Stat } from "../Const/Enums";
 import { getTankById } from "../Const/TankDefinitions";
 import { removeFast } from "../util";
 
@@ -41,6 +41,8 @@ export class CameraEntity extends Entity {
     /** The current size of the tank the camera is in charge of. Calculated with level stuff */
     public sizeFactor: number = 1;
 
+    /** The current size of the tank the camera is in charge of. Calculated with level stuff */
+    public maxPlayerLevel: number = maxPlayerLevel;
     /** Entity being spectated if any (deathscreen). */
     public spectatee: ObjectEntity | null = null;
 
@@ -49,9 +51,14 @@ export class CameraEntity extends Entity {
         const previousLevel = this.cameraData.values.level;
         this.cameraData.level = level;
         this.sizeFactor = Math.pow(1.01, level - 1);
-        this.cameraData.levelbarMax = level < maxPlayerLevel ? 1 : 0; // quick hack, not correct values
-        if (level <= maxPlayerLevel) {
-            this.cameraData.score = levelToScore(level);
+        if (Entity.exists(this.cameraData.values.player)) {
+            if (this.cameraData.values.player instanceof TankBody) {
+                if(this.cameraData.values.player.isCelestial) this.sizeFactor = Math.pow(1.015, level - 1);
+            }
+        }
+        this.cameraData.levelbarMax = level < this.maxPlayerLevel ? 1 : 0; // quick hack, not correct values
+        if (level <= this.maxPlayerLevel) {
+            this.cameraData.score = levelToScore(level, this);
 
             const player = this.cameraData.values.player;
             if (Entity.exists(player) && player instanceof TankBody) {
@@ -76,9 +83,17 @@ export class CameraEntity extends Entity {
     public setFieldFactor(fieldFactor: number) {
         this.cameraData.FOV = (.55 * fieldFactor) / Math.pow(1.01, (this.cameraData.values.level - 1) / 2);
     }
+    /** Changes the camera's level cap. */
+    public setMaxLevel(maxLevel: number) {
+        this.maxPlayerLevel = maxLevel;
+        this.cameraData.levelbarMax = this.maxPlayerLevel;
+    }
 
     public tick(tick: number) {
         if (Entity.exists(this.cameraData.values.player)) {
+
+            const levelToScoreTable = Array(this.maxPlayerLevel).fill(0)
+
             const focus = this.cameraData.values.player;
             if (!(this.cameraData.values.flags & CameraFlags.usesCameraCoords) && focus instanceof ObjectEntity) {
                 this.cameraData.cameraX = focus.rootParent.positionData.values.x;
@@ -91,7 +106,7 @@ export class CameraEntity extends Entity {
 
                 const score = this.cameraData.values.score;
                 let newLevel = this.cameraData.values.level;
-                while (newLevel < levelToScoreTable.length && score - levelToScore(newLevel + 1) >= 0) newLevel += 1
+                while (newLevel < levelToScoreTable.length && score - levelToScore(newLevel + 1, this) >= 0) newLevel += 1
 
                 if (newLevel !== this.cameraData.values.level) {
                     this.setLevel(newLevel);
@@ -99,8 +114,8 @@ export class CameraEntity extends Entity {
                 }
 
                 if (newLevel < levelToScoreTable.length) {
-                    const levelScore = levelToScore(this.cameraData.values.level)
-                    this.cameraData.levelbarMax = levelToScore(this.cameraData.values.level + 1) - levelScore;
+                    const levelScore = levelToScore(this.cameraData.values.level, this)
+                    this.cameraData.levelbarMax = levelToScore(this.cameraData.values.level + 1, this) - levelScore;
                     this.cameraData.levelbarProgress = score - levelScore;
                 }
 

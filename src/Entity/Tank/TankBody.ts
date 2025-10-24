@@ -52,6 +52,7 @@ export type BarrelBase = ObjectEntity & { sizeFactor: number, cameraEntity: Came
  * Created for each spawn.
  */
 export default class TankBody extends LivingEntity implements BarrelBase {
+
     /** Always existant name field group, present on all tanks. */
     public nameData: NameGroup = new NameGroup(this);
     /** Always existant score field group, present on all tanks. */
@@ -67,6 +68,8 @@ export default class TankBody extends LivingEntity implements BarrelBase {
     /** The tank's addons, if any. */
     private addons: Addon[] = [];
 
+    /** If the tank is a celestial or not. */
+    public isCelestial = false;
     /** Size of the tank at level 1. Defined by tank loader.  */
     public baseSize = 50;
     /** The definition of the currentTank */
@@ -121,10 +124,12 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             this.children[i].isChild = false;
             this.children[i].delete();
         }
+        // Handling Celestial stuff
         this.children = [];
         this.barrels = [];
         this.addons = [];
-        if (this.positionData.values.flags & PositionFlags.absoluteRotation) this.positionData.values.flags ^= PositionFlags.absoluteRotation;
+        if (this.positionData.flags & PositionFlags.absoluteRotation) this.positionData.flags ^= PositionFlags.absoluteRotation;
+        if (!(this.styleData.flags & StyleFlags.isVisible)) this.styleData.flags |= StyleFlags.isVisible;
 
         // Get the new tank data
         const tank = getTankById(id);
@@ -133,7 +138,6 @@ export default class TankBody extends LivingEntity implements BarrelBase {
         if (!tank) throw new TypeError("Invalid tank ID");
         this.definition = tank;
         if (!Entity.exists(camera)) throw new Error("No camera");
-
         this.physicsData.sides = tank.sides;
         this.styleData.opacity = 1;
 
@@ -146,9 +150,11 @@ export default class TankBody extends LivingEntity implements BarrelBase {
                 camera.cameraData.statsAvailable += (camera.cameraData.statLevels[i] - (camera.cameraData.statLevels[i] = max));
             }
         }
-
+        if(Entity.exists(camera) && this.isCelestial) {
+            camera.maxPlayerLevel = 90
+        }
         // Size ratios
-        this.baseSize = tank.baseSizeOverride ?? tank.sides === 4 ? Math.SQRT2 * 32.5 :  tank.sides === 5 ? Math.SQRT2 * 27.75 : tank.sides === 16 ? Math.SQRT2 * 25 : 50;
+        this.baseSize = tank.baseSizeOverride ??  tank.sides === 4 ? Math.SQRT2 * 32.5 :  tank.sides === 5 ? Math.SQRT2 * 27.75 : tank.sides === 16 ? Math.SQRT2 * 25 : 50;
         this.physicsData.absorbtionFactor = this.isInvulnerable ? 0 : tank.absorbtionFactor;
         if (tank.absorbtionFactor === 0) this.positionData.flags |= PositionFlags.canMoveThroughWalls;
         else if (this.positionData.flags & PositionFlags.canMoveThroughWalls) this.positionData.flags ^= PositionFlags.canMoveThroughWalls;
@@ -303,7 +309,9 @@ export default class TankBody extends LivingEntity implements BarrelBase {
                 if (client && client.accessLevel < AccessLevel.FullAccess) this.setInvulnerability(false);
             }
         }
-        if (!this.deletionAnimation && !this.inputs.deleted) this.physicsData.size = this.baseSize * this.cameraEntity.sizeFactor;
+        if (!this.deletionAnimation && !this.inputs.deleted) {
+            this.physicsData.size = this.baseSize * this.cameraEntity.sizeFactor;
+        }
         else this.regenPerTick = 0;
         if (this._currentTank === Tank.Saw) {
             this.addAcceleration(this.velocity.angle, this.velocity.magnitude * -0.05);
@@ -391,4 +399,9 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             y: 0
         });
     }
+
+}
+
+export const isTankBody = (e: any): e is TankBody => {
+    return e instanceof TankBody;
 }

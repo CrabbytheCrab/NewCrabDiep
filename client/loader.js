@@ -49,6 +49,9 @@ Module.servers = null;
 // colors
 Module.colors = null;
 
+// colors
+Module.arenaColors = null;
+
 // tanks
 Module.tankDefinitions = null;
 Module.tankDefinitionsTable = null;
@@ -69,7 +72,8 @@ Module.permissionLevel = -1;
 Module.reloadServersInterval = -2;
 Module.reloadTanksInterval = -2;
 Module.reloadCommandsInterval = -2;
-Module.reloadColorsInterval = 0;
+Module.reloadColorsInterval = -2;
+Module.reloadSpecialColorsInterval = -2;
 
 // Run frames via requestAnimationFrame or setTimeout
 Module.scheduler = window.requestAnimationFrame;
@@ -171,6 +175,7 @@ Module.loadGamemodeButtons = () => {
 
 // Refreshes UI Components
 Module.loadChangelog = (changelog) => {
+    //window.input.execute(`ren_stroke_soft_color false`);
     const vec = new $Vector(MOD_CONFIG.memory.changelog, "cstr", 12);
     if(vec.start) vec.destroy(); // remove old changelog
     vec.push(...(changelog || CHANGELOG)); // either load custom or default
@@ -183,6 +188,27 @@ Module.loadColors = () => {
     for(const [idx, color] of Object.entries(Module.colors)) {
         window.input.execute(`net_replace_color ${idx} ${color}`);
     }
+};
+
+Module.loadRadiantColor = () => {
+    if(!window.input || !Module.colors) return;
+    const [idx, color] = Object.entries(Module.colors)[19]
+    window.input.execute(`net_replace_color ${idx} ${color}`);
+};
+
+
+// Replaces Arena current colors with serverside ones
+Module.loadArenaColors = () => {
+    if(!window.input || !Module.arenaColors) return;
+    const values = Object.entries(Module.arenaColors)
+    window.input.execute(`ren_background_color ${values[0][1]}`);
+    window.input.execute(`ren_grid_color ${values[1][1]}`);
+    window.input.execute(`ren_grid_base_alpha ${values[2][1]}`);
+    window.input.execute(`ren_border_color ${values[3][1]}`);
+    window.input.execute(`ren_border_color_alpha ${values[4][1]}`);
+    window.input.execute(`ren_minimap_background_color ${values[5][1]}`);
+    window.input.execute(`ren_minimap_border_color ${values[6][1]}`);
+    window.input.execute(`net_replace_color ${14} ${values[7][1]}`);
 };
 
 // Ignore Hashtable, instead read from custom table
@@ -589,6 +615,14 @@ Module.todo.push([() => {
             Module.colors = await fetch(`${API_URL}colors`).then(res => res.json());
             Module.loadColors();
         },
+        reloadRadiantColor: async () => {
+            Module.colors = await fetch(`${API_URL}colors`).then(res => res.json());
+            Module.loadRadiantColor();
+        },
+        reloadArenaColors: async () => {
+            Module.arenaColors = await fetch(`${API_URL}arena_colors`).then(res => res.json());
+            Module.loadArenaColors();
+        },
         // refetches servers & resets gamemode buttons
         reloadServers: async () => {
             Module.servers = await fetch(`${API_URL}servers`).then(res => res.json());
@@ -666,6 +700,14 @@ Module.todo.push([() => {
         Game.reloadColors();
     }, Module.reloadColorsInterval);
     reloadColorsInterval();
+
+    const reloadSpecialColorsInterval = () => setTimeout(() => {
+        reloadSpecialColorsInterval();
+        if(Module.reloadSpecialColorsInterval < 0) return;
+        Game.reloadRadiantColor();
+        Game.reloadArenaColors()
+    }, Module.reloadSpecialColorsInterval);
+    reloadSpecialColorsInterval();
 }, false]);
 
 

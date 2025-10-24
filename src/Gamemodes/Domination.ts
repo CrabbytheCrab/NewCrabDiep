@@ -82,7 +82,7 @@ export default class DominationArena extends ArenaEntity {
         this.dominators.push(SE, SW, NW, NE);
     }
 
-    public spawnPlayer(tank: TankBody, client: Client) {
+    public actuallySpawnPlayer(tank: TankBody, client: Client) {
         tank.positionData.values.y = arenaSize * Math.random() - arenaSize;
 
         const xOffset = (Math.random() - 0.5) * baseSize,

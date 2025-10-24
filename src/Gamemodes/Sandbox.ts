@@ -20,7 +20,7 @@ import GameServer from "../Game";
 import ArenaEntity, { ArenaState } from "../Native/Arena";
 
 import ShapeManager from "../Entity/Shape/Manager";
-import { ArenaFlags } from "../Const/Enums";
+import { ArenaColor, ArenaColorsHexCodes, ArenaFlags } from "../Const/Enums";
 import MazeWall from "../Entity/Misc/MazeWall";
 
 /**
@@ -47,7 +47,7 @@ export default class SandboxArena extends ArenaEntity {
 
     public constructor(game: GameServer) {
         super(game);
-
+        this.arenaColors = ArenaColorsHexCodes[ArenaColor.Sanctuary]
         this.updateBounds(2500, 2500);
         this.arenaData.values.flags |= ArenaFlags.canUseCheats;
         this.state = ArenaState.OPEN; // Sandbox should start instantly, no countdown

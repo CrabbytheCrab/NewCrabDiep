@@ -35,6 +35,9 @@ export default class Drone extends Bullet {
     /** The drone's radius of resting state */
     public static MAX_RESTING_RADIUS = 400 ** 2;
 
+    /** The multiplier for resting range */
+    public  restingRangeMult = 1;
+
     /** Used let the drone go back to the player in time. */
     private restCycle = true;
 
@@ -50,6 +53,7 @@ export default class Drone extends Bullet {
         
         this.ai = new AI(this);
         this.ai.viewRange = (bulletDefinition.aiRange ?? 850) * tank.sizeFactor;
+        this.restingRangeMult = (bulletDefinition.droneOrbitMultiplier ?? 1);
         this.ai.targetFilter = (targetPos) => (targetPos.x - this.tank.positionData.values.x) ** 2 + (targetPos.y - this.tank.positionData.values.y) ** 2 <= this.ai.viewRange ** 2; // (1000 ** 2) 1000 radius
         this.canControlDrones = typeof this.barrelEntity.definition.canControlDrones === 'boolean' && this.barrelEntity.definition.canControlDrones;
         this.physicsData.values.sides = 3;
@@ -102,17 +106,17 @@ export default class Drone extends Bullet {
             const base = this.baseAccel;
 
             // still a bit inaccurate, works though
-            let unitDist = (delta.x ** 2 + delta.y ** 2) / Drone.MAX_RESTING_RADIUS;
+            let unitDist = (delta.x ** 2 + delta.y ** 2) / (Drone.MAX_RESTING_RADIUS);
             if (unitDist <= 1 && this.restCycle) {
                 this.baseAccel /= 6;
                 this.positionData.angle += 0.01 + 0.012 * unitDist;
             } else {
                 const offset = Math.atan2(delta.y, delta.x) + Math.PI / 2
-                delta.x = this.tank.positionData.values.x + Math.cos(offset) * this.tank.physicsData.values.size * 1.2 - this.positionData.values.x;
-                delta.y = this.tank.positionData.values.y + Math.sin(offset) * this.tank.physicsData.values.size * 1.2 - this.positionData.values.y;
+                delta.x = this.tank.positionData.values.x + Math.cos(offset) * this.tank.physicsData.values.size * this.restingRangeMult * 1.2 - this.positionData.values.x;
+                delta.y = this.tank.positionData.values.y + Math.sin(offset) * this.tank.physicsData.values.size * this.restingRangeMult * 1.2 - this.positionData.values.y;
                 this.positionData.angle = Math.atan2(delta.y, delta.x);
                 if (unitDist < 0.5) this.baseAccel /= 3;
-                this.restCycle = (delta.x ** 2 + delta.y ** 2) <= 4 * (this.tank.physicsData.values.size ** 2);
+                this.restCycle = (delta.x ** 2 + delta.y ** 2) <= 4 * (this.restingRangeMult * this.tank.physicsData.values.size ** 2);
             }
 
             if (!Entity.exists(this.barrelEntity)) this.destroy();

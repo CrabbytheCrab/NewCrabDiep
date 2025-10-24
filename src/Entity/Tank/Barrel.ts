@@ -325,6 +325,10 @@ export default class Barrel extends ObjectEntity {
                 this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.Reload] || 0) * 3) * this.definition.bullet.speed;
                 projectile = new ReloadBullet(this, this.tank, tankDefinition, angle);
                 break;
+            case 'streamlinerbullet':
+                projectile = new Bullet(this, this.tank, tankDefinition, recoilAnlge);
+                (projectile as Bullet).baseSpeed = this.bulletAccel + 30
+                break;
             case 'necrodrone':
                 projectile = new NecromancerSquare(this, this.tank, tankDefinition, angle);
                 break;

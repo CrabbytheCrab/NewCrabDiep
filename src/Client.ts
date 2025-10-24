@@ -31,7 +31,7 @@ import DevTankDefinitions, { DevTank } from "./Const/DevTankDefinitions";
 import TankBody from "./Entity/Tank/TankBody";
 import Vector, { VectorAbstract } from "./Physics/Vector";
 import { Entity, EntityStateFlags } from "./Native/Entity";
-import { CameraFlags, ClientBound, ArenaFlags, InputFlags, NameFlags, ServerBound, Stat, StatCount, Tank, Color } from "./Const/Enums";
+import { CameraFlags, ClientBound, ArenaFlags, InputFlags, NameFlags, ServerBound, Stat, StatCount, Tank, Color, ArenaColorsHexCodes, CurrentArenaColors, ArenaColor, changeArenaColor } from "./Const/Enums";
 import { AI, AIState, Inputs } from "./Entity/AI";
 import AbstractBoss from "./Entity/Boss/AbstractBoss";
 import { executeCommand } from "./Const/Commands";
@@ -127,6 +127,7 @@ export default class Client {
         this.write().u8(ClientBound.ServerInfo).stringNT(this.game.gamemode).stringNT(config.host).send();
         this.write().u8(ClientBound.PlayerCount).vu(GameServer.globalPlayerCount).send();
         this.write().u8(ClientBound.Accept).vi(this.accessLevel).send();
+        changeArenaColor(ArenaColorsHexCodes[ArenaColor.Regular]);
         this.camera = new ClientCamera(this.game, this);
     }
 
@@ -314,7 +315,7 @@ export default class Client {
 
                 if (flags & InputFlags.levelup) {
                     // If full access, or if the game allows cheating and lvl is < maxLevel, or if the player is a BT access level and lvl is < maxLevel
-                    if ((this.accessLevel === config.AccessLevel.FullAccess) || (camera.cameraData.values.level < config.maxPlayerLevel && ((this.game.arena.arenaData.values.flags & ArenaFlags.canUseCheats || this.game.arena.arenaData.values.flags & ArenaFlags.canFastLevel) || (this.accessLevel === config.AccessLevel.BetaAccess)))) {
+                    if ((this.accessLevel === config.AccessLevel.FullAccess) || (camera.cameraData.values.level < camera.maxPlayerLevel && ((this.game.arena.arenaData.values.flags & ArenaFlags.canUseCheats || this.game.arena.arenaData.values.flags & ArenaFlags.canFastLevel) || (this.accessLevel === config.AccessLevel.BetaAccess)))) {
                         this.setHasCheated(true);
                         
                         camera.setLevel(camera.cameraData.values.level + 1);
@@ -387,7 +388,6 @@ export default class Client {
             case ServerBound.ToRespawn: {
                 // Doesn't matter if the player is alive or not in real diep.
                 camera.cameraData.flags &= ~CameraFlags.showingDeathStats;
-
                 return;
             }
             case ServerBound.TakeTank: {
@@ -440,6 +440,7 @@ export default class Client {
                 this.notify("Passive Mode: Off", 0x0000FF, 5000, "passive_mode");
                 return;
             }
+
             default:
                 util.log("Suspicious activies have been evaded")
                 return this.ban();

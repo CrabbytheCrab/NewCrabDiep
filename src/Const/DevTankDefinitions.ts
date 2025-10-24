@@ -37,7 +37,8 @@ export const enum DevTank {
     Spectator = -12,
     TheCroc = -13,
     Railgun = -14,
-    Commander = -15,m
+    Commander = -15,
+    PrimeCelesial = -16,
 };
 
 /**
@@ -1967,6 +1968,215 @@ const DevTankDefinitions: TankDefinition[] = [
             {
                 name: "Health Regen",
                 "max": 7
+            }
+        ]
+    },
+    {
+        id: DevTank.PrimeCelesial,
+        name: "Prime Celestial",
+        upgradeMessage: "",
+        levelRequirement: 0,
+        upgrades: [],
+        flags: {
+            invisibility: false,
+            zoomAbility: false,
+            devOnly: false
+        },
+        visibilityRateShooting: 0.23,
+        visibilityRateMoving: 0.08,
+        invisibilityRate: 0.03,
+        fieldFactor: 1,
+        absorbtionFactor: 1,
+        speed: 0,
+        maxHealth: 5000,
+        preAddon: "primepre",
+        postAddon: "primepost",
+        sides: 1,
+        borderWidth: 15,
+        barrels: [
+            {
+                angle: PI2/ 6 * 5,
+                offset: 17,
+                size: 40,
+                width: 42 * 0.2,
+                delay: 0,
+                reload: 6,
+                recoil: 1,
+                isTrapezoid: true,
+                trapezoidDirection: 0,
+                addon: null,
+                droneCount: 2,
+                canControlDrones: false,
+                bullet: {
+                    droneOrbitMultiplier: 10,
+                    type: "drone",
+                    sizeRatio: 1,
+                    health: 200,
+                    damage: 1,
+                    speed: 1.8,
+                    scatterRate: 1,
+                    lifeLength: -1,
+                    absorbtionFactor: 1
+                }
+            },
+            {
+                angle: PI2/ 6 * 1,
+                offset: 17,
+                size: 40,
+                width: 42 * 0.2,
+                delay: 0,
+                reload: 6,
+                recoil: 1,
+                isTrapezoid: true,
+                trapezoidDirection: 0,
+                addon: null,
+                droneCount: 2,
+                canControlDrones: false,
+                bullet: {
+                    droneOrbitMultiplier: 10,
+                    type: "drone",
+                    sizeRatio: 1,
+                    health: 200,
+                    damage: 1,
+                    speed: 1.8,
+                    scatterRate: 1,
+                    lifeLength: -1,
+                    absorbtionFactor: 1
+                }
+            },
+            {
+                angle: PI2/ 6 * 3,
+                offset: 17,
+                size: 40,
+                width: 42 * 0.2,
+                delay: 0,
+                reload: 6,
+                recoil: 1,
+                isTrapezoid: true,
+                trapezoidDirection: 0,
+                addon: null,
+                droneCount: 2,
+                canControlDrones: false,
+                bullet: {
+                    droneOrbitMultiplier: 10,
+                    type: "drone",
+                    sizeRatio: 1,
+                    health: 200,
+                    damage: 1,
+                    speed: 1.8,
+                    scatterRate: 1,
+                    lifeLength: -1,
+                    absorbtionFactor: 1
+                }
+            },
+            {
+                angle: PI2/ 6 * 5,
+                offset: -17,
+                size: 40,
+                width: 42 * 0.2,
+                delay: 0,
+                reload: 6,
+                recoil: 1,
+                isTrapezoid: true,
+                trapezoidDirection: 0,
+                addon: null,
+                droneCount: 2,
+                canControlDrones: false,
+                bullet: {
+                    droneOrbitMultiplier: 10,
+                    type: "drone",
+                    sizeRatio: 1,
+                    health: 200,
+                    damage: 1,
+                    speed: 1.8,
+                    scatterRate: 1,
+                    lifeLength: -1,
+                    absorbtionFactor: 1
+                }
+            },
+            {
+                angle: PI2/ 6 * 1,
+                offset: -17,
+                size: 40,
+                width: 42 * 0.2,
+                delay: 0,
+                reload: 6,
+                recoil: 1,
+                isTrapezoid: true,
+                trapezoidDirection: 0,
+                addon: null,
+                droneCount: 2,
+                canControlDrones: false,
+                bullet: {
+                    droneOrbitMultiplier: 10,
+                    type: "drone",
+                    sizeRatio: 1,
+                    health: 200,
+                    damage: 1,
+                    speed: 1.8,
+                    scatterRate: 1,
+                    lifeLength: -1,
+                    absorbtionFactor: 1
+                }
+            },
+            {
+                angle: PI2/ 6 * 3,
+                offset: -17,
+                size: 40,
+                width: 42 * 0.2,
+                delay: 0,
+                reload: 6,
+                recoil: 1,
+                isTrapezoid: true,
+                trapezoidDirection: 0,
+                addon: null,
+                droneCount: 2,
+                canControlDrones: false,
+                bullet: {
+                    droneOrbitMultiplier: 10,
+                    type: "drone",
+                    sizeRatio: 1,
+                    health: 200,
+                    damage: 1,
+                    speed: 1.8,
+                    scatterRate: 1,
+                    lifeLength: -1,
+                    absorbtionFactor: 1
+                }
+            },
+        ],
+       stats: [
+            {
+                name: "Movement Speed",
+                "max": 0
+            },
+            {
+                name: "Reload",
+                "max": 0
+            },
+            {
+                name: "Drone Damage",
+                "max": 0
+            },
+            {
+                name: "Drone Health",
+                "max": 0
+            },
+            {
+                name: "Drone Speed",
+                "max": 0
+            },
+            {
+                name: "Body Damage",
+                "max": 0
+            },
+            {
+                name: "Max Health",
+                "max": 0
+            },
+            {
+                name: "Health Regen",
+                "max": 0
             }
         ]
     }
