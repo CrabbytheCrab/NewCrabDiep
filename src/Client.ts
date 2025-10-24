@@ -126,6 +126,7 @@ export default class Client {
     public acceptClient() {
         this.write().u8(ClientBound.ServerInfo).stringNT(this.game.gamemode).stringNT(config.host).send();
         this.write().u8(ClientBound.PlayerCount).vu(GameServer.globalPlayerCount).send();
+        this.sendMapColors()
         this.write().u8(ClientBound.Accept).vi(this.accessLevel).send();
         changeArenaColor(ArenaColorsHexCodes[ArenaColor.Regular]);
         this.camera = new ClientCamera(this.game, this);
@@ -610,6 +611,15 @@ export default class Client {
         if (tick >= this.lastPingTick + 60 * config.tps) {
             return this.terminate();
         }
+    }
+    //Sends the new Arena Colors
+    public sendMapColors() {
+        const colors = this.game.arena.ARENA_COLORS;
+        const w = this.write();
+        
+        w.u8(ClientBound.MapColors);
+        w.stringNT(JSON.stringify(colors))
+        w.send();
     }
     /** toString override from base Object. Adds debug info */
     public toString(verbose: boolean = false): string {

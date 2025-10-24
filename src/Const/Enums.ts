@@ -345,6 +345,8 @@ export const enum ClientBound {
     InvalidParty    = 0x9,
     PlayerCount     = 0xA,
     ProofOfWork     = 0xB,
+
+    MapColors       = 0xAA
 }
 
 /**

@@ -53,7 +53,6 @@ export default class SanctuaryArena extends ArenaEntity {
 
     public constructor(game: GameServer) {
         super(game);
-        this.arenaColors = ArenaColorsHexCodes[ArenaColor.Sanctuary]
         this.updateBounds(8000, 8000);
         this.state = ArenaState.OPEN; // FFA should start instantly, no countdown
         this.celestialTeamBase = new TeamBase(game, this.celestialTeam, 0,0, 3000,3000, true, 0, 0);
@@ -67,7 +66,6 @@ export default class SanctuaryArena extends ArenaEntity {
     }
     public actuallySpawnPlayer(tank: TankBody, client: Client) {
         const xOffset = (Math.random() - 0.5) * baseWidth;
-        changeArenaColor(this.arenaColors);
         const base = this.playerTeamMap.get(client) || [this.celestialTeamBase][0];
         tank.relationsData.values.team = base.relationsData.values.team;
         tank.styleData.values.color = base.styleData.values.color;
@@ -82,7 +80,6 @@ export default class SanctuaryArena extends ArenaEntity {
     }
     public spawnCelestials(tank: TankBody, client: Client) {
         const xOffset = (Math.random() - 0.5) * baseWidth;
-        changeArenaColor(this.arenaColors);
         const base = this.playerTeamMap.get(client) || [this.celestialTeamBase][0];
         tank.relationsData.values.team = base.relationsData.values.team;
         tank.styleData.values.color = base.styleData.values.color;
