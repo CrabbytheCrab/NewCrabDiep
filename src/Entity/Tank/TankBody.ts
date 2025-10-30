@@ -68,8 +68,6 @@ export default class TankBody extends LivingEntity implements BarrelBase {
     /** The tank's addons, if any. */
     private addons: Addon[] = [];
 
-    /** If the tank is a celestial or not. */
-    public isCelestial = false;
     /** Size of the tank at level 1. Defined by tank loader.  */
     public baseSize = 50;
     /** The definition of the currentTank */
@@ -199,8 +197,8 @@ export default class TankBody extends LivingEntity implements BarrelBase {
         // This is actually not how necromancers claim squares.
         if (entity instanceof Square && this.definition.flags.canClaimSquares && this.barrels.length) {
             // If can claim, pick a random barrel that has drones it can still shoot, then shoot
-            let MAX_DRONES_PER_BARREL = 11 + this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload];
-            if(this.currentTank == Tank.Sepulcher)MAX_DRONES_PER_BARREL = 16 + this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload];
+            let MAX_DRONES_PER_BARREL = 10 + this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload];
+            if(this.currentTank == Tank.Sepulcher)MAX_DRONES_PER_BARREL = 14 + this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload];
             const barrelsToShoot = this.barrels.filter((e) => e.definition.bullet.type === "necrodrone" && e.droneCount < MAX_DRONES_PER_BARREL);
 
             if (barrelsToShoot.length) {
@@ -360,11 +358,17 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             // Damage
             this.damagePerTick = this.cameraEntity.cameraData.statLevels[Stat.BodyDamage] + 5;
             if (this._currentTank === Tank.Spike || this._currentTank === Tank.Saw) this.damagePerTick += 2;
+            if (this.definition.flags.isChasm || this.definition.flags.isAbyss) this.damagePerTick *= 1.25;
+            if (this.definition.flags.isVoid) this.damagePerTick *= 1.75;
+            if (this.definition.flags.isComet) this.damagePerTick *= 1.5;
 
             // Max Health
             const maxHealthCache = this.healthData.values.maxHealth;
 
             this.healthData.maxHealth = this.definition.maxHealth + 2 * (this.cameraEntity.cameraData.values.level - 1) + this.cameraEntity.cameraData.values.statLevels.values[Stat.MaxHealth] * 20;
+            if(this.isCelestial)this.definition.maxHealth = this.definition.maxHealth * 2 + 4 * (this.cameraEntity.cameraData.values.level - 1) + this.cameraEntity.cameraData.values.statLevels.values[Stat.MaxHealth] * 35;
+            if (this.definition.flags.isAbyss) this.healthData.maxHealth *= 1.5
+            if (this.definition.flags.isComet) this.healthData.maxHealth *= 0.5
             if (this.healthData.values.health === maxHealthCache) this.healthData.health = this.healthData.maxHealth; // just in case
             else if (this.healthData.values.maxHealth !== maxHealthCache) {
                 this.healthData.health *= this.healthData.values.maxHealth / maxHealthCache
@@ -372,7 +376,8 @@ export default class TankBody extends LivingEntity implements BarrelBase {
 
             // Regen
             this.regenPerTick = (this.healthData.values.maxHealth * 4 * this.cameraEntity.cameraData.values.statLevels.values[Stat.HealthRegen] + this.healthData.values.maxHealth) / 25000;
-
+            if(this.isCelestial)this.regenPerTick /= 2;
+            if(this._currentTank === Tank.MegaSmasher)this.regenPerTick *= 1.25;
             // Reload
             this.reloadTime = 15 * Math.pow(0.914, this.cameraEntity.cameraData.values.statLevels.values[Stat.Reload]);
         }

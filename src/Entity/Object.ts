@@ -107,6 +107,9 @@ export default class ObjectEntity extends Entity {
     /** Whether or not something is in passive mode. */
     public isPassiveMode = false;
 
+    /** If the object is a trap */
+    public isTrap = false;
+
     public constructor(game: GameServer) {
         super(game);
 
@@ -146,7 +149,12 @@ export default class ObjectEntity extends Entity {
             ) {
                 return false;
             }
-
+            //Traps should be moved by other ammo.
+            if (
+                (objA.isTrap && !objB.isTrap) || (objB.isTrap && !objA.isTrap)
+            ) {
+                return false;
+            }
             if (relationsA.owner !== relationsB.owner) {
                 if (
                     (physicsA.flags & PhysicsFlags.onlySameOwnerCollision) ||
@@ -154,6 +162,8 @@ export default class ObjectEntity extends Entity {
                 )  {
                     return false;
                 }
+
+                
             }
         }
         
@@ -164,7 +174,6 @@ export default class ObjectEntity extends Entity {
         ) {
             return false;
         }
-
         const isARect = physicsA.sides === 2;
         const isBRect = physicsB.sides === 2;
 

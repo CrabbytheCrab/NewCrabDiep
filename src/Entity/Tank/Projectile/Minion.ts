@@ -59,7 +59,7 @@ export default class Minion extends Drone implements BarrelBase {
     public static FOCUS_RADIUS = 800 ** 2;
 
     /** The minion's barrel */
-    private barrels: Barrel[] = [];
+    public barrels: Barrel[] = [];
 
     /** The camera entity (used as team) of the minion. */
     public cameraEntity: CameraEntity;
@@ -111,8 +111,10 @@ export default class Minion extends Drone implements BarrelBase {
         if (usingAI && this.ai.state === AIState.idle) {
             this.movementAngle = this.positionData.values.angle;
         } else {
-            if(!this.isPassiveMode) this.inputs.flags |= InputFlags.leftclick;
-
+            if(!this.isPassiveMode) {
+                this.inputs.flags |= InputFlags.leftclick;
+                if(this.tank.inputs.attemptingRepel()) this.inputs.flags |= InputFlags.rightclick;
+            }
             const dist = inputs.mouse.distanceToSQ(this.positionData.values);
 
             if (dist < Minion.FOCUS_RADIUS * this.focusMult / 7) {

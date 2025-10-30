@@ -46,7 +46,7 @@ export default class Portal extends ObjectEntity {
         this.styleData.values.borderWidth = 0;
         this.styleData.values.color = Color.kMaxColors; // Pure black
         
-        this.targetGameId = 'ffa';
+        this.targetGameId = targetGameId;
     }
     
     public intersects(entity: ObjectEntity): boolean {

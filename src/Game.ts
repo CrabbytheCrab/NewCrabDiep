@@ -25,7 +25,7 @@ import ArenaEntity from "./Native/Arena";
 import FFAArena from "./Gamemodes/FFA";
 import Teams2Arena from "./Gamemodes/Team2";
 import SandboxArena from "./Gamemodes/Sandbox";
-import { changeArenaColor, ClientBound, Stat, StatCount } from "./Const/Enums";
+import { ClientBound, Stat, StatCount } from "./Const/Enums";
 import Teams4Arena from "./Gamemodes/Team4";
 import DominationArena from "./Gamemodes/Domination";
 import MothershipArena from "./Gamemodes/Mothership";
@@ -255,10 +255,18 @@ export default class GameServer {
 
             cam.cameraData.values = { ...client.camera.cameraData.values };
             cam.cameraData.values.player = null;
-
+            cam.cameraData.values.statNames = new CameraTable("", 9, cam.cameraData);
+            cam.cameraData.values.statLevels = new CameraTable(0, 10, cam.cameraData);
+            cam.cameraData.values.statLimits = new CameraTable(0, 11, cam.cameraData);
+            for(let i = 0; i < StatCount; ++i) {
+                console.log(`statLimit '${i}' = '${client.camera.cameraData.statLimits[i as Stat]}'`)
+                cam.cameraData.statNames[i as Stat] = client.camera.cameraData.statNames[i as Stat];
+                cam.cameraData.statLimits[i as Stat] = client.camera.cameraData.statLimits[i as Stat];
+            }
             if(Entity.exists(client.camera.cameraData.player)) {
                 client.camera.cameraData.player.delete();
                 let tank;
+
                 if(client.camera.cameraData.player instanceof TankBody) {
                     tank = cam.cameraData.player = cam.relationsData.owner = cam.relationsData.parent = new TankBody(this, cam, client.inputs);
                     tank.isCelestial = client.camera.cameraData.player.isCelestial
@@ -269,28 +277,22 @@ export default class GameServer {
                     tank = cam.cameraData.player = cam.relationsData.owner = cam.relationsData.parent = new TankBody(this, cam, client.inputs);
                     tank.nameData.values.name = "";
                 }
-                cam.cameraData.values.statNames = new CameraTable("", 9, cam.cameraData);
-                cam.cameraData.values.statLevels = new CameraTable(0, 10, cam.cameraData);
-                cam.cameraData.values.statLimits = new CameraTable(0, 11, cam.cameraData);
-
                 for(let i = 0; i < StatCount; ++i) {
-                    cam.cameraData.statNames[i as Stat] = client.camera.cameraData.statNames[i as Stat];
-                    cam.cameraData.statLimits[i as Stat] = client.camera.cameraData.statLimits[i as Stat];
                     cam.cameraData.statLevels[i as Stat] = client.camera.cameraData.statLevels[i as Stat];
                 }
-
                 tank.scoreData.values.score = cam.cameraData.values.score;
                 tank.scoreReward = cam.cameraData.values.score;
 
                 this.arena.spawnPlayer(tank, client);
-            }
+                tank.setTank(tank.currentTank);
 
+            }
             client.camera.delete();
             client.camera = cam;
         }
 
         if(client.hasCheated()) client.setHasCheated(true);
-
+        client.sendMapColors()
         client.inputs.isPossessing = false;
         client.inputs.movement.magnitude = 0;
     }

@@ -31,7 +31,7 @@ import DevTankDefinitions, { DevTank } from "./Const/DevTankDefinitions";
 import TankBody from "./Entity/Tank/TankBody";
 import Vector, { VectorAbstract } from "./Physics/Vector";
 import { Entity, EntityStateFlags } from "./Native/Entity";
-import { CameraFlags, ClientBound, ArenaFlags, InputFlags, NameFlags, ServerBound, Stat, StatCount, Tank, Color, ArenaColorsHexCodes, CurrentArenaColors, ArenaColor, changeArenaColor } from "./Const/Enums";
+import { CameraFlags, ClientBound, ArenaFlags, InputFlags, NameFlags, ServerBound, Stat, StatCount, Tank, Color } from "./Const/Enums";
 import { AI, AIState, Inputs } from "./Entity/AI";
 import AbstractBoss from "./Entity/Boss/AbstractBoss";
 import { executeCommand } from "./Const/Commands";
@@ -128,7 +128,6 @@ export default class Client {
         this.write().u8(ClientBound.PlayerCount).vu(GameServer.globalPlayerCount).send();
         this.sendMapColors()
         this.write().u8(ClientBound.Accept).vi(this.accessLevel).send();
-        changeArenaColor(ArenaColorsHexCodes[ArenaColor.Regular]);
         this.camera = new ClientCamera(this.game, this);
     }
 
@@ -388,6 +387,7 @@ export default class Client {
             }
             case ServerBound.ToRespawn: {
                 // Doesn't matter if the player is alive or not in real diep.
+                camera.maxPlayerLevel = config.maxPlayerLevel;
                 camera.cameraData.flags &= ~CameraFlags.showingDeathStats;
                 return;
             }
@@ -621,6 +621,11 @@ export default class Client {
         w.stringNT(JSON.stringify(colors))
         w.send();
     }
+
+    public resetStatQueue() {
+        this.write().u8(ClientBound.ResetStatQueue).send();
+    }
+
     /** toString override from base Object. Adds debug info */
     public toString(verbose: boolean = false): string {
         const tokens: string[] = [];

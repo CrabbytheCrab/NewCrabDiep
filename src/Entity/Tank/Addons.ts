@@ -27,6 +27,7 @@ import { AI, AIState, Inputs } from "../AI";
 import LivingEntity from "../Live";
 import { normalizeAngle, PI2 } from "../../util";
 import { CameraEntity } from "../../Native/Camera";
+import Barrel from "./Barrel";
 
 /**
  * Abstract class to represent an addon in game.
@@ -384,12 +385,12 @@ const AutoTurretTrapDefinition: BarrelDefinition = {
     addon: "noScaleTrapLauncher",
     bullet: {
         type: "trap",
-        health: 1.75,
-        damage: 1,
+        health: 0.7,
+        damage: 2,
         speed: 2.5,
         scatterRate: 1,
-        lifeLength: 2.25,
-        sizeRatio: 0.8,
+        lifeLength: 4,
+        sizeRatio: 1.1,
         absorbtionFactor: 0.8
     }
 };
@@ -422,19 +423,236 @@ export const AutoSmasherTurretDefinition: BarrelDefinition = {
     size: 55,
     width: 42 * 0.7,
     delay: 0.01,
-    reload: 0.8,
+    reload: 1,
     recoil: 0,
     isTrapezoid: false,
     trapezoidDirection: 0,
     addon: null,
     bullet: {
         type: "reloadbullet",
-        health: 1.2,
+        health: 1,
         damage: 0.5,
-        speed: 1.3,
+        speed: 1.2,
         scatterRate: 1,
         lifeLength: 1,
         sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+const MiniNebulaAutoTurretDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 55/(10/3),
+    width: 42 * (0.7/(10/3)),
+    delay: 0.01,
+    reload: 1,
+    recoil: 0,
+    isTrapezoid: false,
+    trapezoidDirection: 0,
+    addon: null,
+    bullet: {
+        type: "bullet",
+        health: 1,
+        damage: 0.4,
+        speed: 1.2,
+        scatterRate: 1,
+        lifeLength: 1,
+        sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+
+const NebulaAutoTurretDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 30,
+    width: 42 * 0.45,
+    delay: 0.01,
+    reload: 3,
+    recoil: 0,
+    isTrapezoid: false,
+    trapezoidDirection: 0,
+    addon: null,
+    bullet: {
+        type: "bullet",
+        health: 2,
+        damage: 1,
+        speed: 1.4,
+        scatterRate: 1,
+        lifeLength: 1,
+        sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+
+const PolluxAutoTurretDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 30 * 1.4,
+    width: 42 * 0.45 * 1.4,
+    delay: 0.01,
+    reload: 5,
+    recoil: 0,
+    isTrapezoid: false,
+    trapezoidDirection: 0,
+    addon: null,
+    bullet: {
+        type: "bullet",
+        health: 2,
+        damage: 3,
+        speed: 1.5,
+        scatterRate: 0.3,
+        lifeLength: 1,
+        sizeRatio: 1,
+        absorbtionFactor: 0.1
+    }
+};
+
+const OberonAutoTurretDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 30 * 1.2,
+    width: 42 * 0.45 * 1.2,
+    delay: 0.01,
+    reload: 2,
+    recoil: 0,
+    isTrapezoid: false,
+    trapezoidDirection: 0,
+    addon: null,
+    bullet: {
+        type: "bullet",
+        health: 2,
+        damage: 1,
+        speed: 1.4,
+        scatterRate: 1,
+        lifeLength: 1,
+        sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+
+
+const MiniTritonDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 12.5,
+    width: 8.4,
+    delay: 0.1,
+    reload: 4.5,
+    recoil: 0,
+    isTrapezoid: true,
+    trapezoidDirection: 0,
+    addon: null,
+    droneCount: 2,
+    canControlDrones: true,
+    bullet: {
+        type: "drone",
+        health: 1,
+        damage: 0.4,
+        speed: 0.8,
+        scatterRate: 1,
+        lifeLength: -1,
+        sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+
+const TritonDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 25,
+    width: 16.8,
+    delay: 0.35,
+    reload: 12.5,
+    recoil: 0,
+    isTrapezoid: true,
+    trapezoidDirection: 0,
+    addon: null,
+    droneCount: 1,
+    canControlDrones: false,
+    bullet: {
+        type: "drone",
+        health: 1.3,
+        damage: 1,
+        speed: 1,
+        scatterRate: 1,
+        lifeLength: -1,
+        sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+
+const MiniHyperionDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 12.5 * 0.8,
+    width: 6.3,
+    delay: 0.1,
+    reload: 3.5,
+    recoil: 0,
+    isTrapezoid: true,
+    trapezoidDirection: 0,
+    addon: null,
+    droneCount: 4,
+    canControlDrones: true,
+    bullet: {
+        type: "drone",
+        health: 0.6,
+        damage: 0.4,
+        speed: 0.8,
+        scatterRate: 1,
+        lifeLength: -1,
+        sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+
+const HyperionDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 27.5,
+    width: 18.9,
+    delay: 0.35,
+    reload: 14,
+    recoil: 0,
+    isTrapezoid: true,
+    trapezoidDirection: 0,
+    addon: null,
+    droneCount: 2,
+    canControlDrones: false,
+    bullet: {
+        type: "drone",
+        health: 2,
+        damage: 1,
+        speed: 1,
+        scatterRate: 1,
+        lifeLength: -1,
+        sizeRatio: 1,
+        absorbtionFactor: 1
+    }
+};
+
+const NesoDefinition: BarrelDefinition = {
+    angle: 0,
+    offset: 0,
+    size: 30,
+    width: 23.625,
+    delay: 0.35,
+    reload: 14,
+    recoil: 0,
+    isTrapezoid: true,
+    trapezoidDirection: 0,
+    addon: null,
+    droneCount: 3,
+    canControlDrones: true,
+    bullet: {
+        type: "drone",
+        health: 2,
+        damage: 1,
+        speed: 0.8,
+        scatterRate: 1,
+        lifeLength: -1,
+        sizeRatio: 0.8,
         absorbtionFactor: 1
     }
 };
@@ -1057,7 +1275,6 @@ class SpieskAddon extends Addon {
     }
 }
 /** Prime Celestial's guard addon. */
-
 class PrimePreAddon extends Addon {
     public constructor(owner: BarrelBase) {
         super(owner);
@@ -1088,7 +1305,7 @@ class PrimePostAddon extends Addon {
 
         body.setParent(this.owner);
         body.relationsData.values.owner = this.owner;
-        body.relationsData.values.team = this.owner.relationsData.values.team
+        body.relationsData.values.team = this.owner.relationsData.values.team;
 
         body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
 
@@ -1102,7 +1319,7 @@ class PrimePostAddon extends Addon {
 
         segment1.setParent(this.owner);
         segment1.relationsData.values.owner = this.owner;
-        segment1.relationsData.values.team = this.owner.relationsData.values.team
+        segment1.relationsData.values.team = this.owner.relationsData.values.team;
 
         segment1.physicsData.values.size = body.physicsData.size * 0.85;
 
@@ -1117,7 +1334,7 @@ class PrimePostAddon extends Addon {
 
         segment2.setParent(this.owner);
         segment2.relationsData.values.owner = this.owner;
-        segment2.relationsData.values.team = this.owner.relationsData.values.team
+        segment2.relationsData.values.team = this.owner.relationsData.values.team;
 
         segment2.physicsData.values.size = body.physicsData.size * 0.65;
 
@@ -1132,7 +1349,7 @@ class PrimePostAddon extends Addon {
 
         segment3.setParent(this.owner);
         segment3.relationsData.values.owner = this.owner;
-        segment3.relationsData.values.team = this.owner.relationsData.values.team
+        segment3.relationsData.values.team = this.owner.relationsData.values.team;
 
         segment3.physicsData.values.size = body.physicsData.size * 0.4;
 
@@ -1147,7 +1364,7 @@ class PrimePostAddon extends Addon {
 
         segment4.setParent(this.owner);
         segment4.relationsData.values.owner = this.owner;
-        segment4.relationsData.values.team = this.owner.relationsData.values.team
+        segment4.relationsData.values.team = this.owner.relationsData.values.team;
 
         segment4.physicsData.values.size = body.physicsData.size * 0.25;
 
@@ -1162,7 +1379,7 @@ class PrimePostAddon extends Addon {
 
         segment5.setParent(this.owner);
         segment5.relationsData.values.owner = this.owner;
-        segment5.relationsData.values.team = this.owner.relationsData.values.team
+        segment5.relationsData.values.team = this.owner.relationsData.values.team;
 
         segment5.physicsData.values.size = body.physicsData.size * 0.15;
 
@@ -1177,7 +1394,7 @@ class PrimePostAddon extends Addon {
 
         glow.setParent(this.owner);
         glow.relationsData.values.owner = this.owner;
-        glow.relationsData.values.team = this.owner.relationsData.values.team
+        glow.relationsData.values.team = this.owner.relationsData.values.team;
 
         glow.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 3;
 
@@ -1203,7 +1420,7 @@ class CelestialAddon extends Addon {
 
         body.setParent(this.owner);
         body.relationsData.values.owner = this.owner;
-        body.relationsData.values.team = this.owner.relationsData.values.team
+        body.relationsData.values.team = this.owner.relationsData.values.team;
 
         body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
 
@@ -1215,13 +1432,529 @@ class CelestialAddon extends Addon {
         }
     }
 }
+
+/** Tier 2 body Celestial's body addon. */
+class UpgradedCelestialAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        if(this.owner.styleData.flags & StyleFlags.isVisible) this.owner.styleData.flags ^= StyleFlags.isVisible;
+        
+        const body = new ObjectEntity(this.game);
+
+        body.setParent(this.owner);
+        body.relationsData.values.owner = this.owner;
+        body.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+
+        body.styleData.values.color = this.owner.styleData.color;
+        body.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body.tick = () => {
+            body.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+        }
+        const body2 = new ObjectEntity(this.game);
+
+        body2.setParent(this.owner);
+        body2.relationsData.values.owner = this.owner;
+        body2.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body2.physicsData.values.size = body.physicsData.values.size * 0.7;
+
+        body2.styleData.values.color = this.owner.styleData.color;
+        body2.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body2.tick = () => {
+            body2.physicsData.size = body.physicsData.values.size * 0.7;
+        }
+    }
+}
+
+class Tier2CelestialAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+    }
+}
+
+/** Nebula's body addon. */
+class NebulaAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+        owner.positionData.values.flags |= PositionFlags.absoluteRotation;
+        const count = 3;
+        const offset = 0.65;
+        for (let i = 0; i < count; ++i) {
+            const base = new AutoTurret(owner, MiniNebulaAutoTurretDefinition, 7.5);
+            base.ai.viewRange *= 0.8;
+            const MAX_ANGLE_RANGE = PI2 / 3; // keep within 120º each side
+            const angle = base.ai.inputs.mouse.angle = PI2 * (i / 3);
+            base.ai.targetFilter = (targetPos) => {
+                const pos = base.getWorldPosition();
+                const angleToTarget = Math.atan2(targetPos.y - pos.y, targetPos.x - pos.x);
+                
+                const deltaAngle = normalizeAngle(angleToTarget - ((angle + owner.positionData.values.angle)));
+
+                return deltaAngle < MAX_ANGLE_RANGE || deltaAngle > (PI2 - MAX_ANGLE_RANGE);
+            }
+            base.positionData.values.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+            base.positionData.values.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+            //base.positionData.values.flags ^= PositionFlags.absoluteRotation;
+            const tickBase = base.tick;
+            base.tick = (tick: number) => {
+                base.positionData.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+                base.positionData.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+                tickBase.call(base, tick);
+                if (base.ai.state === AIState.idle) base.positionData.angle = angle + owner.positionData.angle;
+            }
+        }
+        const base = new AutoTurret(owner, NebulaAutoTurretDefinition, 12.5);
+        base.ai.viewRange *= 1.5;
+    }
+}
+
+/** Chasm's guard addon. */
+class ChasmPreAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const guard = new ObjectEntity(this.game);
+
+        guard.setParent(this.owner);
+        guard.relationsData.values.owner = this.owner;
+        guard.relationsData.values.team = this.owner.relationsData.values.team,
+
+        guard.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.25;
+
+        guard.styleData.values.color = Color.Border
+        guard.physicsData.values.sides = 3;
+        guard.tick = () => {
+            guard.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.25;
+        }
+    }
+}
+
+/** Chasms's body addon. */
+class ChasmAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        if(this.owner.styleData.flags & StyleFlags.isVisible) this.owner.styleData.flags ^= StyleFlags.isVisible;
+        
+        const body = new ObjectEntity(this.game);
+
+        body.setParent(this.owner);
+        body.relationsData.values.owner = this.owner;
+        body.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+
+        body.styleData.values.color = this.owner.styleData.color;
+        body.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body.tick = () => {
+            body.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+        }
+        const body2 = new ObjectEntity(this.game);
+
+        body2.setParent(this.owner);
+        body2.relationsData.values.owner = this.owner;
+        body2.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body2.physicsData.values.size = body.physicsData.values.size * 0.8;
+
+        body2.styleData.values.color = this.owner.styleData.color;
+        body2.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body2.tick = () => {
+            body2.physicsData.size = body.physicsData.values.size * 0.8;
+        }
+        const body3 = new ObjectEntity(this.game);
+
+        body3.setParent(this.owner);
+        body3.relationsData.values.owner = this.owner;
+        body3.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body3.physicsData.values.size = body.physicsData.values.size * 0.4;
+
+        body3.styleData.values.color = this.owner.styleData.color;
+        body3.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body3.tick = () => {
+            body3.physicsData.size = body.physicsData.values.size * 0.4;
+        }
+    }
+}
+
+/** Tritons's body addon. */
+class TritonAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+        owner.positionData.values.flags |= PositionFlags.absoluteRotation;
+        const count = 3;
+        const offset = 0.65;
+        for (let i = 0; i < count; ++i) {
+            const base = new AutoTurret(owner, MiniTritonDefinition, (32.5 * Math.SQRT2)/(20/3));
+            base.physicsData.sides = 4
+            const angle = base.ai.inputs.mouse.angle = PI2 * (i / 3);
+            base.influencedByOwnerInputs = true;
+            base.positionData.values.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+            base.positionData.values.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+            //base.positionData.values.flags ^= PositionFlags.absoluteRotation;
+            const tickBase = base.tick;
+            base.tick = (tick: number) => {
+                base.positionData.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+                base.positionData.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+                tickBase.call(base, tick);
+                base.positionData.angle = angle + owner.positionData.angle;
+            }
+        }
+        const spinner = new GuardObject(this.game, owner,1, 0.5, Math.PI, 0.1);
+
+        spinner.styleData.values.color = Color.Barrel;
+        spinner.styleData.flags |= StyleFlags.showsAboveParent
+        for (let i = 0; i < count; ++i) {
+            new Barrel(spinner, {...TritonDefinition, angle: (PI2/3) * i})
+        }
+    }
+}
+
+/** Galaxy's body addon. */
+class GalaxyAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+        owner.positionData.values.flags |= PositionFlags.absoluteRotation;
+        const count = 3;
+        const offset = 0.65;
+        const offset2 = 0.3;
+        for (let i = 0; i < count; ++i) {
+            const base = new AutoTurret(owner, MiniNebulaAutoTurretDefinition, 7.5);
+            base.ai.viewRange *= 0.8;
+            const MAX_ANGLE_RANGE = PI2 / 3; // keep within 120º each side
+            const angle = base.ai.inputs.mouse.angle = PI2 * (i / 3);
+            base.ai.targetFilter = (targetPos) => {
+                const pos = base.getWorldPosition();
+                const angleToTarget = Math.atan2(targetPos.y - pos.y, targetPos.x - pos.x);
+                
+                const deltaAngle = normalizeAngle(angleToTarget - ((angle + owner.positionData.values.angle)));
+
+                return deltaAngle < MAX_ANGLE_RANGE || deltaAngle > (PI2 - MAX_ANGLE_RANGE);
+            }
+            base.positionData.values.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+            base.positionData.values.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+            //base.positionData.values.flags ^= PositionFlags.absoluteRotation;
+            const tickBase = base.tick;
+            base.tick = (tick: number) => {
+                base.positionData.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+                base.positionData.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+                tickBase.call(base, tick);
+                if (base.ai.state === AIState.idle) base.positionData.angle = angle + owner.positionData.angle;
+            }
+        }
+        for (let i = 0; i < count; ++i) {
+            const base = new AutoTurret(owner, MiniNebulaAutoTurretDefinition, 7.5);
+            base.ai.viewRange *= 0.8;
+            const MAX_ANGLE_RANGE = PI2 / 3; // keep within 120º each side
+            const angle = base.ai.inputs.mouse.angle = PI2 * (i / 3) + Math.PI;
+            base.ai.targetFilter = (targetPos) => {
+                const pos = base.getWorldPosition();
+                const angleToTarget = Math.atan2(targetPos.y - pos.y, targetPos.x - pos.x);
+                
+                const deltaAngle = normalizeAngle(angleToTarget - ((angle + owner.positionData.values.angle)));
+
+                return deltaAngle < MAX_ANGLE_RANGE || deltaAngle > (PI2 - MAX_ANGLE_RANGE);
+            }
+            base.positionData.values.y = owner.physicsData.values.size * Math.sin(angle) * offset2;
+            base.positionData.values.x = owner.physicsData.values.size * Math.cos(angle) * offset2;
+            //base.positionData.values.flags ^= PositionFlags.absoluteRotation;
+            const tickBase = base.tick;
+            base.tick = (tick: number) => {
+                base.positionData.y = owner.physicsData.values.size * Math.sin(angle) * offset2;
+                base.positionData.x = owner.physicsData.values.size * Math.cos(angle) * offset2;
+                tickBase.call(base, tick);
+                if (base.ai.state === AIState.idle) base.positionData.angle = angle + owner.positionData.angle;
+            }
+        }
+        const base = new AutoTurret(owner, NebulaAutoTurretDefinition, 12.5);
+        base.ai.viewRange *= 1.25;
+    }
+}
+/** Pollux's body addon. */
+class PolluxAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+        owner.positionData.values.flags |= PositionFlags.absoluteRotation;
+        const base = new AutoTurret(owner, PolluxAutoTurretDefinition, 12.5 * 1.4);
+        base.ai.viewRange *= 1.65;
+    }
+}
+
+/** Oberon's body addon. */
+class OberonAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+        owner.positionData.values.flags |= PositionFlags.absoluteRotation;
+        const count = 3;
+        const offset = 0.65;
+        for (let i = 0; i < count; ++i) {
+            const base = new AutoTurret(owner, MiniHyperionDefinition, (32.5 * Math.SQRT2)/(20/3) * 0.8);
+            base.physicsData.sides = 4
+            const angle = base.ai.inputs.mouse.angle = PI2 * (i / 3);
+            base.influencedByOwnerInputs = true;
+            base.positionData.values.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+            base.positionData.values.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+            //base.positionData.values.flags ^= PositionFlags.absoluteRotation;
+            const tickBase = base.tick;
+            base.tick = (tick: number) => {
+                base.positionData.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+                base.positionData.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+                tickBase.call(base, tick);
+                base.positionData.angle = angle + owner.positionData.angle;
+            }
+        }
+        const base = new AutoTurret(owner, OberonAutoTurretDefinition, 12.5 * 1.2);
+        base.ai.viewRange *= 1.4;
+    }
+}
+
+/** Void's guard addon. */
+class VoidPreAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const guard = new ObjectEntity(this.game);
+
+        guard.setParent(this.owner);
+        guard.relationsData.values.owner = this.owner;
+        guard.relationsData.values.team = this.owner.relationsData.values.team,
+
+        guard.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.4;
+
+        guard.styleData.values.color = Color.Border
+        guard.physicsData.values.sides = 3;
+        guard.tick = () => {
+            guard.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.4;
+        }
+    }
+}
+
+/** Comet's guard addon. */
+class CometPreAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const guard = new ObjectEntity(this.game);
+
+        guard.setParent(this.owner);
+        guard.relationsData.values.owner = this.owner;
+        guard.relationsData.values.team = this.owner.relationsData.values.team,
+
+        guard.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.2;
+
+        guard.styleData.values.color = Color.Border
+        guard.physicsData.values.sides = 3;
+        guard.tick = () => {
+            guard.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor * 1.2;
+        }
+    }
+}
+
+/** Comet's body addon. */
+class CometAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        if(this.owner.styleData.flags & StyleFlags.isVisible) this.owner.styleData.flags ^= StyleFlags.isVisible;
+        
+        const body = new ObjectEntity(this.game);
+
+        body.setParent(this.owner);
+        body.relationsData.values.owner = this.owner;
+        body.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+
+        body.styleData.values.color = this.owner.styleData.color;
+        body.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body.tick = () => {
+            body.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+        }
+        const body2 = new ObjectEntity(this.game);
+
+        body2.setParent(this.owner);
+        body2.relationsData.values.owner = this.owner;
+        body2.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body2.physicsData.values.size = body.physicsData.values.size * 0.8;
+        body2.positionData.angle = Math.PI;
+        body2.styleData.values.color = Color.Border;
+        body2.styleData.values.flags |= StyleFlags.isStar;
+        body2.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body2.tick = () => {
+            body2.physicsData.size = body.physicsData.values.size * 0.8;
+        }
+        const body3 = new ObjectEntity(this.game);
+
+        body3.setParent(this.owner);
+        body3.relationsData.values.owner = this.owner;
+        body3.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body3.physicsData.values.size = body.physicsData.values.size * 0.4;
+
+        body3.styleData.values.color = this.owner.styleData.color;
+        body3.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body3.tick = () => {
+            body3.physicsData.size = body.physicsData.values.size * 0.4;
+        }
+    }
+}
+
+/** Abyss's body addon. */
+class AbyssAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        if(this.owner.styleData.flags & StyleFlags.isVisible) this.owner.styleData.flags ^= StyleFlags.isVisible;
+        
+        const body = new ObjectEntity(this.game);
+
+        body.setParent(this.owner);
+        body.relationsData.values.owner = this.owner;
+        body.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body.physicsData.values.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+
+        body.styleData.values.color = this.owner.styleData.color;
+        body.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body.tick = () => {
+            body.physicsData.size = 25 * Math.SQRT2 * this.owner.sizeFactor;
+        }
+        const body2 = new ObjectEntity(this.game);
+
+        body2.setParent(this.owner);
+        body2.relationsData.values.owner = this.owner;
+        body2.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body2.physicsData.values.size = body.physicsData.values.size * 0.8;
+
+        body2.styleData.values.color = this.owner.styleData.color;
+        body2.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body2.tick = () => {
+            body2.physicsData.size = body.physicsData.values.size * 0.8;
+        }
+        const body3 = new ObjectEntity(this.game);
+
+        body3.setParent(this.owner);
+        body3.relationsData.values.owner = this.owner;
+        body3.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body3.physicsData.values.size = body.physicsData.values.size * 0.6;
+
+        body3.styleData.values.color = this.owner.styleData.color;
+        body3.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body3.tick = () => {
+            body3.physicsData.size = body.physicsData.values.size * 0.6;
+        }
+        const body4 = new ObjectEntity(this.game);
+
+        body4.setParent(this.owner);
+        body4.relationsData.values.owner = this.owner;
+        body4.relationsData.values.team = this.owner.relationsData.values.team;
+
+        body4.physicsData.values.size = body.physicsData.values.size * 0.4;
+
+        body4.styleData.values.color = this.owner.styleData.color;
+        body4.physicsData.values.sides = 3;
+        //pronounce.styleData.values.borderWidth = 0
+        body4.tick = () => {
+            body4.physicsData.size = body.physicsData.values.size * 0.4;
+        }
+    }
+}
+
+
+/** Hyperion's body addon. */
+class HyperionAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+        owner.positionData.values.flags |= PositionFlags.absoluteRotation;
+        const count = 3;
+        const offset = 0.65;
+        for (let i = 0; i < count; ++i) {
+            const base = new AutoTurret(owner, MiniHyperionDefinition, (32.5 * Math.SQRT2)/(20/3) * 0.8);
+            base.physicsData.sides = 4
+            const angle = base.ai.inputs.mouse.angle = PI2 * (i / 3);
+            base.influencedByOwnerInputs = true;
+            base.positionData.values.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+            base.positionData.values.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+            //base.positionData.values.flags ^= PositionFlags.absoluteRotation;
+            const tickBase = base.tick;
+            base.tick = (tick: number) => {
+                base.positionData.y = owner.physicsData.values.size * Math.sin(angle) * offset;
+                base.positionData.x = owner.physicsData.values.size * Math.cos(angle) * offset;
+                tickBase.call(base, tick);
+                base.positionData.angle = angle + owner.positionData.angle;
+            }
+        }
+        const spinner = new GuardObject(this.game, owner,1, 0.6, Math.PI, 0.1);
+
+        spinner.styleData.values.color = Color.Barrel;
+        spinner.styleData.flags |= StyleFlags.showsAboveParent
+        for (let i = 0; i < count; ++i) {
+            new Barrel(spinner, {...HyperionDefinition, angle: (PI2/3) * i})
+        }
+    }
+}
+
+/** Neso's body addon. */
+class NesoAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+        new UpgradedCelestialAddon(owner);
+        owner.positionData.values.flags |= PositionFlags.absoluteRotation;
+
+        const spinner = new GuardObject(this.game, owner,1, 0.6, Math.PI, 0.1);
+        const count = 3;
+        spinner.styleData.values.color = Color.Barrel;
+        spinner.styleData.flags |= StyleFlags.showsAboveParent
+        for (let i = 0; i < count; ++i) {
+            new Barrel(spinner, {...NesoDefinition, angle: (PI2/3) * i})
+        }
+    }
+}
 /**
  * All addons in the game by their ID.
  */
 export const AddonById: Record<addonId, typeof Addon | null> = {
     celestial: CelestialAddon,
+    nebula: NebulaAddon,
+    galaxy: GalaxyAddon,
+    pollux: PolluxAddon,
+    oberon: OberonAddon,
+    chasmPreAddon: ChasmPreAddon,
+    chasm: ChasmAddon,
+    voidPreAddon: VoidPreAddon,
+    cometPreAddon: CometPreAddon,
+    comet: CometAddon,
+    abyss: AbyssAddon,
     primepost: PrimePostAddon,
     primepre: PrimePreAddon,
+    triton: TritonAddon,
+    hyperion: HyperionAddon,
+    neso: NesoAddon,
     spike: SpikeAddon,
     dombase: DomBaseAddon,
     launcher: LauncherAddon,

@@ -188,12 +188,12 @@ export default class Sassafras extends AbstractBoss {
                 base.positionData.x = this.physicsData.values.size * Math.cos(angle) * offset;
                 
                 if (base.ai.state === AIState.idle){
-                    if(base.physicsData.values.flags & PositionFlags.absoluteRotation)base.physicsData.flags ^= PositionFlags.absoluteRotation;
+                    if(base.positionData.values.flags & PositionFlags.absoluteRotation)base.physicsData.flags ^= PositionFlags.absoluteRotation;
                 } else {
-                    base.physicsData.values.flags |= PositionFlags.absoluteRotation;
+                    base.positionData.values.flags |= PositionFlags.absoluteRotation;
                 }
                 tickBase.call(base, tick);
-                if (base.ai.state === AIState.idle) base.positionData.angle = angle + this.positionData.values.angle;
+                if (base.ai.state === AIState.idle) base.positionData.angle = angle;
             }
         }
     }

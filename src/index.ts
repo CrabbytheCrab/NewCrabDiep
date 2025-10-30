@@ -24,13 +24,14 @@ import * as util from "./util";
 import GameServer from "./Game";
 import TankDefinitions from "./Const/TankDefinitions";
 import { commandDefinitions } from "./Const/Commands";
-import { ColorsHexCode, CurrentArenaColors } from "./Const/Enums";
+import { ColorsHexCode } from "./Const/Enums";
 
 import FFAArena from "./Gamemodes/FFA";
 import SandboxArena from "./Gamemodes/Sandbox";
 import HugeMapArena from "./Gamemodes/Benchmark/HugeMap";
 import SanctuaryArena from "./Gamemodes/Sanctuary";
 import MazeArena from "./Gamemodes/Maze";
+import Teams2Arena from "./Gamemodes/Team2";
 
 const PORT = config.serverPort;
 const ENABLE_API = config.enableApi && config.apiLocation;
@@ -110,9 +111,6 @@ app.get("/*", (res, req) => {
             case "/colors":
                 res.writeStatus("200 OK").end(JSON.stringify(ColorsHexCode));
                 return;
-            case "/arena_colors":
-                res.writeStatus("200 OK").end(JSON.stringify(CurrentArenaColors));
-                return;
         }
     }
 
@@ -163,11 +161,11 @@ app.listen(PORT, (success) => {
     //
     // NOTES(0): As of now, both servers run on the same process (and thread) here
     const ffa = new GameServer(FFAArena, "FFA");
-    const maze = new GameServer(MazeArena, "Maze");
+    const teams = new GameServer(Teams2Arena, "2 Teams");
     const sbx = new GameServer(SandboxArena, "Sandbox");
     const sanctuary = new GameServer(SanctuaryArena, "Sanctuary");
     
-    games.push(ffa, maze, sanctuary, sbx);
+    games.push(ffa, teams, sanctuary, sbx);
 
 
     for (const game of games) { // So it can be accessed via transferClient
@@ -176,6 +174,7 @@ app.listen(PORT, (success) => {
 
     util.saveToLog("Servers up", "All servers booted up.", 0x37F554);
     util.log("Dumping endpoint -> gamemode routing table");
+    //util.log(30 * Math.PI/180);
     for (const game of games) console.log("> " + `localhost:${config.serverPort}/${game.gamemode}`.padEnd(40, " ") + " -> " + game.name);
 });
 

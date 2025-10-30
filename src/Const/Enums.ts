@@ -136,38 +136,6 @@ export const ColorsHexCode: Record<Color, number> = {
     Rocketeer     = 55
 }*/
 
-/**
- * The IDs for all the arena colors, by name.
- */
-export const enum ArenaColor {
-    Regular = 0,
-    Sanctuary = 1,
-    Underneath = 2,
-    kMaxColors = 3
-};
-/**
- * The hex color codes of each arena color (by ID), expressed as an int (0x00RRGGBB) or float. 
- * 0 is Arena Color/Mini Map, 
- * 1 is Arena Grid Color, 
- * 2 is Arena Grid Alpha, 
- * 3 is Arena Border Color, 
- * 4 is Arena Border Alpha, 
- * 5 is for Minimap Color, 
- * 6 is for Minimap Border Color, 
- * 7 is for Wall Color. 
- */
-export const ArenaColorsHexCodes: Record<ArenaColor, number[]> = {
-    [ArenaColor.Regular]: [0xCDCDCD, 0x000000, 0.1, 0x000000, 0.1, 0xCDCDCD, 0x555555, 0xBBBBBB],
-    [ArenaColor.Sanctuary]: [0x585858, 0x000000, 0.5, 0x000000, 0.2, 0x585858, 0x3F3F3F, 0xAAAAAA],
-    [ArenaColor.Underneath]: [0],
-    [ArenaColor.kMaxColors]: [0x000000,0x000000,0,0x000000,0,0x000000,0x000000,0x000000]
-}
-
-export let CurrentArenaColors: number[] = ArenaColorsHexCodes[ArenaColor.Regular];
-
-export function changeArenaColor(arenaColor: number[]) {
-    CurrentArenaColors = arenaColor;
-}
 export const enum Tank {
     Basic         = 0,
     Twin          = 1,
@@ -278,7 +246,123 @@ export const enum Tank {
     Spike         = 109,
     Saw           = 110,
     //Celestials
+    
     Nova          = 500,
+    Pulsar        = 501,
+    Satellite     = 502,
+    Debris        = 503,
+    Nebula        = 504,
+    Chasm         = 505,
+    Triton        = 506,
+
+
+    Quazar        = 507,
+    Blazar        = 508,
+    Magnetar      = 509,
+    Accretion     = 510,
+    Pulsar_Neb    = 511,
+    Pulsar_Cha    = 512,
+    Pulsar_Tri    = 513,
+
+
+    Moon          = 514,
+    Synope        = 515,
+    Amalthea      = 516,
+    Sputnik       = 517,
+    Satellite_Neb = 518,
+    Satellite_Cha = 519,
+    Satellite_Tri = 520,
+
+    Asteroid      = 521,
+    Charon        = 522,
+    Meteor        = 523,
+    Oort          = 524,
+    Debris_Neb    = 525,
+    Debris_Cha    = 526,
+    Debris_Tri    = 527,
+
+
+    Galaxy        = 528,
+    Pollux        = 529,
+    Oberon        = 530,
+    Void          = 531,
+    Coment        = 532,
+    Abyss         = 533,
+    Hyperion      = 534,
+    Neso          = 535,
+
+
+    Quazar_Neb    = 536,
+    Blazar_Neb    = 537,
+    Magnetar_Neb  = 538,
+    Accretion_Neb = 539,
+    Pulsar_Gal    = 540,
+    Pulsar_Pol    = 541,
+    Pulsar_Obe    = 542,
+
+    Quazar_Cha    = 543,
+    Blazar_Cha    = 544,
+    Magnetar_Cha  = 545,
+    Accretion_Cha = 546,
+    Pulsar_Voi    = 547,
+    Pulsar_Com    = 548,
+    Pulsar_Aby    = 549,
+    
+    Quazar_Tri    = 550,
+    Blazar_Tri    = 551,
+    Magnetar_Tri  = 552,
+    Accretion_Tri = 553,
+    Pulsar_Hyp    = 554,
+    Pulsar_Nes    = 555,
+
+
+    Moon_Neb      = 556,
+    Synope_Neb    = 557,
+    Amalthea_Neb  = 558,
+    Sputnik_Neb   = 559,
+    Satellite_Gal = 560,
+    Satellite_Pol = 561,
+    Satellite_Obe = 562,
+
+    Moon_Cha      = 563,
+    Synope_Cha    = 564,
+    Amalthea_Cha  = 565,
+    Sputnik_Cha   = 566,
+    Satellite_Voi = 567,
+    Satellite_Com = 568,
+    Satellite_Aby = 569,
+
+    Moon_Tri      = 570,
+    Synope_Tri    = 571,
+    Amalthea_Tri  = 572,
+    Sputnik_Tri   = 573,
+    Satellite_Hyp = 574,
+    Satellite_Nes = 575,
+
+
+    Asteroid_Neb  = 576,
+    Charon_Neb    = 577,
+    Meteor_Neb    = 578,
+    Oort_Neb      = 579,
+    Debris_Gal    = 580,
+    Debris_Pol    = 581,
+    Debris_Obe    = 582,
+
+    Asteroid_Cha  = 583,
+    Charon_Cha    = 584,
+    Meteor_Cha    = 585,
+    Oort_Cha      = 586,
+    Debris_Voi    = 587,
+    Debris_Com    = 588,
+    Debris_Aby    = 589,
+
+    Asteroid_Tri  = 590,
+    Charon_Tri    = 591,
+    Meteor_Tri    = 592,
+    Oort_Tri      = 583,
+    Debris_Hyp    = 594,
+    Debris_Nes    = 595,
+
     //Special tanks
     ArenaCloser   = 1000,
     Mothership    = 1001,
@@ -346,7 +430,8 @@ export const enum ClientBound {
     PlayerCount     = 0xA,
     ProofOfWork     = 0xB,
 
-    MapColors       = 0xAA
+    MapColors       = 0xAA,
+    ResetStatQueue  = 0xBB
 }
 
 /**
@@ -426,7 +511,9 @@ export const enum PhysicsFlags {
     isBase                  = 1 << 6,
     _unknown1               = 1 << 7,
     canEscapeArena          = 1 << 8,
-    canCollideWithWalls     = 1 << 9
+    canCollideWithWalls     = 1 << 9,
+    onlySameTrapCollision   = 1 << 10,
+
 }
 /**
  * The flag names for the barrel field group.
@@ -460,8 +547,13 @@ export function levelToScore(level: number, camera: CameraEntity): number {
         const player = camera.cameraData.values.player;
         levelToScoreTable[i] = levelToScoreTable[i - 1] + (40 / 9 * 1.06 ** (i - 1) * Math.min(31, i));
         if (Entity.exists(player)) {
-            //if(isTankBody(player)){
-            //}
+            if(player instanceof ObjectEntity){
+                if (player.isCelestial) {
+                    if(i < 60) levelToScoreTable[i] = levelToScoreTable[i-1] + 100000/60
+                    else levelToScoreTable[i] = levelToScoreTable[i - 1] + (30 / 9 * 1.06 ** (i - 1) * Math.min(61, i));
+                    if(i == 1) levelToScoreTable[i] = levelToScoreTable[i-1] + 100000/30
+                }
+            }
         }
     }
     if (level >= camera.maxPlayerLevel) return levelToScoreTable[camera.maxPlayerLevel - 1];
@@ -482,8 +574,9 @@ export function scoreToLevel(level: number, camera: CameraEntity): number {
     for (let i = 1; i < camera.maxPlayerLevel; ++i) {
         level = level - (40 * 9 / 1.06 ^ (i + 1) / Math.max(31,i));
         if (Entity.exists(player)) {
-            //if(isTankBody(player)){
-            //}
+            if(player instanceof ObjectEntity){
+                //if (player.isCelestial && i < 60)level = 100000/60
+            }
         }
     }
     if (level >= camera.maxPlayerLevel) return camera.maxPlayerLevel - 1;

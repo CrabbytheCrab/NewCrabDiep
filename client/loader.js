@@ -637,7 +637,8 @@ Module.todo.push([() => {
     Module.isRunning = true;
     Module.exports.wasmCallCtors();
     Module.exports.main();
-
+    setTimeout(() => {
+    }, 200)
 
     const reloadServersInterval = () => setTimeout(() => {
         reloadServersInterval();
@@ -1277,21 +1278,35 @@ class ASMConsts {
             const view = new Uint8Array(e.data);
             if (view[0] === 0xAA) { 
                 const colors = JSON.parse(new TextDecoder().decode(view.slice(1, view.length - 1)));
-                console.log(colors)
-                for (const [type, color] of Object.entries(colors)) {
+                for (const [type, value] of Object.entries(colors)) {
                     switch (type) {
                         case "base":
-                            input.execute(`ren_background_color ${color}`);
-                            break;
-                        case "border":
-                            input.execute(`ren_border_color ${color}`);
+                            input.execute(`ren_background_color ${value}`);
                             break;
                         case "grid":
-                            input.execute(`ren_grid_color ${color}`);
+                            input.execute(`ren_grid_color ${value}`);
+                            break;
+                        case "gridAlpha":
+                            input.execute(`ren_grid_base_alpha ${value}`);
+                            break;
+                        case "border":
+                            input.execute(`ren_border_color ${value}`);
+                            break;
+                        case "borderAlpha":
+                            input.execute(`ren_border_color_alpha ${value}`);
+                            break;
+                        case "miniMapColor":
+                            input.execute(`ren_minimap_background_color ${value}`);
+                            break;
+                        case "miniBorderMapColor":
+                            input.execute(`ren_minimap_border_color ${value}`);
                             break;
                     }
                 }
-            }     
+            }
+            if (view[0] === 0xBB) {
+                window.input.execute("game_stats_build 0");
+            }  
             if(view[0] === 7) {
                 let out = 0, i = 0, at = 1;
                 while(view[at] & 0x80) {

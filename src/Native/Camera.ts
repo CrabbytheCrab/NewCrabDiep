@@ -51,11 +51,6 @@ export class CameraEntity extends Entity {
         const previousLevel = this.cameraData.values.level;
         this.cameraData.level = level;
         this.sizeFactor = Math.pow(1.01, level - 1);
-        if (Entity.exists(this.cameraData.values.player)) {
-            if (this.cameraData.values.player instanceof TankBody) {
-                if(this.cameraData.values.player.isCelestial) this.sizeFactor = Math.pow(1.015, level - 1);
-            }
-        }
         this.cameraData.levelbarMax = level < this.maxPlayerLevel ? 1 : 0; // quick hack, not correct values
         if (level <= this.maxPlayerLevel) {
             this.cameraData.score = levelToScore(level, this);
@@ -68,7 +63,13 @@ export class CameraEntity extends Entity {
         }
 
         // Update stats available
-        const statIncrease = ClientCamera.calculateStatCount(level) - ClientCamera.calculateStatCount(previousLevel);
+        let statIncrease = ClientCamera.calculateStatCount(level) - ClientCamera.calculateStatCount(previousLevel);
+        if (Entity.exists(this.cameraData.values.player)) {
+            if(this.cameraData.values.player.isCelestial) { 
+                this.sizeFactor = Math.pow(1.015, level - 1);
+                statIncrease = ClientCamera.calculateStatCountCelestial(level) - ClientCamera.calculateStatCountCelestial(previousLevel);
+            }
+        }
         this.cameraData.statsAvailable += statIncrease;
 
         this.setFieldFactor(getTankById(this.cameraData.values.tank)?.fieldFactor || 1);
@@ -147,6 +148,14 @@ export default class ClientCamera extends CameraEntity {
 
         return Math.floor(level / 3) + 18;
     }
+
+    public static calculateStatCountCelestial(level: number) {
+        if (level <= 0) return 0;
+        if (level <= 60) return level - 1;
+
+        return Math.floor(level / 3) + 36;
+    }
+
 
     public constructor(game: GameServer, client: Client) {
         super(game);

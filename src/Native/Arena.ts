@@ -93,11 +93,17 @@ export default class ArenaEntity extends Entity implements TeamGroupEntity {
 
     /** The colors that make up the arena. */
     public ARENA_COLORS = {
-        base: 0x123456,
-        border: 0xFF0000,
-        grid: 0xFFFFFF
+        base: 0xCDCDCD,
+        border: 0x000000,
+        borderAlpha: 0.1,
+        grid: 0x000000,
+        gridAlpha: 0.1,
+        miniMapColor: 0xCDCDCD,
+        miniMapBorderColor: 0xBBBBBB
     }
-
+    //base: 0x123456,
+    //border: 0xFF0000,
+    //grid: 0xFFFFFF,
     /** Padding between arena size and maximum movement border. */
     public ARENA_PADDING: number = 200;
 
@@ -314,9 +320,10 @@ export default class ArenaEntity extends Entity implements TeamGroupEntity {
             tank.relationsData.values.team = this.celestialTeam;
             tank.styleData.values.color = this.celestialTeam.teamData.values.teamColor;
             if (client.camera) client.camera.relationsData.team = tank.relationsData.values.team;
-            this.spawnCelestials(tank, client)
+            this.spawnCelestials(tank, client);
             return;
         }
+        tank.setTank(tank.currentTank);
         this.actuallySpawnPlayer(tank, client);
     }
     public actuallySpawnPlayer(tank: TankBody, client: Client) {

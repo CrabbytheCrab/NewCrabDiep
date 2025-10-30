@@ -23,7 +23,7 @@ import { PhysicsFlags, StyleFlags } from "../../../Const/Enums";
 import { TankDefinition } from "../../../Const/TankDefinitions";
 import { Entity } from "../../../Native/Entity";
 import { AI, AIState } from "../../AI";
-import { BarrelBase } from "../TankBody";
+import TankBody, { BarrelBase } from "../TankBody";
 
 /**
  * The drone class represents the drone (projectile) entity in diep.
@@ -46,7 +46,10 @@ export default class Drone extends Bullet {
 
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
-
+        if(tank.rootParent instanceof TankBody) { 
+            tank = this.tank = tank.rootParent;
+            this.relationsData.values.owner = tank;
+        };
         const bulletDefinition = barrel.definition.bullet;
 
         this.usePosAngle = true;
@@ -61,7 +64,6 @@ export default class Drone extends Bullet {
         this.physicsData.values.flags |= PhysicsFlags.onlySameOwnerCollision;
         this.physicsData.values.flags ^= PhysicsFlags.canEscapeArena;
         this.styleData.values.flags &= ~StyleFlags.hasNoDmgIndicator;
-
         if (barrel.definition.bullet.lifeLength !== -1) {
             this.lifeLength = 88 * barrel.definition.bullet.lifeLength;
         } else {
@@ -80,6 +82,7 @@ export default class Drone extends Bullet {
 
         this.minDamageMultiplier = 1;
         this.maxDamageMultiplier = 1;
+
     }
 
     /** Extends LivingEntity.destroy - so that the drone count decreases for the barrel. */
@@ -106,7 +109,7 @@ export default class Drone extends Bullet {
             const base = this.baseAccel;
 
             // still a bit inaccurate, works though
-            let unitDist = (delta.x ** 2 + delta.y ** 2) / (Drone.MAX_RESTING_RADIUS);
+            let unitDist = (delta.x ** 2 + delta.y ** 2) / ((Drone.MAX_RESTING_RADIUS) * this.restingRangeMult);
             if (unitDist <= 1 && this.restCycle) {
                 this.baseAccel /= 6;
                 this.positionData.angle += 0.01 + 0.012 * unitDist;
@@ -116,7 +119,7 @@ export default class Drone extends Bullet {
                 delta.y = this.tank.positionData.values.y + Math.sin(offset) * this.tank.physicsData.values.size * this.restingRangeMult * 1.2 - this.positionData.values.y;
                 this.positionData.angle = Math.atan2(delta.y, delta.x);
                 if (unitDist < 0.5) this.baseAccel /= 3;
-                this.restCycle = (delta.x ** 2 + delta.y ** 2) <= 4 * (this.restingRangeMult * this.tank.physicsData.values.size ** 2);
+                this.restCycle = (delta.x ** 2 + delta.y ** 2) * this.restingRangeMult <= 4 * this.restingRangeMult * (this.tank.physicsData.values.size ** 2);
             }
 
             if (!Entity.exists(this.barrelEntity)) this.destroy();

@@ -104,6 +104,9 @@ export class Entity {
     /** Preserved entity hash (is never set to 0) */
     public preservedHash: number = 0;
 
+    /** If the tank is a celestial or not. */
+    public isCelestial = false;
+
     public constructor(game: GameServer) {
         this.game = game;
 

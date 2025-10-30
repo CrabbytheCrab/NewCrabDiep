@@ -21,17 +21,17 @@ import { Tank, Color } from "./Enums";
 import _TankDefinitions from "./TankDefinitions.json";
 
 /** The types of post addons that exist in the game, by their id. */
-export type postAddonId = "dompronounced" | "auto5" | "auto3" | "autosmasher" | "spike" | "pronounced" | "smasher" | "landmine" | "autoturret" | "weirdspike" | "auto2" | "auto7" | "autorocket" | "spiesk" | "blasterpronounced" | "Xpronounced" | "cuck" | "shotgunpronounced" | "auto4" | "spectre" | "joint3" | "lich" | "minelayer" | "megasmasher" | "saw" | "primepost" | "celestial";
+export type postAddonId = "dompronounced" | "auto5" | "auto3" | "autosmasher" | "spike" | "pronounced" | "smasher" | "landmine" | "autoturret" | "weirdspike" | "auto2" | "auto7" | "autorocket" | "spiesk" | "blasterpronounced" | "Xpronounced" | "cuck" | "shotgunpronounced" | "auto4" | "spectre" | "joint3" | "lich" | "minelayer" | "megasmasher" | "saw" | "primepost" | "celestial" | "nebula" | "chasm" | "triton" | "galaxy" | "pollux" | "oberon" | "comet" | "abyss" | "hyperion" | "neso";
 /** The types of post addons that exist in the game, by their id. */
-export type preAddonId = "dombase" | "launcher" | "launchermissile" | "glider" | "primepre"
+export type preAddonId = "dombase" | "launcher" | "launchermissile" | "glider" | "primepre" | "chasmPreAddon" | "voidPreAddon" | "cometPreAddon"
 /** A joint list of all post addon ids and pre addon ids. */
 export type addonId = preAddonId | postAddonId;
 
 /** The types of projectiles in the game */
-export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "blunt" | "shotgun10" | "shotgun3" | "lichdrone" | "megabomb" | "claymore" | "mine" | "reloadbullet" | "streamlinerbullet";
+export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "blunt" | "shotgun10" | "shotgun3" | "lichdrone" | "megabomb" | "claymore" | "mine" | "reloadbullet" | "streamlinerbullet" | "synopeminion";
 
 /** The types of barrel addons that exist in the game */
-export type barrelAddonId = "trapLauncher" | "purplebarrel" | "minionLauncher" | "engineerLauncher" | "bombLauncher" | "reversetrap" | "noScaleTrapLauncher" | "claymoreLauncher";
+export type barrelAddonId = "trapLauncher" | "purplebarrel" | "minionLauncher" | "engineerLauncher" | "bombLauncher" | "reversetrap" | "noScaleTrapLauncher" | "claymoreLauncher" | "celestialTrapLauncher" | "celestialMinionLauncher" | "celestialNoScale" | "celestialEngineerLauncher";
 
 /** Increase in opacity when taking damage. */
 export const visibilityRateDamage = 0.2;
@@ -150,6 +150,15 @@ export interface TankDefinition {
         displayAsStar?: boolean;
         /** If the tank should be rendered as a trapezoid (eg. drone barrels are trapezoids), sides needs to be set to 2 for this to take effect. */
         displayAsTrapezoid?: boolean;
+        /** If the tank has a Chasm body Upgrade. */
+        isChasm?: boolean;
+        /** If the tank has a Void body Upgrade. */
+        isVoid?: boolean;
+        /** If the tank has a Comet body Upgrade. */
+        isComet?: boolean;
+        /** If the tank has a Abyss body Upgrade. */
+        isAbyss?: boolean;
+
     },
     /** How much the opacity increases per tick while shooting. */
     visibilityRateShooting: number;

@@ -21,7 +21,7 @@ import Barrel from "../Barrel";
 
 import { HealthFlags, PositionFlags, PhysicsFlags, Stat, StyleFlags } from "../../../Const/Enums";
 import { TankDefinition } from "../../../Const/TankDefinitions";
-import { BarrelBase } from "../TankBody";
+import TankBody, { BarrelBase } from "../TankBody";
 import { EntityStateFlags } from "../../../Native/Entity";
 
 /**
@@ -97,8 +97,8 @@ export default class Bullet extends LivingEntity {
 
         const {x, y} = tank.getWorldPosition();
         this.isPassiveMode = this.tank.rootParent.isPassiveMode
-        this.positionData.values.x = x + (Math.cos(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * barrel.tank.sizeFactor))) - Math.sin(shootAngle) * barrel.definition.offset * sizeFactor + Math.cos(shootAngle) * (barrel.definition.distance || 0);
-        this.positionData.values.y = y + (Math.sin(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * barrel.tank.sizeFactor))) + Math.cos(shootAngle) * barrel.definition.offset * sizeFactor + Math.sin(shootAngle) * (barrel.definition.distance || 0);
+        this.positionData.values.x = x + (Math.cos(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * sizeFactor))) - Math.sin(shootAngle) * barrel.definition.offset * sizeFactor + Math.cos(shootAngle) * ((barrel.definition.distance || 0) * sizeFactor);
+        this.positionData.values.y = y + (Math.sin(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * sizeFactor))) + Math.cos(shootAngle) * barrel.definition.offset * sizeFactor + Math.sin(shootAngle) * ((barrel.definition.distance || 0) * sizeFactor);
         this.positionData.values.angle = shootAngle;
     }
 

@@ -53,6 +53,7 @@ import Blunt from "./Projectile/Blunt";
 import ReloadBullet from "./Projectile/ReloadBullet";
 import Eye from "../Misc/Eye";
 import Sassafras from "../Boss/Rift/Sassafras";
+import SynopeMinion from "./Projectile/SynopeMinion";
 
 
 /**
@@ -79,7 +80,7 @@ export class ShootCycle {
             this.reloadTime = reloadTime;
         }
 
-        const alwaysShoot = (this.barrelEntity.definition.forceFire) || (this.barrelEntity.definition.bullet.type === 'drone') || (this.barrelEntity.definition.bullet.type === 'minion');
+        const alwaysShoot = (this.barrelEntity.definition.forceFire) || (this.barrelEntity.definition.bullet.type === 'drone') || (this.barrelEntity.definition.bullet.type === 'minion') || (this.barrelEntity.definition.bullet.type === 'synopeminion');
 
         if (this.pos >= reloadTime) {
             // When its not shooting dont shoot, unless its a drone
@@ -343,6 +344,9 @@ export default class Barrel extends ObjectEntity {
                 if (tankDefinition && (tankDefinition.id === Tank.Manufacturer)) (projectile as Minion).noRotate = true;
                 if(this.tank instanceof Sassafras) new Eye(projectile as Minion, Color.Neutral, 30)
                 break;
+            case 'synopeminion':
+                projectile = new SynopeMinion(this, this.tank, tankDefinition, angle, this.definition.bullet.barrels);
+                break;
             case 'flame':
                 projectile = new Flame(this, this.tank, tankDefinition, angle);
                 break;
@@ -375,8 +379,8 @@ export default class Barrel extends ObjectEntity {
 
         this.physicsData.width = this.definition.width * sizeFactor;
         this.positionData.angle = this.definition.angle + (this.definition.trapezoidDirection);
-        this.positionData.x = Math.cos(this.definition.angle) * (size / 2 + (this.definition.distance || 0)) - Math.sin(this.definition.angle) * this.definition.offset * sizeFactor;
-        this.positionData.y = Math.sin(this.definition.angle) * (size / 2 + (this.definition.distance || 0)) + Math.cos(this.definition.angle) * this.definition.offset * sizeFactor;
+        this.positionData.x = Math.cos(this.definition.angle) * (size / 2 + ((this.definition.distance || 0) * sizeFactor)) - Math.sin(this.definition.angle) * this.definition.offset * sizeFactor;
+        this.positionData.y = Math.sin(this.definition.angle) * (size / 2 + ((this.definition.distance || 0) * sizeFactor)) + Math.cos(this.definition.angle) * this.definition.offset * sizeFactor;
 
         // Updates bullet accel too
         this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.BulletSpeed] || 0) * 3) * this.definition.bullet.speed;

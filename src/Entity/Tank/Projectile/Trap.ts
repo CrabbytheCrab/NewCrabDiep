@@ -43,6 +43,7 @@ export default class Trap extends Bullet {
         this.physicsData.values.sides = 3;
         if (this.physicsData.values.flags & PhysicsFlags.noOwnTeamCollision) this.physicsData.values.flags ^= PhysicsFlags.noOwnTeamCollision;
         this.physicsData.values.flags |= PhysicsFlags.onlySameOwnerCollision | PhysicsFlags.canCollideWithWalls;
+        this.isTrap = true;
         this.styleData.values.flags |= StyleFlags.isStar;
         this.styleData.values.flags &= ~StyleFlags.hasNoDmgIndicator;
 

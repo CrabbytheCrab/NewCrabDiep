@@ -330,14 +330,17 @@ export class MinionLauncher extends ObjectEntity {
     /** The barrel that this minion launcher is placed on. */
     public barrelEntity: Barrel;
     /** The second object to make the minion launcher. */
-    public secondAddon: ObjectEntity
+    public secondAddon: ObjectEntity;
     /** The third object to make the minion launcher. */
-    public thirdAddon: ObjectEntity
-    /** Resizes the trap minion; when its barrel owner gets bigger, the minion launcher must as well. */
-    public constructor(barrel: Barrel) {
-        super(barrel.game);
-        barrel.spawnOffset = 15;
+    public thirdAddon: ObjectEntity;
+    /** The front parts size. */
+    public offset: number;
 
+    /** Resizes the trap minion; when its barrel owner gets bigger, the minion launcher must as well. */
+    public constructor(barrel: Barrel, offset: number) {
+        super(barrel.game);
+        barrel.spawnOffset = offset;
+        this.offset = offset
         this.barrelEntity = barrel;
         this.setParent(barrel);
         this.relationsData.values.team = barrel;
@@ -359,7 +362,7 @@ export class MinionLauncher extends ObjectEntity {
 
         this.secondAddon.physicsData.values.sides = 2;
         this.secondAddon.physicsData.values.width = barrel.physicsData.values.width * 1.75;
-        this.secondAddon.physicsData.values.size = this.barrelEntity.tank.sizeFactor * 15;
+        this.secondAddon.physicsData.values.size = this.barrelEntity.tank.sizeFactor * offset;
         this.secondAddon.positionData.values.x = (barrel.physicsData.values.size + this.secondAddon.physicsData.values.size) / 2;
         //third addon
         this.thirdAddon = new ObjectEntity(barrel.game)
@@ -382,7 +385,7 @@ export class MinionLauncher extends ObjectEntity {
         this.positionData.x = (-this.barrelEntity.physicsData.values.size + this.physicsData.values.size)/ 2;
         this.secondAddon.physicsData.sides = 2;
         this.secondAddon.physicsData.width = this.barrelEntity.physicsData.values.width * 1.75;
-        this.secondAddon.physicsData.size = this.barrelEntity.tank.sizeFactor * 15;
+        this.secondAddon.physicsData.size = this.barrelEntity.tank.sizeFactor * this.offset;
         this.secondAddon.positionData.x = (this.barrelEntity.physicsData.values.size + this.secondAddon.physicsData.values.size) / 2;
         this.thirdAddon.physicsData.sides = 2;
         this.thirdAddon.physicsData.width = this.barrelEntity.physicsData.values.width * 1;
@@ -406,7 +409,19 @@ export class MinionLauncherAddon extends BarrelAddon {
     public constructor(owner: Barrel) {
         super(owner);
 
-        this.launcherEntity = new MinionLauncher(owner);
+        this.launcherEntity = new MinionLauncher(owner, 15);
+    }
+}
+
+/** Celestial Minion launcher - added onto spawners */
+export class CelestialMinionLauncherAddon extends BarrelAddon {
+    /** The actual trap launcher entity */
+    public launcherEntity: MinionLauncher;
+
+    public constructor(owner: Barrel) {
+        super(owner);
+
+        this.launcherEntity = new MinionLauncher(owner, 7.5);
     }
 }
 
@@ -421,11 +436,15 @@ export class NoScaleTrapLauncher extends ObjectEntity {
     /** The barrel that this trap launcher is placed on. */
     public barrelEntity: Barrel;
 
+    /** The front parts size. */
+    public offset: number;
+
     /** Resizes the trap launcher; when its barrel owner gets bigger, the trap launcher must as well. */
-    public constructor(barrel: Barrel) {
+    public constructor(barrel: Barrel, offset: number) {
         super(barrel.game);
 
         this.barrelEntity = barrel;
+        this.offset = offset
         this.setParent(barrel);
         this.relationsData.values.team = barrel;
         this.physicsData.values.flags = PhysicsFlags.isTrapezoid | PhysicsFlags.doChildrenCollision;
@@ -433,14 +452,14 @@ export class NoScaleTrapLauncher extends ObjectEntity {
 
         this.physicsData.values.sides = 2;
         this.physicsData.values.width = barrel.physicsData.values.width;
-        this.physicsData.values.size = (42 * this.barrelEntity.tank.sizeFactor) * (20 / 42);
+        this.physicsData.values.size = (42 * this.barrelEntity.tank.sizeFactor) * (offset  / 42);
         this.positionData.values.x = (barrel.physicsData.values.size + this.physicsData.values.size) / 2;
     }
 
     public resize() {
         this.physicsData.sides = 2;
         this.physicsData.width = this.barrelEntity.physicsData.values.width;
-        this.physicsData.size = (42 * this.barrelEntity.tank.sizeFactor) * (20 / 42);
+        this.physicsData.size = (42 * this.barrelEntity.tank.sizeFactor) * (this.offset  / 42);
         this.positionData.x = (this.barrelEntity.physicsData.values.size + this.physicsData.values.size) / 2;
     }
 
@@ -459,7 +478,19 @@ export class NoScaleTrapLauncherAddon extends BarrelAddon {
         super(owner);
 
         //this.launcherEntity = new StrikerLauncher(owner);
-        this.launcherEntity = new NoScaleTrapLauncher(owner);
+        this.launcherEntity = new NoScaleTrapLauncher(owner, 20);
+    }
+}
+
+export class CelestialNoScaleTrapLauncherAddon extends BarrelAddon {
+    /** The actual trap launcher entity */
+    public launcherEntity: NoScaleTrapLauncher;
+
+    public constructor(owner: Barrel) {
+        super(owner);
+
+        //this.launcherEntity = new StrikerLauncher(owner);
+        this.launcherEntity = new NoScaleTrapLauncher(owner, 10);
     }
 }
 
@@ -470,9 +501,13 @@ export class NoScaleTrapLauncherAddon extends BarrelAddon {
     bombLauncher: BombLauncherAddonAddon,
     claymoreLauncher: ClaymoreLauncherAddon,
     reversetrap : StrikerAddon,
+    celestialTrapLauncher: TrapLauncherAddon,
     engineerLauncher: EngineerLauncherAddon,
     trapLauncher: TrapLauncherAddon,
     noScaleTrapLauncher: NoScaleTrapLauncherAddon,
     minionLauncher: MinionLauncherAddon,
+    celestialMinionLauncher: CelestialMinionLauncherAddon,
+    celestialEngineerLauncher: EngineerLauncherAddon,
+    celestialNoScale: CelestialNoScaleTrapLauncherAddon,
     purplebarrel: PurpleBarrelAddon
 }

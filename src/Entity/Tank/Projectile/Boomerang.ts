@@ -55,7 +55,7 @@ export default class Boomerang extends Bullet {
     }
 
     public tick(tick: number) {
-        if (this.tankDefinition && this.tankDefinition.id === Tank.Orbiter){
+        if (this.tankDefinition && (this.tankDefinition.id === Tank.Orbiter || this.tankDefinition.id === Tank.Oort || this.tankDefinition.id === Tank.Oort_Neb || this.tankDefinition.id === Tank.Oort_Cha || this.tankDefinition.id === Tank.Oort_Tri)){
             if(tick - this.spawnTick >= this.lifeLength/24) {
 
 

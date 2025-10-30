@@ -17,7 +17,7 @@
 */
 
 import Client from "../Client";
-import { PhysicsFlags, Color, StyleFlags, Tank, PositionFlags, ArenaColor, ArenaColorsHexCodes, changeArenaColor } from "../Const/Enums";
+import { PhysicsFlags, Color, StyleFlags, Tank, PositionFlags, Stat, StatCount} from "../Const/Enums";
 import Portal from "../Entity/Misc/Portal";
 import PrimeCelesial from "../Entity/Misc/PrimeCelesial";
 import TeamBase from "../Entity/Misc/TeamBase";
@@ -53,11 +53,20 @@ export default class SanctuaryArena extends ArenaEntity {
 
     public constructor(game: GameServer) {
         super(game);
+        this.ARENA_COLORS = {
+            base: 0x585858,
+            border: 0x000000,
+            borderAlpha: 0.2,
+            grid: 0x000000,
+            gridAlpha: 0.5,
+            miniMapColor: 0x585858,
+            miniMapBorderColor: 0x3F3F3F
+        }
         this.updateBounds(8000, 8000);
         this.state = ArenaState.OPEN; // FFA should start instantly, no countdown
         this.celestialTeamBase = new TeamBase(game, this.celestialTeam, 0,0, 3000,3000, true, 0, 0);
-        new PrimeCelesial(this, this.celestialTeamBase)
-        new Portal(this.game, 0, 4000, 500,5000, "ffa")
+        //new PrimeCelesial(this, this.celestialTeamBase)
+        new Portal(this.game, 0, 3000, 500,500, "teams")
     }
     public tick(tick: number) {
         super.tick(tick);
@@ -73,6 +82,11 @@ export default class SanctuaryArena extends ArenaEntity {
         tank.positionData.values.y = base.positionData.values.y + xOffset;
         if(!tank.isCelestial) {
             tank.isCelestial = true;
+            client.resetStatQueue()
+            for(let i = 0; i < StatCount; ++i) {
+                if (client.camera) client.camera.cameraData.statsAvailable += client.camera.cameraData.statLevels[i as Stat];
+                if (client.camera) client.camera.cameraData.statLevels[i as Stat] = 0;
+            }
             tank.setTank(Tank.Nova)
         }
         this.playerTeamMap.set(client, base);
