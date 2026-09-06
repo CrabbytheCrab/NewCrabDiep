@@ -28,7 +28,7 @@ export type preAddonId = "dombase" | "launcher"
 export type addonId = preAddonId | postAddonId;
 
 /** The types of projectiles in the game */
-export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc";
+export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "glider" | "firework" | "flame" | "wall" | "croc";
 
 /** The types of barrel addons that exist in the game */
 export type barrelAddonId = "trapLauncher" | "purplebarrel";
@@ -60,6 +60,8 @@ export interface BulletDefinition {
     color?: Color;
     /** Overrides number of sides for projectile. */
     sides?: number;
+    /** Used to calculate the initial burst of speed of the bullet that the barrel shoots.*/
+    launchSpeed?: number;
 }
 
 /**

@@ -87,6 +87,9 @@ export default class Bullet extends LivingEntity {
 
         this.baseAccel = barrel.bulletAccel;
         this.baseSpeed = barrel.bulletAccel + 30 - Math.random() * bulletDefinition.scatterRate;
+        if(bulletDefinition.launchSpeed) {
+            this.baseSpeed *= bulletDefinition.launchSpeed;
+        }
 
         this.healthData.values.health = this.healthData.values.maxHealth = (1.5 * bulletPenetration + 2) * bulletDefinition.health;
         this.damagePerTick = (7 + bulletDamage * 3) * bulletDefinition.damage;
