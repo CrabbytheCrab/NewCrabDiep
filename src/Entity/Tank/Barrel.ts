@@ -73,8 +73,14 @@ export class ShootCycle {
         }
 
         if (this.pos >= reloadTime * (1 + this.barrelEntity.definition.delay)) {
+            const bulletCount = this.barrelEntity.definition.bulletsPerShot ?? 1;
             this.barrelEntity.barrelData.reloadTime = reloadTime;
             this.barrelEntity.shoot();
+            if(bulletCount > 1) {
+                for (let i = 0; i < bulletCount-1; ++i) {
+                    this.barrelEntity.shoot(false);
+                }
+            }
             this.pos = reloadTime * this.barrelEntity.definition.delay;
         }
 
@@ -143,8 +149,8 @@ export default class Barrel extends ObjectEntity {
     }
 
     /** Shoots a bullet from the barrel. */
-    public shoot() {
-        this.barrelData.flags ^= BarrelFlags.hasShot;
+    public shoot(hasShot = true) {
+        if(hasShot) this.barrelData.flags ^= BarrelFlags.hasShot;
 
         // No this is not correct
         const scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
@@ -226,7 +232,7 @@ export default class Barrel extends ObjectEntity {
         this.relationsData.values.team = this.tank.relationsData.values.team;
 
         if (!this.tank.rootParent.deletionAnimation){
-            this.attemptingShot = this.tank.inputs.attemptingShot();
+            this.attemptingShot = this.definition.rightClickFire ? this.tank.inputs.attemptingRepel() : this.tank.inputs.attemptingShot();
             this.shootCycle.tick();
         }
 

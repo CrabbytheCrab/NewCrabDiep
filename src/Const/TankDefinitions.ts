@@ -98,6 +98,10 @@ export interface BarrelDefinition {
     forceFire?: boolean;
     /** Barrel color - by default this is set to the 'Barrel' color id. */
     color?: Color;
+    /** The amount of bullets that are shot from the barrel. */
+    bulletsPerShot?: number;
+    /** Whether or not the barrel shoots with right click or with left click. */
+    rightClickFire?: boolean;
     /** The definition of the bullet that is shot from the barrel. */
     bullet: BulletDefinition;
 }
