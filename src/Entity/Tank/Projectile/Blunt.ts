@@ -19,7 +19,7 @@
 import Barrel from "../Barrel";
 import Bullet from "./Bullet";
 
-import { InputFlags, PhysicsFlags, PositionFlags, Stat, Tank } from "../../../Const/Enums";
+import { Color, InputFlags, PhysicsFlags, PositionFlags, Stat, StyleFlags, Tank } from "../../../Const/Enums";
 import { BarrelDefinition, TankDefinition } from "../../../Const/TankDefinitions";
 import { Entity } from "../../../Native/Entity";
 import { Inputs } from "../../AI";
@@ -31,6 +31,7 @@ import AbstractBoss from "../../Boss/AbstractBoss";
 import LivingEntity from "../../Live";
 import * as util from "../../../util";
 import { CameraEntity } from "../../../Native/Camera";
+import ObjectEntity from "../../Object";
 
 /**
  * Represents all blunt bullets in game.
@@ -55,7 +56,38 @@ export default class Blunt extends Bullet implements BarrelBase{
         const statLevels = tank.cameraEntity.cameraData?.values.statLevels.values;
         const bulletDamage = statLevels ? statLevels[Stat.BulletDamage] : 0;
     
-        new GuardObject(this.game, this, 1, 1.6, 0, .1);
         this.physicsData.pushFactor = ((7 / 3) + bulletDamage) * bulletDefinition.damage/bulletDefinition.absorbtionFactor;
+
+        if(this.styleData.flags & StyleFlags.isVisible) this.styleData.flags ^= StyleFlags.isVisible;
+        const body2 = new ObjectEntity(this.game);
+
+        body2.setParent(this);
+        body2.relationsData.values.owner = this;
+        body2.relationsData.values.team = this.relationsData.values.team;
+
+        body2.physicsData.values.size = this.physicsData.size;
+
+        body2.styleData.values.color = Color.Border;
+        body2.physicsData.values.sides = 1;
+        body2.physicsData.values.sides = 1;
+        body2.styleData.values.borderWidth = 7.5 * 2 * Math.SQRT2
+        body2.tick = () => {
+            body2.physicsData.size = this.physicsData.size;
+            body2.styleData.values.borderWidth = 7.5 * 2 * Math.SQRT2
+        }
+        const body = new ObjectEntity(this.game);
+
+        body.setParent(this);
+        body.relationsData.values.owner = this;
+        body.relationsData.values.team = this.relationsData.values.team;
+
+        body.physicsData.values.size = this.physicsData.size;
+
+        body.styleData.values.color = this.styleData.values.color;
+        body.physicsData.values.sides = 1;
+        body.tick = () => {
+            body.physicsData.size = this.physicsData.size;
+        }
+
     }
 }

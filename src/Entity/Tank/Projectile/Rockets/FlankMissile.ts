@@ -24,30 +24,31 @@ import Barrel from "../../Barrel";
 import { BarrelBase } from "../../TankBody";
 import Bullet from "../Bullet";
 import RocketBase from "../RocketBase";
+import Missile from "./Missile";
 
 
 
 /**
- * Barrel definition for the launcher missile's barrel.
+ * Barrel definition for the launcher flank missile's flank barrel.
  */
-const MissileBarrelDefinition: BarrelDefinition = {
-    angle: Math.PI,
+const FlankMissileBarrelDefinition: BarrelDefinition = {
+    angle: 0,
     offset: 0,
-    size: 70,
-    width: 37.8 * 1.08 * 1.138351789691479,
+    size: 85,
+    width: 33.6 * 1.08 * 1.138351789691479,
     delay: 0.5,
-    reload: 0.75,
+    reload: 1,
     nonRandomRecoil: true,
-    recoil: 6,
+    recoil: 1,
     isTrapezoid: false,
     trapezoidDirection: 0,
     addon: null,
     forceFire: true,
     bullet: {
         type: "bullet",
-        health: 0.6,
-        damage: 0.6,
-        speed: 0.7,
+        health: 0.5,
+        damage: 0.5,
+        speed: 1,
         scatterRate: 1,
         lifeLength: 0.5,
         sizeRatio: 1,
@@ -56,20 +57,18 @@ const MissileBarrelDefinition: BarrelDefinition = {
 };
 
 /**
- * Represents all launchers missiles in game.
+ * Represents all deployer's flank missiles in game.
  */
-export default class Missile extends RocketBase {
-    /** The missile's barrel */
-    private missileBarrel: Barrel;
+export default class FlankMissile extends Missile {
+    /** The missile's flank barrel */
+    private flankBarrel: Barrel;
 
 
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
         
 
-        const missileBarrel = this.missileBarrel = new Barrel(this, {...MissileBarrelDefinition});
+        const missileBarrel = this.flankBarrel = new Barrel(this, {...FlankMissileBarrelDefinition});
         missileBarrel.styleData.values.color = this.styleData.values.color;
-        this.inputs = new Inputs();
-        this.inputs.flags |= InputFlags.leftclick;
     }
 }

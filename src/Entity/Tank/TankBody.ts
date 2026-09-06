@@ -137,6 +137,11 @@ export default class TankBody extends LivingEntity implements BarrelBase {
         this.definition = tank;
         if (!Entity.exists(camera)) throw new Error("No camera");
         this.physicsData.sides = tank.sides;
+        if(tank.frictionOverride) {
+            this.friction = tank.frictionOverride;
+        } else {
+            this.friction = 0.1;
+        }
         this.styleData.opacity = 1;
 
         for (let i: Stat = 0; i < StatCount; ++i) {
@@ -149,7 +154,7 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             }
         }
         if(Entity.exists(camera) && this.isCelestial) {
-            camera.maxPlayerLevel = 90
+            camera.setMaxLevel(90);
         }
         // Size ratios
         this.baseSize = tank.baseSizeOverride ??  tank.sides === 4 ? Math.SQRT2 * 32.5 :  tank.sides === 5 ? Math.SQRT2 * 27.75 : tank.sides === 16 ? Math.SQRT2 * 25 : 50;
@@ -311,9 +316,7 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             this.physicsData.size = this.baseSize * this.cameraEntity.sizeFactor;
         }
         else this.regenPerTick = 0;
-        if (this._currentTank === Tank.Saw) {
-            this.addAcceleration(this.velocity.angle, this.velocity.magnitude * -0.05);
-        }
+
         super.tick(tick);
 
         // If we're currently in a deletion animation
@@ -335,12 +338,23 @@ export default class TankBody extends LivingEntity implements BarrelBase {
 
         if (this.definition.flags.zoomAbility && (this.inputs.flags & InputFlags.rightclick)) {
             if (!(this.cameraEntity.cameraData.values.flags & CameraFlags.usesCameraCoords)) {
-                const angle = Math.atan2(this.inputs.mouse.y - this.positionData.values.y, this.inputs.mouse.x - this.positionData.values.x)
-                this.cameraEntity.cameraData.cameraX = Math.cos(angle) * 1500 + this.positionData.values.x;
-                this.cameraEntity.cameraData.cameraY = Math.sin(angle) * 1500 + this.positionData.values.y;
+                const angle = Math.atan2(this.inputs.mouse.y - this.positionData.values.y, this.inputs.mouse.x - this.positionData.values.x);
+                let distance = 1500;
+                if(this._currentTank === Tank.Predator) {
+                    distance = 2500
+                    this.cameraEntity.cameraData.FOV *= 0.8;
+                }
+                this.cameraEntity.cameraData.cameraX = Math.cos(angle) * distance + this.positionData.values.x;
+                this.cameraEntity.cameraData.cameraY = Math.sin(angle) * distance + this.positionData.values.y;
                 this.cameraEntity.cameraData.flags |= CameraFlags.usesCameraCoords;
             }
-        } else if (this.cameraEntity.cameraData.values.flags & CameraFlags.usesCameraCoords) this.cameraEntity.cameraData.flags ^= CameraFlags.usesCameraCoords;
+        } else if (this.cameraEntity.cameraData.values.flags & CameraFlags.usesCameraCoords) { 
+            if(this._currentTank === Tank.Predator) {
+                const fieldFactor = getTankById(this.cameraEntity.cameraData.values.tank)?.fieldFactor
+                if(fieldFactor) this.cameraEntity.setFieldFactor(fieldFactor);
+            }
+            this.cameraEntity.cameraData.flags ^= CameraFlags.usesCameraCoords
+        };
 
         if (this.definition.flags.invisibility) {
 
@@ -352,11 +366,11 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             this.styleData.opacity = util.constrain(this.styleData.values.opacity, 0, 1);
         }
 
-
         // Update stat related
         updateStats: {
             // Damage
             this.damagePerTick = this.cameraEntity.cameraData.statLevels[Stat.BodyDamage] + 5;
+            if(this.isCelestial) this.cameraEntity.cameraData.statLevels[Stat.BodyDamage] + 8;
             if (this._currentTank === Tank.Spike || this._currentTank === Tank.Saw) this.damagePerTick += 2;
             if (this.definition.flags.isChasm || this.definition.flags.isAbyss) this.damagePerTick *= 1.25;
             if (this.definition.flags.isVoid) this.damagePerTick *= 1.75;
@@ -366,8 +380,8 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             const maxHealthCache = this.healthData.values.maxHealth;
 
             this.healthData.maxHealth = this.definition.maxHealth + 2 * (this.cameraEntity.cameraData.values.level - 1) + this.cameraEntity.cameraData.values.statLevels.values[Stat.MaxHealth] * 20;
-            if(this.isCelestial)this.definition.maxHealth = this.definition.maxHealth * 2 + 4 * (this.cameraEntity.cameraData.values.level - 1) + this.cameraEntity.cameraData.values.statLevels.values[Stat.MaxHealth] * 35;
-            if (this.definition.flags.isAbyss) this.healthData.maxHealth *= 1.5
+            if(this.isCelestial) this.healthData.maxHealth = (this.definition.maxHealth * 2) + 3 * (this.cameraEntity.cameraData.values.level - 1) + this.cameraEntity.cameraData.values.statLevels.values[Stat.MaxHealth] * 30;
+            if (this.definition.flags.isAbyss) this.healthData.maxHealth = Math.floor(this.healthData.maxHealth * 1.5);
             if (this.definition.flags.isComet) this.healthData.maxHealth *= 0.5
             if (this.healthData.values.health === maxHealthCache) this.healthData.health = this.healthData.maxHealth; // just in case
             else if (this.healthData.values.maxHealth !== maxHealthCache) {
@@ -394,7 +408,7 @@ export default class TankBody extends LivingEntity implements BarrelBase {
             this.physicsData.width = this.physicsData.size * (this.definition.widthRatio ?? 1);
             if (this.definition.flags.displayAsTrapezoid === true) this.physicsData.flags |= PhysicsFlags.isTrapezoid;
         } else if (this.definition.flags.displayAsStar === true) this.styleData.flags |= StyleFlags.isStar;
-
+        //console.log(this.healthData.maxHealth)
         this.velocity.add({
             x: this.inputs.movement.x * this.cameraEntity.cameraData.values.movementSpeed,
             y: this.inputs.movement.y * this.cameraEntity.cameraData.values.movementSpeed

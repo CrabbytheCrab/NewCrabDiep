@@ -493,6 +493,13 @@ export class CelestialNoScaleTrapLauncherAddon extends BarrelAddon {
         this.launcherEntity = new NoScaleTrapLauncher(owner, 10);
     }
 }
+export class InvisibleAddon extends BarrelAddon {
+
+    public constructor(owner: Barrel) {
+        super(owner);
+        if(this.owner.styleData.flags & StyleFlags.isVisible) this.owner.styleData.flags ^= StyleFlags.isVisible;
+    }
+}
 
 /**
  * All barrel addons in the game by their ID.
@@ -509,5 +516,6 @@ export class CelestialNoScaleTrapLauncherAddon extends BarrelAddon {
     celestialMinionLauncher: CelestialMinionLauncherAddon,
     celestialEngineerLauncher: EngineerLauncherAddon,
     celestialNoScale: CelestialNoScaleTrapLauncherAddon,
-    purplebarrel: PurpleBarrelAddon
+    purplebarrel: PurpleBarrelAddon,
+    invisibleBarrel: InvisibleAddon
 }

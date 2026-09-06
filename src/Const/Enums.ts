@@ -46,8 +46,10 @@ export const enum Color {
     Fallen = 17,
     NecromancerPentagon = 18,
     Radiant = 19,
+    White = 20,
+    EnemyHexagon = 21,
 
-    kMaxColors = 20
+    kMaxColors = 22
 }
 
 /**
@@ -74,6 +76,8 @@ export const ColorsHexCode: Record<Color, number> = {
     [Color.Fallen]: 0xC0C0C0,
     [Color.NecromancerPentagon]: 0x7368FF,
     [Color.Radiant]: 0xFFE869,
+    [Color.White]: 0xFFFFFF,
+    [Color.EnemyHexagon]: 0xFCAD76,
     [Color.kMaxColors]: 0x000000
 }
 
@@ -193,8 +197,8 @@ export const enum Tank {
     Ranger        = 54,
     Stalker       = 55,
     Marksman      = 56,
-    Predator      = 58,
-    XHunter       = 59,
+    XHunter       = 58,
+    Predator      = 59,
     Blunderbuss   = 60,
     Bunkerer      = 61,
     Skimmer       = 63,
@@ -245,6 +249,9 @@ export const enum Tank {
     AutoSmasher   = 108,
     Spike         = 109,
     Saw           = 110,
+    AutoSpawner   = 111,
+    Deployer      = 112,
+    HexadecaTank  = 113,
     //Celestials
     
     Nova          = 500,
@@ -431,7 +438,8 @@ export const enum ClientBound {
     ProofOfWork     = 0xB,
 
     MapColors       = 0xAA,
-    ResetStatQueue  = 0xBB
+    ResetStatQueue  = 0xBB,
+    StatQueue       = 0xBC,
 }
 
 /**
@@ -513,6 +521,7 @@ export const enum PhysicsFlags {
     canEscapeArena          = 1 << 8,
     canCollideWithWalls     = 1 << 9,
     onlySameTrapCollision   = 1 << 10,
+    isSolidWallReimplemented= 1 << 12,
 
 }
 /**
@@ -569,17 +578,21 @@ export function levelToScore(level: number, camera: CameraEntity): number {
  * 
  * `(level)->score at level`
  */
-export function scoreToLevel(level: number, camera: CameraEntity): number {
+export function scoreToLevel(score: number, camera: CameraEntity): number {
     const player = camera.cameraData.values.player;
     for (let i = 1; i < camera.maxPlayerLevel; ++i) {
-        level = level - (40 * 9 / 1.06 ^ (i + 1) / Math.max(31,i));
+        score = score - (40 * 9 / 1.06 ^ (i + 1) / Math.max(31,i));
         if (Entity.exists(player)) {
             if(player instanceof ObjectEntity){
-                //if (player.isCelestial && i < 60)level = 100000/60
+                if (player.isCelestial) {
+                    if(i < 60) score = score - 100000/60
+                    else score = score - (30 / 9 * 1.06 ** (i - 1) * Math.min(61, i));
+                    if(i == 1) score = score - 100000/30
+                }
             }
         }
     }
-    if (level >= camera.maxPlayerLevel) return camera.maxPlayerLevel - 1;
-    if (level <= 0) return 0;
-    return level
+    if (score >= camera.maxPlayerLevel) return camera.maxPlayerLevel - 1;
+    if (score <= 0) return 0;
+    return score
 }

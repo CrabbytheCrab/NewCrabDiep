@@ -29,7 +29,7 @@ export class Swarm extends Drone {
     public constructor(barrel: Barrel,  tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
         this.ai.viewRange = 2000;
-        this.physicsData.values.flags |= PhysicsFlags.canEscapeArena | PhysicsFlags.noOwnTeamCollision;
+        this.physicsData.values.flags |= PhysicsFlags.canEscapeArena;
     }
 
     // TODO:

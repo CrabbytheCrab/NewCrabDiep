@@ -32,7 +32,7 @@ const SkimmerBarrelDefinition: BarrelDefinition = {
     angle: Math.PI / 2,
     offset: 0,
     size: 70,
-    width: 42,
+    width: 42/ 1.106212746062049,
     delay: 0,
     reload: 0.35,
     recoil: 0,
@@ -45,7 +45,7 @@ const SkimmerBarrelDefinition: BarrelDefinition = {
         damage: 3 / 5,
         speed: 1.1,
         scatterRate: 1,
-        lifeLength: 0.3125,
+        lifeLength: 0.28,
         sizeRatio: 1,
         absorbtionFactor: 1
     }
@@ -82,21 +82,10 @@ export default class Skimmer extends Bullet implements BarrelBase {
         const skimmerBarrels: Barrel[] = this.skimmerBarrels =[];
 
         const s1 = new class extends Barrel {
-            // Keep the width constant
-            protected resize() {
-                super.resize();
-                this.physicsData.values.width = this.definition.width
-                // this.physicsData.state.width = 0;
-            }
         }(this, {...SkimmerBarrelDefinition});
         const s2Definition = {...SkimmerBarrelDefinition};
         s2Definition.angle += Math.PI
         const s2 = new class extends Barrel {
-            // Keep the width constant
-            protected resize() {
-                super.resize();
-                this.physicsData.width = this.definition.width
-            }
         }(this, s2Definition);
 
         s1.styleData.values.color = this.styleData.values.color;

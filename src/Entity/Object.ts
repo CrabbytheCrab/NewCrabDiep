@@ -97,6 +97,9 @@ export default class ObjectEntity extends Entity {
     /** Velocity used for physics. */
     public velocity = new Vector();
 
+    /** Friction used for physics. */
+    public friction = 0.1;
+
     /** For internal spatial hash grid */
     private _queryId: number = -1;
 
@@ -252,7 +255,7 @@ export default class ObjectEntity extends Entity {
     /** Updates the acceleration. */
     public maintainVelocity(angle: number, maxSpeed: number) {
         // acceleration * 10 = max speed. this relationship is caused by friction
-        this.addVelocity(angle, maxSpeed * 0.1);
+        this.addVelocity(angle, maxSpeed * this.friction);
     }
 
     /** Internal physics method used for calculating the current position of the object. */
@@ -264,7 +267,7 @@ export default class ObjectEntity extends Entity {
         this.positionData.y += this.velocity.y;
 
         // apply friction opposite of current velocity
-        this.addVelocity(this.velocity.angle, this.velocity.magnitude * -0.1);
+        this.addVelocity(this.velocity.angle, this.velocity.magnitude * -this.friction);
     }
 
     /** Applies knockback after hitting `entity` */
@@ -279,7 +282,7 @@ export default class ObjectEntity extends Entity {
 
         if ((entity.physicsData.values.flags & PhysicsFlags.isSolidWall || entity.physicsData.values.flags & PhysicsFlags.isBase) && !(this.positionData.values.flags & PositionFlags.canMoveThroughWalls))  {
             if (entity.physicsData.values.flags & PhysicsFlags.isSolidWall) {
-                kbMagnitude /= this.physicsData.values.absorbtionFactor
+                kbMagnitude /= this.physicsData.values.absorbtionFactor;
                 if (this.relationsData.values.owner?.positionData && this.relationsData.values.team !== entity.relationsData.values.team) {
                     // this is a bit off still. k
                     if(!(this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls)){
@@ -293,6 +296,34 @@ export default class ObjectEntity extends Entity {
             }
             kbMagnitude /= 0.3;
         }
+        if (entity.physicsData.values.flags & PhysicsFlags.isSolidWallReimplemented) {
+            if (this.positionData.values.flags & PositionFlags.canMoveThroughWalls) {
+                kbMagnitude = 0;
+            } else {
+                const relA = Math.cos(kbAngle + entity.positionData.values.angle) / entity.physicsData.values.size;
+                const relB = Math.sin(kbAngle + entity.positionData.values.angle) / entity.physicsData.values.width;
+                const topY = (-entity.physicsData.width / 2) + entity.positionData.y;
+                const bottomY = (entity.physicsData.width / 2) + entity.positionData.y;
+                const leftX = (-entity.physicsData.size / 2) + entity.positionData.x;
+                const rightX = (entity.physicsData.size / 2) + entity.positionData.x;
+                if (Math.abs(relA) <= Math.abs(relB)) {
+                    if (relB < 0) {
+                        this.positionData.y = topY - this.physicsData.size;
+                    }
+                    else {
+                        this.positionData.y = bottomY + this.physicsData.size;
+                    }
+                } else {
+                    if (relA < 0) {
+                        this.positionData.x = leftX - this.physicsData.size;
+                    }
+                    else {
+                        this.positionData.x = rightX + this.physicsData.size;
+                    }
+                }
+            }
+            return;
+        }
         if (entity.physicsData.values.sides === 2) {
             if (this.positionData.values.flags & PositionFlags.canMoveThroughWalls) {
                 kbMagnitude = 0;
@@ -301,34 +332,14 @@ export default class ObjectEntity extends Entity {
                 const relB = Math.sin(kbAngle + entity.positionData.values.angle) / entity.physicsData.values.width;
                 if (Math.abs(relA) <= Math.abs(relB)) {
                     if (relB < 0) {
-                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
-                            this.positionData.y = entity.positionData.y - (this.physicsData.size + (entity.physicsData.size)/2);
-                            this.setVelocity(this.velocity.x, 0);
-                            this.accel.y = 0
-                        }*/
                         this.addAcceleration(Math.PI * 3 / 2, kbMagnitude);
                     } else {
-                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
-                            this.positionData.y = entity.positionData.y + (this.physicsData.size + (entity.physicsData.size)/2);
-                            this.setVelocity(this.velocity.x, 0);
-                            this.accel.y = 0
-                        }*/
                         this.addAcceleration(Math.PI * 1 / 2, kbMagnitude);
                     }
                 } else {
                     if (relA < 0) {
-                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
-                            this.positionData.x = entity.positionData.x - (this.physicsData.size + (entity.physicsData.size)/2);
-                            this.setVelocity(0, this.velocity.y);
-                            this.accel.x = 0
-                        }*/
                         this.addAcceleration(Math.PI, kbMagnitude);
                     } else {
-                        /*if(entity.physicsData.values.flags & PhysicsFlags.isSolidWall && this.physicsData.values.flags & PhysicsFlags.canCollideWithWalls) {
-                            this.positionData.x = entity.positionData.x + (this.physicsData.size + (entity.physicsData.size)/2);
-                            this.setVelocity(0, this.velocity.y);
-                            this.accel.x = 0
-                        }*/
                     
                         this.addAcceleration(0, kbMagnitude);
                     }

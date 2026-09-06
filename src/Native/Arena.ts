@@ -99,7 +99,7 @@ export default class ArenaEntity extends Entity implements TeamGroupEntity {
         grid: 0x000000,
         gridAlpha: 0.1,
         miniMapColor: 0xCDCDCD,
-        miniMapBorderColor: 0xBBBBBB
+        miniMapBorderColor: 0x797979
     }
     //base: 0x123456,
     //border: 0xFF0000,

@@ -1298,7 +1298,7 @@ class ASMConsts {
                         case "miniMapColor":
                             input.execute(`ren_minimap_background_color ${value}`);
                             break;
-                        case "miniBorderMapColor":
+                        case "miniMapBorderColor":
                             input.execute(`ren_minimap_border_color ${value}`);
                             break;
                     }

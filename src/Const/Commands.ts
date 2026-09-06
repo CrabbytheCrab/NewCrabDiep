@@ -37,6 +37,7 @@ import SpinnerSentry from "../Entity/Shape/SentryVariants/SpinnerSentry";
 import Sassafras from "../Entity/Boss/Rift/Sassafras";
 import Peacekeeper from "../Entity/Boss/Rift/Peacekeeper";
 import RoguePalisade from "../Entity/Boss/Rift/RoguePalisade";
+import Wormhole from "../Entity/Misc/Wormhole";
 
 const RELATIVE_POS_REGEX = new RegExp(/~(-?\d+)?/);
 
@@ -302,6 +303,7 @@ export const commandCallbacks = {
 
         const game = client.camera?.game;
         const TEntity = new Map([
+            ["Wormhole", Wormhole],
             ["Defender", Defender],
             ["Haxxor", Haxxor],
             ["Sassafras", Sassafras],

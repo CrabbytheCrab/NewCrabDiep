@@ -20,7 +20,7 @@ import GameServer from "../../Game";
 import ObjectEntity from "../Object";
 import AutoTurret from "./AutoTurret";
 
-import { Color, PositionFlags, PhysicsFlags, StyleFlags } from "../../Const/Enums";
+import { Color, PositionFlags, PhysicsFlags, StyleFlags, InputFlags } from "../../Const/Enums";
 import { BarrelBase } from "./TankBody";
 import { addonId, BarrelDefinition } from "../../Const/TankDefinitions";
 import { AI, AIState, Inputs } from "../AI";
@@ -150,20 +150,20 @@ export class Addon {
         }
     }
     protected createAutoTrapTurrets(count: number) {
-        const rotPerTick = AI.PASSIVE_ROTATION * 3;
-        const MAX_ANGLE_RANGE = PI2 / 4; // keep within 90º each side
+        const rotPerTick = AI.PASSIVE_ROTATION;
+        const MAX_ANGLE_RANGE = PI2 / 3.6; // keep within 100º each side
 
         const rotator = this.createGuard(1, .1, 0, rotPerTick) as GuardObject & { turrets: AutoTurret[] };
         rotator.turrets = [];
 
-        const ROT_OFFSET = 0.8;
+        const ROT_OFFSET = 0.9;
 
         if (rotator.styleData.values.flags & StyleFlags.isVisible) rotator.styleData.values.flags ^= StyleFlags.isVisible;
 
         for (let i = 0; i < count; ++i) {
             const base = new AutoTurret(rotator, AutoTurretTrapDefinition);
             base.influencedByOwnerInputs = true;
-            base.baseSize *= 1.125
+            base.baseSize *= 1.2;
             const angle = base.ai.inputs.mouse.angle = PI2 * (i / count);
             base.ai.passiveRotation = rotPerTick;
             base.ai.targetBullets = true
@@ -189,7 +189,10 @@ export class Addon {
 
                 tickBase.call(base, tick);
 
-                if (base.ai.state === AIState.idle) base.positionData.angle = angle + rotator.positionData.values.angle;
+                if (base.ai.state === AIState.idle) { 
+                    base.positionData.angle = angle + rotator.positionData.values.angle;
+                    if((this.owner.inputs.attemptingRepel() || this.owner.inputs.attemptingShot())) base.inputs.flags |= InputFlags.leftclick;
+                }
             }
 
             rotator.turrets.push(base);
@@ -375,23 +378,23 @@ const AutoTurretMiniDefinition: BarrelDefinition = {
 const AutoTurretTrapDefinition: BarrelDefinition = {
     angle: 0,
     offset: 0,
-    size: 40,
-    width: 56.7 * 0.7,
+    size: 45,
+    width: 42,
     delay: 0.01,
-    reload: 3,
+    reload: 1.5,
     recoil: 0.3,
     isTrapezoid: false,
     trapezoidDirection: 0,
     addon: "noScaleTrapLauncher",
     bullet: {
         type: "trap",
-        health: 0.7,
-        damage: 2,
+        health: 1.2,
+        damage: 1.5,
         speed: 2.5,
         scatterRate: 1,
-        lifeLength: 4,
+        lifeLength: 2.14,
         sizeRatio: 1.1,
-        absorbtionFactor: 0.8
+        absorbtionFactor: 1
     }
 };
 
@@ -852,7 +855,7 @@ class MissileAddon extends Addon {
 
         const launcher = new ObjectEntity(this.game);
         const sizeRatio = 65.5 * Math.SQRT2 / 50;
-        const widthRatio = 42 / 50;
+        const widthRatio = 46.2 / 50;
         const size = this.owner.physicsData.values.size;
 
         launcher.setParent(this.owner);
@@ -1036,8 +1039,8 @@ class PronouncedShotAddon extends Addon {
         super(owner);
 
         const pronounce = new ObjectEntity(this.game);
-        const sizeRatio = 50 / 50;
-        const widthRatio = 42 / 50 * 1.85;
+        const sizeRatio = 52.5 / 50;
+        const widthRatio = 50 / 50;
         const offsetRatio = 40 / 50;
         const size = this.owner.physicsData.values.size;
 
@@ -1049,8 +1052,144 @@ class PronouncedShotAddon extends Addon {
         pronounce.physicsData.values.width = widthRatio * size;
         pronounce.positionData.values.x = offsetRatio * size;
         pronounce.positionData.values.angle = Math.PI;
-
+        
         pronounce.styleData.values.color = Color.Barrel;
+        pronounce.physicsData.values.flags |= PhysicsFlags.isTrapezoid;
+        pronounce.physicsData.values.sides = 2;
+
+        pronounce.tick = () => {
+            const size = this.owner.physicsData.values.size;
+
+            pronounce.physicsData.size = sizeRatio * size;
+            pronounce.physicsData.width = widthRatio * size;
+            pronounce.positionData.x = offsetRatio * size;
+        }
+    }
+}
+
+/** The thing above mega cannons's barrel. */
+class PronouncedMegaAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const pronounce = new ObjectEntity(this.game);
+        const sizeRatio = 55 / 50;
+        const widthRatio = 55/50;
+        const offsetRatio = 38.75 / 50
+        const size = this.owner.physicsData.values.size;
+
+        pronounce.setParent(this.owner);
+        pronounce.relationsData.values.owner = this.owner;
+        pronounce.relationsData.values.team = this.owner.relationsData.values.team
+
+        pronounce.physicsData.values.size = sizeRatio * size;
+        pronounce.physicsData.values.width = widthRatio * size;
+        pronounce.positionData.values.x = offsetRatio * size;
+        pronounce.positionData.values.angle = Math.PI;
+        
+        pronounce.styleData.values.color = Color.Barrel;
+        pronounce.physicsData.values.flags |= PhysicsFlags.isTrapezoid;
+        pronounce.physicsData.values.sides = 2;
+
+        pronounce.tick = () => {
+            const size = this.owner.physicsData.values.size;
+
+            pronounce.physicsData.size = sizeRatio * size;
+            pronounce.physicsData.width = widthRatio * size;
+            pronounce.positionData.x = offsetRatio * size;
+        }
+    }
+}
+
+/** The thing above dual barrels's barrel. */
+class PronouncedDualAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const pronounce = new ObjectEntity(this.game);
+        const sizeRatio = 75 / 50;
+        const widthRatio = 52.5 / 50;
+        const offsetRatio = 40 / 50;
+        const size = this.owner.physicsData.values.size;
+
+        pronounce.setParent(this.owner);
+        pronounce.relationsData.values.owner = this.owner;
+        pronounce.relationsData.values.team = this.owner.relationsData.values.team
+
+        pronounce.physicsData.values.size = sizeRatio * size;
+        pronounce.physicsData.values.width = widthRatio * size;
+        pronounce.positionData.values.x = offsetRatio * size;
+        
+        pronounce.styleData.values.color = Color.Barrel;
+        pronounce.physicsData.values.flags |= PhysicsFlags.isTrapezoid;
+        pronounce.physicsData.values.sides = 2;
+
+        pronounce.tick = () => {
+            const size = this.owner.physicsData.values.size;
+
+            pronounce.physicsData.size = sizeRatio * size;
+            pronounce.physicsData.width = widthRatio * size;
+            pronounce.positionData.x = offsetRatio * size;
+        }
+    }
+}
+
+
+/** The thing above blunderbuss' barrel. */
+class PronouncedBlunderAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const pronounce = new ObjectEntity(this.game);
+        const sizeRatio = 70 / 50;
+        const widthRatio = 46.2 / 50;
+        const offsetRatio = 40 / 50;
+        const size = this.owner.physicsData.values.size;
+
+        pronounce.setParent(this.owner);
+        pronounce.relationsData.values.owner = this.owner;
+        pronounce.relationsData.values.team = this.owner.relationsData.values.team
+
+        pronounce.physicsData.values.size = sizeRatio * size;
+        pronounce.physicsData.values.width = widthRatio * size;
+        pronounce.positionData.values.x = offsetRatio * size;
+        
+        pronounce.styleData.values.color = Color.Barrel;
+        pronounce.physicsData.values.flags |= PhysicsFlags.isTrapezoid;
+        pronounce.physicsData.values.sides = 2;
+
+        pronounce.tick = () => {
+            const size = this.owner.physicsData.values.size;
+
+            pronounce.physicsData.size = sizeRatio * size;
+            pronounce.physicsData.width = widthRatio * size;
+            pronounce.positionData.x = offsetRatio * size;
+        }
+    }
+}
+
+/** The thing above pellet shot's barrel. */
+class PronouncedPelletAddon extends Addon {
+    public constructor(owner: BarrelBase) {
+        super(owner);
+
+        const pronounce = new ObjectEntity(this.game);
+        const sizeRatio = 52.5 / 50;
+        const widthRatio = (52.5/1.5)/50;
+        const offsetRatio = 40 / 50;
+        const size = this.owner.physicsData.values.size;
+
+        pronounce.setParent(this.owner);
+        pronounce.relationsData.values.owner = this.owner;
+        pronounce.relationsData.values.team = this.owner.relationsData.values.team
+
+        pronounce.physicsData.values.size = sizeRatio * size;
+        pronounce.physicsData.values.width = widthRatio * size;
+        pronounce.positionData.values.x = offsetRatio * size;
+        pronounce.positionData.values.angle = Math.PI;
+        
+        pronounce.styleData.values.color = Color.Barrel;
+        pronounce.physicsData.values.flags |= PhysicsFlags.isTrapezoid;
         pronounce.physicsData.values.sides = 2;
 
         pronounce.tick = () => {
@@ -1962,7 +2101,11 @@ export const AddonById: Record<addonId, typeof Addon | null> = {
     launchermissile: MissileAddon,
     dompronounced: PronouncedDomAddon,
     blasterpronounced: PronouncedBlastAddon,
+    blunderpronounced: PronouncedBlunderAddon,
+    pelletpronounced: PronouncedPelletAddon,
     shotgunpronounced: PronouncedShotAddon,
+    dualpronounced: PronouncedDualAddon,
+    megapronounced: PronouncedMegaAddon,
     auto5: Auto5Addon,
     auto3: Auto3Addon,
     auto4: Auto4Addon,

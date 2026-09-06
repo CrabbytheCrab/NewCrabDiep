@@ -90,6 +90,8 @@ export default class AutoTurret extends ObjectEntity {
 
         this.owner = owner;
         
+        this.reloadTime = this.owner.reloadTime;
+
         this.setParent(owner);
         this.relationsData.values.owner = owner;
 

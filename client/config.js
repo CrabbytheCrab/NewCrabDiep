@@ -399,17 +399,17 @@ const CUSTOM_ADDONS = {
             socket.defaults();
             
             socket.positionData.angle = i * Math.PI * 2 / count;
-            socket.positionData.x = Math.cos(socket.positionData.angle) * 40;
-            socket.positionData.y = Math.sin(socket.positionData.angle) * 40;
-            socket.physicsData.size = 25 * 1.125;
+            socket.positionData.x = Math.cos(socket.positionData.angle) * 45;
+            socket.positionData.y = Math.sin(socket.positionData.angle) * 45;
+            socket.physicsData.size = 25 * 1.2;
             // Color.Barrel
             socket.styleData.color = 1;
 
             const barrel = socket.createChild(true);
             barrel.defaults();
-            barrel.physicsData.size = 40;
+            barrel.physicsData.size = 45;
             barrel.physicsData.sides = 2;
-            barrel.physicsData.width = 0.7 * 56.7;
+            barrel.physicsData.width = 42;
             // angle + shootingAngle
             barrel.positionData.angle = 0;
             // Math.cos(angle) * (size / 2 + distance) - Math.sin(angle) * offset
@@ -653,7 +653,7 @@ const CUSTOM_ADDONS = {
 
         const rect1 = entity.createChild(false);
         const sizeRatio = 65.5 * Math.SQRT2 / 50;
-        const widthRatio = 42 / 50;
+        const widthRatio = 46.2 / 50;
         rect1.defaults();
         rect1.styleData.color = 1;
         rect1.styleData.showsAboveParent = false;
@@ -696,19 +696,91 @@ const CUSTOM_ADDONS = {
         rect1.positionData.x = 50 * positionRatio;
 
     },
-    "shotgunpronounced": entity => {
+    "megapronounced": entity => {
         if(!(entity instanceof $Entity)) return;
 
         const rect1 = entity.createChild(false);
-        const sizeRatio = 50 / 50;
-        const widthRatio = 42 / 50 * 1.85;
+        const sizeRatio = 55 / 50;
+        const widthRatio = 55/50;
+        const positionRatio = 38.75 / 50
+        rect1.defaults();
+        rect1.styleData.color = 1;
+        rect1.styleData.showsAboveParent = false;
+        rect1.physicsData.sides = 2;
+        rect1.physicsData.isTrapezoid = true;
+        rect1.positionData.angle = Math.PI
+        rect1.physicsData.width = 50 * widthRatio;
+        rect1.physicsData.size = 50* sizeRatio;
+        rect1.positionData.x = 50  * positionRatio;
+
+    },
+    "blunderpronounced": entity => {
+        if(!(entity instanceof $Entity)) return;
+
+        const rect1 = entity.createChild(false);
+        const sizeRatio = 70 / 50;
+        const widthRatio = 46.2/50;
         const positionRatio = 40 / 50
         rect1.defaults();
         rect1.styleData.color = 1;
         rect1.styleData.showsAboveParent = false;
         rect1.physicsData.sides = 2;
+        rect1.physicsData.isTrapezoid = true;
         rect1.physicsData.width = 50 * widthRatio;
         rect1.physicsData.size = 50 * sizeRatio;
+        rect1.positionData.x = 50 * positionRatio;
+
+    },
+    "shotgunpronounced": entity => {
+        if(!(entity instanceof $Entity)) return;
+
+        const rect1 = entity.createChild(false);
+        const sizeRatio = 52.5 / 50;
+        const widthRatio = 50/50;
+        const positionRatio = 40 / 50
+        rect1.defaults();
+        rect1.styleData.color = 1;
+        rect1.styleData.showsAboveParent = false;
+        rect1.physicsData.sides = 2;
+        rect1.physicsData.isTrapezoid = true;
+        rect1.positionData.angle = Math.PI
+        rect1.physicsData.width = 50 * widthRatio;
+        rect1.physicsData.size = 50* sizeRatio;
+        rect1.positionData.x = 50  * positionRatio;
+
+    },
+    "dualpronounced": entity => {
+        if(!(entity instanceof $Entity)) return;
+
+        const rect1 = entity.createChild(false);
+        const sizeRatio = 75 / 50;
+        const widthRatio = 52.5/50;
+        const positionRatio = 40 / 50
+        rect1.defaults();
+        rect1.styleData.color = 1;
+        rect1.styleData.showsAboveParent = false;
+        rect1.physicsData.sides = 2;
+        rect1.physicsData.isTrapezoid = true;
+        rect1.physicsData.width = 50 * widthRatio;
+        rect1.physicsData.size = 50 * sizeRatio;
+        rect1.positionData.x = 50 * positionRatio;
+
+    },
+    "pelletpronounced": entity => {
+        if(!(entity instanceof $Entity)) return;
+
+        const rect1 = entity.createChild(false);
+        const sizeRatio = 52.5 / 50;
+        const widthRatio = (52.5/1.5)/50;
+        const positionRatio = 40 / 50
+        rect1.defaults();
+        rect1.styleData.color = 1;
+        rect1.styleData.showsAboveParent = false;
+        rect1.physicsData.sides = 2;
+        rect1.physicsData.isTrapezoid = true;
+        rect1.positionData.angle = Math.PI
+        rect1.physicsData.width = 50 * widthRatio;
+        rect1.physicsData.size = 50* sizeRatio;
         rect1.positionData.x = 50  * positionRatio;
 
     },
@@ -1431,6 +1503,10 @@ const CUSTOM_ADDONS = {
             // Color.Barrel
             barrel.styleData.color = 1;
         }
+    },
+    "invisibleBarrel": entity => {
+        if(!(entity instanceof $Entity)) return;
+        entity.styleData.isVisible = false;
     }
 }
 
@@ -1595,6 +1671,7 @@ const FLAGS = {
 function resizeBody(entity) {
     entity.physicsData.size *= SizeMult;
 }
+
 function resizeBarrel(entity) {
     entity.positionData.x += Math.cos(entity.positionData.angle) * 10
     entity.positionData.y += Math.sin(entity.positionData.angle) * 10
@@ -1603,6 +1680,7 @@ function resizeBarrel(entity) {
     entity.positionData.x *= SizeMult;
     entity.positionData.y *= SizeMult;
 }
+
 function resizeReverseBarrel(entity) {
     entity.positionData.x += Math.cos(entity.positionData.angle + Math.PI) * 10
     entity.positionData.y += Math.sin(entity.positionData.angle + Math.PI) * 10
@@ -1611,6 +1689,7 @@ function resizeReverseBarrel(entity) {
     entity.positionData.x *= SizeMult;
     entity.positionData.y *= SizeMult;
 }
+
 function HSLToHex(h, s, l) {
     const hDecimal = l / 100;
     const a = (s * Math.min(hDecimal, 1 - hDecimal)) / 100;

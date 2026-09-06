@@ -44,7 +44,7 @@ export const host: string = process.env.SERVER_INFO || "unknown";
 export const mode: string = process.env.NODE_ENV || "development";
 
 /** How long the countdown should last until the game is started. By default it is 10 seconds. Set to 0 if you wish to disable this. */
-export const countdownTicks = 10 * tps;
+export const countdownTicks = 0;
 
 /** Is hosting a rest api */
 export const enableApi: boolean = true;

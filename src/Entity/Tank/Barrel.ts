@@ -44,7 +44,6 @@ import Shotgun from "./Projectile/ShotGun";
 import AutoTrap from "./Projectile/AutoTrap";
 import Particle, { ParticleState } from "../Misc/Particle";
 import Bomb from "./Projectile/Bomb";
-import Explosion from "./Projectile/Explosion";
 import Striker from "./Projectile/Striker";
 import NecromancerPentagon from "./Projectile/NecromancerPentagon";
 import { PI2 } from "../../util";
@@ -54,6 +53,8 @@ import ReloadBullet from "./Projectile/ReloadBullet";
 import Eye from "../Misc/Eye";
 import Sassafras from "../Boss/Rift/Sassafras";
 import SynopeMinion from "./Projectile/SynopeMinion";
+import Seeker from "./Projectile/Seeker";
+import FlankMissile from "./Projectile/Rockets/FlankMissile";
 
 
 /**
@@ -76,6 +77,7 @@ export class ShootCycle {
     public tick() {
         const reloadTime = this.barrelEntity.tank.reloadTime * this.barrelEntity.definition.reload;
         if (reloadTime !== this.reloadTime) {
+            this.reloadTime = this.barrelEntity.barrelData.reloadTime = reloadTime
             this.pos *= reloadTime / this.reloadTime;
             this.reloadTime = reloadTime;
         }
@@ -98,6 +100,16 @@ export class ShootCycle {
         if (this.pos >= reloadTime * (1 + this.barrelEntity.definition.delay)) {
             this.barrelEntity.barrelData.reloadTime = reloadTime;
             this.barrelEntity.shoot();
+            let ShotCount = 0
+            if(this.barrelEntity.definition.bullet.type === 'shotgun' || this.barrelEntity.definition.bullet.type === 'dual') ShotCount = 3;
+            else if (this.barrelEntity.definition.bullet.type === 'pellet') ShotCount = 9;
+            if(this.barrelEntity.definition.bullet.type === 'blunderbuss') ShotCount = 2;
+            else if (this.barrelEntity.definition.bullet.type === 'megablast') ShotCount = 12;
+            if (ShotCount > 0) {
+                for (let i = 0; i < ShotCount; ++i) {
+                    this.barrelEntity.shoot(true);
+                }
+            }
             this.pos = reloadTime * this.barrelEntity.definition.delay;
         }
 
@@ -169,8 +181,8 @@ export default class Barrel extends ObjectEntity {
     }
 
     /** Shoots a bullet from the barrel. */
-    public shoot() {
-        this.barrelData.flags ^= BarrelFlags.hasShot;
+    public shoot(noAnimation = false) {
+        if (!noAnimation) this.barrelData.flags ^= BarrelFlags.hasShot;
 
         // No this is not correct
         const scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
@@ -179,16 +191,16 @@ export default class Barrel extends ObjectEntity {
         // Map angles unto
         // let e: Entity | null | undefined = this;
         // while (!((e?.position?.flags || 0) & MotionFlags.absoluteRotation) && (e = e.relations?.values.parent) instanceof ObjectEntity) angle += e.position.values.angle;
-        if(!this.definition.nonRandomRecoil) {
+        if (!this.definition.nonRandomRecoil) {
             recoilAnlge = angle;
         } 
-        this.rootParent.addAcceleration(recoilAnlge + Math.PI, this.definition.recoil * 2);
+        this.rootParent.addVelocity(recoilAnlge + Math.PI, this.definition.recoil * 2);
         let tankDefinition: TankDefinition | null = null;
 
         if (this.rootParent instanceof TankBody) tankDefinition = this.rootParent.definition;
 
         let projectile: ObjectEntity | null = null;
-
+        let shotgunArea = 1.5;
         switch (this.definition.bullet.type) {
             case "skimmer":
                 projectile = new Skimmer(this, this.tank, tankDefinition, angle, this.tank.inputs.attemptingRepel() ? -Skimmer.BASE_ROTATION : Skimmer.BASE_ROTATION);
@@ -201,6 +213,9 @@ export default class Barrel extends ObjectEntity {
                 break;
             case "missile":
                 projectile = new Missile(this, this.tank, tankDefinition, angle);
+                break;
+            case "flankmissile":
+                projectile = new FlankMissile(this, this.tank, tankDefinition, angle);
                 break;
             case 'bullet': {
                 projectile = new Bullet(this, this.tank, tankDefinition, angle);
@@ -224,22 +239,15 @@ export default class Barrel extends ObjectEntity {
             case 'mine':
                 projectile = new Mine(this, this.tank, tankDefinition, angle);
                 break;
-            case 'megabomb':
-                projectile = new Bomb(this, this.tank, tankDefinition, angle);
-                (projectile as Bomb).ExplosionBarrelDefinition.bullet.damage = 5;
-                (projectile as Bomb).ExplosionBarrelDefinition.bullet.sizeRatio = 6;
-                break;
             case 'claymore':
                 projectile = new Bomb(this, this.tank, tankDefinition, angle);
-                (projectile as Bomb).ExplosionBarrelDefinition.bullet.damage = 2;
-                (projectile as Bomb).ExplosionBarrelDefinition.bullet.sizeRatio = 3.5;
                 const explodeClaymore = (projectile as Bomb).explode;
                 (projectile as Bomb).explode = () => {
                     const Bombshot: BarrelDefinition = {
                         angle: 0,
                         offset: 0,
-                        size: 0,
-                        width: 63,
+                        size: 95,
+                        width: 42,
                         delay: 0,
                         reload: 100,
                         recoil: 1,
@@ -251,17 +259,17 @@ export default class Barrel extends ObjectEntity {
                             type: "bullet",
                             health: 0.5,
                             damage: 1,
-                            speed: 0.8,
-                            scatterRate: 0.3,
-                            lifeLength: 0.25,
+                            speed: 1,
+                            scatterRate: 1,
+                            lifeLength: 0.2,
                             sizeRatio: 1,
                             absorbtionFactor: 0.3
                         }
                     }
-                    for (let n = 0; n < 8; n++) {
+                    for (let n = 0; n < 12; n++) {
                         const barr = new Barrel((projectile as Bomb), {
                         ...Bombshot,
-                        angle: PI2 * (n / 8)
+                        angle: PI2 * (n / 12)
                         });
                         barr.shoot()
                         barr.delete()
@@ -279,48 +287,30 @@ export default class Barrel extends ObjectEntity {
             case 'blunt':
                 projectile = new Blunt(this, this.tank, tankDefinition, angle);
                 break;
-            case 'shotgun3': {
-                for (let i = 0; i < 3; ++i) {
-                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
-                    projectile = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
-                }
-                break;
+            case 'blunderbuss': {
             }
-            case 'shotgun4': {
-                for (let i = 0; i < 4; ++i) {
-                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
-                    projectile = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
-                }
-                break;
+            case 'dual': {
             }
-            case 'shotgun10': {
-                for (let i = 0; i < 10; ++i) {
-                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
-                    projectile = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
-                }
-                break;
+            case 'megablast': {
             }
-            case 'shotgun20': {
-                for (let i = 0; i < 20; ++i) {
-                    let scatterAngle = (Math.PI / 180) * this.definition.bullet.scatterRate * (Math.random() - .5) * 10;
-                    projectile = new Shotgun(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
-                    (projectile as Bullet).lifeLength = 5
-                }
-                break;
+            case 'pellet': {
             }
-            case 'triplebullet': {
-                for (let i = 0; i < 3; ++i) {
-                    let scatterAmount = this.definition.bullet.scatterRate * (Math.random() - .5) * 10
-                    let scatterAngle = (Math.PI / 180) * scatterAmount;
-                    projectile = new Bullet(this, this.tank, tankDefinition, this.definition.angle + scatterAngle + this.tank.positionData.values.angle);
-                    (projectile as Bullet).baseAccel = this.bulletAccel + scatterAmount
-                    scatterAmount = this.definition.bullet.scatterRate * (Math.random() - .5) * 40;
-                    (projectile as Bullet).baseSpeed = this.bulletAccel + 30 + scatterAmount;
-                }
+            case 'shotgun': {
+                if(this.definition.bullet.type == 'dual') shotgunArea = 1.3;
+                if(this.definition.bullet.type == 'blunderbuss') shotgunArea = 0.8;
+                if(this.definition.bullet.type == 'megablast') shotgunArea = 5;
+                projectile = new Bullet(this, this.tank, tankDefinition, angle);
+                const rng = shotgunArea * (Math.random()/2);
+                //projectile.addAcceleration(scatterAngle, this.bulletAccel);
+                (projectile as Bullet).baseSpeed *= 1 + rng;
+                //(projectile as Bullet).baseAccel *= 1 + rng;
                 break;
             }
             case 'drone':
                 projectile = new Drone(this, this.tank, tankDefinition, angle);
+                break;
+            case 'seeker':
+                projectile = new Seeker(this, this.tank, tankDefinition, angle);
                 break;
             case 'reloadbullet':
                 this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.Reload] || 0) * 3) * this.definition.bullet.speed;

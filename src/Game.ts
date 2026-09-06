@@ -44,6 +44,7 @@ import { Entity } from "./Native/Entity";
 import { CameraTable } from "./Native/FieldGroups";
 import HugeMapArena from "./Gamemodes/Benchmark/HugeMap";
 import SanctuaryArena from "./Gamemodes/Sanctuary";
+import CrossroadsArena from "./Gamemodes/Crossroads";
 
 /**
  * WriterStream that broadcasts to all of the game's WebSockets.
@@ -67,7 +68,7 @@ class WSSWriterStream extends Writer {
 
 
 /** @deprecated */
-type DiepGamemodeID = "ffa" | "sandbox" | "teams" | "4teams" | "mot" | "dom" | "maze" | "tag" | "survival" | "sanctuary";
+type DiepGamemodeID = "ffa" | "sandbox" | "teams" | "4teams" | "mot" | "dom" | "maze" | "tag" | "survival" | "sanctuary" | "crossroads";
 const GamemodeToArenaClass: Record<DiepGamemodeID, (typeof ArenaEntity) | null> = {
     "ffa": FFAArena,
     "teams": Teams2Arena,
@@ -78,7 +79,8 @@ const GamemodeToArenaClass: Record<DiepGamemodeID, (typeof ArenaEntity) | null> 
     "tag": TagArena,
     "mot": MothershipArena,
     "maze": MazeArena,
-    "sanctuary": SanctuaryArena
+    "sanctuary": SanctuaryArena,
+    "crossroads": CrossroadsArena,
 }
 
 /**
@@ -259,7 +261,6 @@ export default class GameServer {
             cam.cameraData.values.statLevels = new CameraTable(0, 10, cam.cameraData);
             cam.cameraData.values.statLimits = new CameraTable(0, 11, cam.cameraData);
             for(let i = 0; i < StatCount; ++i) {
-                console.log(`statLimit '${i}' = '${client.camera.cameraData.statLimits[i as Stat]}'`)
                 cam.cameraData.statNames[i as Stat] = client.camera.cameraData.statNames[i as Stat];
                 cam.cameraData.statLimits[i as Stat] = client.camera.cameraData.statLimits[i as Stat];
             }
@@ -282,13 +283,11 @@ export default class GameServer {
                 }
                 tank.scoreData.values.score = cam.cameraData.values.score;
                 tank.scoreReward = cam.cameraData.values.score;
-
+                client.camera.delete();
+                client.camera = tank.cameraEntity as ClientCamera;
                 this.arena.spawnPlayer(tank, client);
                 tank.setTank(tank.currentTank);
-
             }
-            client.camera.delete();
-            client.camera = cam;
         }
 
         if(client.hasCheated()) client.setHasCheated(true);

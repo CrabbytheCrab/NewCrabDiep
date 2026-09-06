@@ -53,7 +53,12 @@ export default class Bullet extends LivingEntity {
         super(barrel.game);
 
         this.tank = tank;
-        
+        let spawner = tank
+        if(tank.rootParent instanceof TankBody) { 
+            tank = this.tank = tank.rootParent;
+            this.relationsData.values.owner = tank;
+        };
+
         this.tankDefinition = tankDefinition;
 
         this.movementAngle = shootAngle;
@@ -95,7 +100,7 @@ export default class Bullet extends LivingEntity {
 		
         this.lifeLength = bulletDefinition.lifeLength * 75;
 
-        const {x, y} = tank.getWorldPosition();
+        const {x, y} = spawner.getWorldPosition();
         this.isPassiveMode = this.tank.rootParent.isPassiveMode
         this.positionData.values.x = x + (Math.cos(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * sizeFactor))) - Math.sin(shootAngle) * barrel.definition.offset * sizeFactor + Math.cos(shootAngle) * ((barrel.definition.distance || 0) * sizeFactor);
         this.positionData.values.y = y + (Math.sin(shootAngle) * (barrel.physicsData.values.size + (barrel.spawnOffset * sizeFactor))) + Math.cos(shootAngle) * barrel.definition.offset * sizeFactor + Math.sin(shootAngle) * ((barrel.definition.distance || 0) * sizeFactor);

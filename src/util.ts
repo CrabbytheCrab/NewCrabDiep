@@ -87,3 +87,11 @@ export const saveToLog = (title: string, description: string, color: number) => 
 export const saveToVLog = (text: string) => {
    if (doVerboseLogs) console.log("[v] " + text);
 }
+/**
+ * lerps between 2 angles
+ */
+export const lerpAngles = (angleA: number, angleB: number, perc: number) => {
+    let CS = (1-perc)*Math.cos(angleA) + perc*Math.cos(angleB);
+    let SN = (1-perc)*Math.sin(angleA) + perc*Math.sin(angleB);
+    return Math.atan2(SN,CS);
+}

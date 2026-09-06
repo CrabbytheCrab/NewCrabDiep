@@ -46,10 +46,6 @@ export default class Drone extends Bullet {
 
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
-        if(tank.rootParent instanceof TankBody) { 
-            tank = this.tank = tank.rootParent;
-            this.relationsData.values.owner = tank;
-        };
         const bulletDefinition = barrel.definition.bullet;
 
         this.usePosAngle = true;

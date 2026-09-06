@@ -21,17 +21,17 @@ import { Tank, Color } from "./Enums";
 import _TankDefinitions from "./TankDefinitions.json";
 
 /** The types of post addons that exist in the game, by their id. */
-export type postAddonId = "dompronounced" | "auto5" | "auto3" | "autosmasher" | "spike" | "pronounced" | "smasher" | "landmine" | "autoturret" | "weirdspike" | "auto2" | "auto7" | "autorocket" | "spiesk" | "blasterpronounced" | "Xpronounced" | "cuck" | "shotgunpronounced" | "auto4" | "spectre" | "joint3" | "lich" | "minelayer" | "megasmasher" | "saw" | "primepost" | "celestial" | "nebula" | "chasm" | "triton" | "galaxy" | "pollux" | "oberon" | "comet" | "abyss" | "hyperion" | "neso";
+export type postAddonId = "dompronounced" | "auto5" | "auto3" | "autosmasher" | "spike" | "pronounced" | "smasher" | "landmine" | "autoturret" | "weirdspike" | "auto2" | "auto7" | "autorocket" | "spiesk" | "blasterpronounced" | "Xpronounced" | "cuck" | "shotgunpronounced" | "pelletpronounced" | "dualpronounced" | "megapronounced" | "auto4" | "spectre" | "joint3" | "lich" | "minelayer" | "megasmasher" | "saw" | "primepost" | "celestial" | "nebula" | "chasm" | "triton" | "galaxy" | "pollux" | "oberon" | "comet" | "abyss" | "hyperion" | "neso" | "blunderpronounced";
 /** The types of post addons that exist in the game, by their id. */
 export type preAddonId = "dombase" | "launcher" | "launchermissile" | "glider" | "primepre" | "chasmPreAddon" | "voidPreAddon" | "cometPreAddon"
 /** A joint list of all post addon ids and pre addon ids. */
 export type addonId = preAddonId | postAddonId;
 
 /** The types of projectiles in the game */
-export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "shotgun4" | "autotrap" | "bomb" | "triplebullet" | "striker" | "shotgun20" | "blunt" | "shotgun10" | "shotgun3" | "lichdrone" | "megabomb" | "claymore" | "mine" | "reloadbullet" | "streamlinerbullet" | "synopeminion";
+export type projectileId = "bullet" | "drone" | "trap" | "necrodrone" | "minion" | "skimmer" | "rocket" | "swarm" | "flame" | "wall" | "croc" | "bouncetrap" | "missile" | "glider" | "boomerang" | "autotrap" | "bomb" | "striker" | "dual" | "shotgun" | "pellet" | "megablast" | "blunt" | "shotgun10" | "blunderbuss" | "lichdrone" | "seeker" | "claymore" | "mine" | "reloadbullet" | "streamlinerbullet" | "synopeminion" | "flankmissile";
 
 /** The types of barrel addons that exist in the game */
-export type barrelAddonId = "trapLauncher" | "purplebarrel" | "minionLauncher" | "engineerLauncher" | "bombLauncher" | "reversetrap" | "noScaleTrapLauncher" | "claymoreLauncher" | "celestialTrapLauncher" | "celestialMinionLauncher" | "celestialNoScale" | "celestialEngineerLauncher";
+export type barrelAddonId = "trapLauncher" | "purplebarrel" | "minionLauncher" | "engineerLauncher" | "bombLauncher" | "reversetrap" | "noScaleTrapLauncher" | "claymoreLauncher" | "celestialTrapLauncher" | "celestialMinionLauncher" | "celestialNoScale" | "celestialEngineerLauncher" | "invisibleBarrel";
 
 /** Increase in opacity when taking damage. */
 export const visibilityRateDamage = 0.2;
@@ -64,10 +64,12 @@ export interface BulletDefinition {
     barrels?: BarrelDefinition[];
     /** Overrides Ai Range for factory drones. */
     aiRange?: number
-    /** used for focus range factory drones and auto cannon size for auto traps. */
+    /** used for focus range factory drones and auto cannon size for auto traps and size of explosions. */
     generalMultiplier?: number
     /** used for drone orbiting Range. */
     droneOrbitMultiplier?: number
+    /** Used to calculate the damage of the explosion from the bullet. */
+    explosionDamage?: number;
 }
 
 /**
@@ -180,6 +182,8 @@ export interface TankDefinition {
     postAddon: addonId | null;
     /** The sides of the tank's body. */
     sides: number;
+    /** The tanks friction/acceleration/deceleration. */
+    frictionOverride?: number;
     /** The ratio used for size to width calculation, only takes effect when sides is 2 (rectangle). */
     widthRatio?: number;
     /** The border width of the tank's body. */

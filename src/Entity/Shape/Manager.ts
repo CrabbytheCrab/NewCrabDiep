@@ -31,6 +31,7 @@ import BeholdingSentry from "./SentryVariants/BeholdingSentry";
 import AutomatedSentry from "./SentryVariants/AutomatedSentry";
 import SpinnerSentry from "./SentryVariants/SpinnerSentry";
 import StalkingSentry from "./SentryVariants/StalkingSentry";
+import Hexagon from "./Hexagon";
 
 /**
  * Used to balance out shape count in the arena, as well
@@ -81,19 +82,25 @@ export default class ShapeManager {
         } else {
             // Fields of Shapes
             const rand = Math.random();
-            if (rand < .04) {
+            if (rand < .005) {
+                shape = new Hexagon(this.game);
+
+                shape.positionData.values.x = x;
+                shape.positionData.values.y = y;
+                shape.relationsData.values.owner = shape.relationsData.values.team = this.arena;
+            }else if (rand < .055) {
                 shape = new Pentagon(this.game);
 
                 shape.positionData.values.x = x;
                 shape.positionData.values.y = y;
                 shape.relationsData.values.owner = shape.relationsData.values.team = this.arena;
-            } else if (rand < .20) { // < 16%
+            } else if (rand < .205) { // < 16%
                 shape = new Triangle(this.game);
 
                 shape.positionData.values.x = x;
                 shape.positionData.values.y = y;
                 shape.relationsData.values.owner = shape.relationsData.values.team = this.arena;
-            } else { // if rand < 80%
+            } else { // if rand < 79%
                 shape = new Square(this.game);
 
                 shape.positionData.values.x = x;

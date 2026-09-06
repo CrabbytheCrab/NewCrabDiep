@@ -100,7 +100,8 @@
             11,
             12,
             13,
-            14
+            14,
+            79
         ],
         "flags": {
             "invisibility": false,
@@ -221,7 +222,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.9,
+        "fieldFactor": 0.85,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -236,7 +237,7 @@
                 "size": 110,
                 "width": 42,
                 "delay": 0,
-                "reload": 2,
+                "reload": 1.5,
                 "recoil": 3,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -711,12 +712,12 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 8,
-                    "absorbtionFactor": 0.8
+                    "lifeLength": 6,
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -777,8 +778,8 @@
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
         "fieldFactor": 0.9,
-        "absorbtionFactor": 0.9,
-        "speed": 1,
+        "absorbtionFactor": 1,
+        "speed": 1.1,
         "maxHealth": 50,
         "preAddon": null,
         "postAddon": "smasher",
@@ -825,8 +826,7 @@
         "name": "Auto Tank",
         "upgradeMessage": "",
         "levelRequirement": 45,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -1195,7 +1195,8 @@
         "upgrades": [
             46,
             47,
-            48
+            48,
+            113
         ],
         "flags": {
             "invisibility": false,
@@ -1382,12 +1383,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 2.5,
                     "scatterRate": 0.5,
                     "lifeLength": 4,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             },
             {
@@ -1404,12 +1405,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 2.5,
                     "scatterRate": 0.5,
                     "lifeLength": 4,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -1579,7 +1580,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.8,
+        "fieldFactor": 0.75,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -1595,7 +1596,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 2,
-                "recoil": 3,
+                "recoil": 4,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -1603,7 +1604,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 1.2,
+                    "damage": 1.1,
                     "speed": 1.5,
                     "scatterRate": 0.2,
                     "lifeLength": 1,
@@ -1770,7 +1771,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.9,
+        "fieldFactor": 0.85,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -1911,7 +1912,8 @@
         "upgrades": [
             63,
             64,
-            65
+            65,
+            112
         ],
         "flags": {
             "invisibility": false,
@@ -1935,7 +1937,7 @@
             "angle": 0,
             "offset": 0,
             "size": 80,
-            "width": 56.7,
+            "width": 52.5,
             "delay": 0,
             "reload": 4,
             "recoil": 3,
@@ -2268,7 +2270,7 @@
     },
     {
         "id": 22,
-        "name": "Blaster",
+        "name": "Shotgun",
         "upgradeMessage": "",
         "levelRequirement": 30,
         "upgrades": [
@@ -2290,7 +2292,7 @@
         "speed": 1,
         "maxHealth": 50,
         "preAddon": null,
-        "postAddon": "blasterpronounced",
+        "postAddon": "shotgunpronounced",
         "sides": 1,
         "borderWidth": 15,
         "barrels": [
@@ -2298,22 +2300,66 @@
                 "angle": 0,
                 "offset": 0,
                 "size": 100,
-                "width": 60.9,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 5,
-                "recoil": 6,
-                "isTrapezoid": false,
+                "reload": 4,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": "invisibleBarrel",
+                "bullet": {
+                    "type": "shotgun",
+                    "sizeRatio": 0.85,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1.1,
+                    "scatterRate": 2.75,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 0.5
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 100,
+                "width": 35.7,
+                "delay": 0,
+                "reload": 4,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": "invisibleBarrel",
+                "bullet": {
+                    "type": "shotgun",
+                    "sizeRatio": 0.85,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1.2,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 0.5
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 100,
+                "width": 35.7,
+                "delay": 0,
+                "reload": 4,
+                "recoil": 0.4,
+                "isTrapezoid": true,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
-                    "type": "shotgun4",
-                    "sizeRatio": 0.4,
-                    "health": 0.75,
-                    "damage": 0.8,
-                    "speed": 0.8,
-                    "scatterRate": 2,
-                    "lifeLength": 1,
-                    "absorbtionFactor": 0.4
+                    "type": "shotgun",
+                    "sizeRatio": 0.85,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 0.9,
+                    "scatterRate": 0.5,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 0.5
                 }
             }
         ],
@@ -2354,7 +2400,7 @@
     },
     {
         "id": 23,
-        "name": "Trail Blazer",
+        "name": "Trailblazer",
         "upgradeMessage": "",
         "levelRequirement": 45,
         "upgrades": [],
@@ -2390,10 +2436,10 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.7,
+                    "damage": 0.5,
                     "speed": 1,
                     "scatterRate": 3,
-                    "lifeLength": 0.75,
+                    "lifeLength": 1,
                     "absorbtionFactor": 1
                 }
             },
@@ -2448,7 +2494,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 0.5,
-                "recoil": 1,
+                "recoil": 0.8,
                 "isTrapezoid": true,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -2508,7 +2554,8 @@
             80,
             81,
             82,
-            52
+            52,
+            113
         ],
         "flags": {
             "invisibility": false,
@@ -2687,7 +2734,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -2695,11 +2742,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 2.14,
                     "absorbtionFactor": 1
                 }
             },
@@ -2709,7 +2756,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -2717,11 +2764,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 2.14,
                     "absorbtionFactor": 1
                 }
             },
@@ -2731,7 +2778,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -2739,11 +2786,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 2.14,
                     "absorbtionFactor": 1
                 }
             }
@@ -2905,7 +2952,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 1,
-                "recoil": 2.5,
+                "recoil": 2.4,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -2927,7 +2974,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 1,
-                "recoil": 2.5,
+                "recoil": 2.4,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -3042,12 +3089,12 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 8,
-                    "absorbtionFactor": 0.8
+                    "lifeLength": 6,
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -3183,7 +3230,6 @@
         "upgrades": [
             91,
             92,
-            93,
             94,
             97
         ],
@@ -3381,7 +3427,8 @@
         "upgrades": [
             95,
             96,
-            76
+            76,
+            111
         ],
         "flags": {
             "invisibility": false,
@@ -3405,7 +3452,7 @@
                 "angle": 0,
                 "offset": 0,
                 "size": 70,
-                "width": 42,
+                "width": 35.7,
                 "delay": 0,
                 "reload": 4,
                 "recoil": 1,
@@ -3417,12 +3464,37 @@
                 "bullet": {
                     "type": "minion",
                     "sizeRatio": 1,
-                    "health": 4,
+                    "health": 3,
                     "damage": 0.7,
                     "speed": 0.7,
                     "scatterRate": 1,
                     "lifeLength": -1,
-                    "absorbtionFactor": 1
+                    "absorbtionFactor": 1,
+                    "generalMultiplier": 0.85,
+                    "barrels": [
+                        {
+                            "angle": 0,
+                            "offset": 0,
+                            "size": 85,
+                            "width": 42,
+                            "delay": 0,
+                            "reload": 1,
+                            "recoil": 1,
+                            "isTrapezoid": false,
+                            "trapezoidDirection": 0,
+                            "addon": null,
+                            "bullet": {
+                                "type": "bullet",
+                                "health": 0.4,
+                                "damage": 0.4,
+                                "speed": 0.8,
+                                "scatterRate": 1,
+                                "lifeLength": 1,
+                                "sizeRatio": 1,
+                                "absorbtionFactor": 1
+                            }
+                        }
+                    ]
                 }
             }
         ],
@@ -3592,12 +3664,12 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.28,
-                    "damage": 3.6,
+                    "health": 1.92,
+                    "damage": 2.4,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 8,
-                    "absorbtionFactor": 0.4
+                    "absorbtionFactor": 0.6
                 }
             }
         ],
@@ -3679,12 +3751,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 1.4,
+                    "health": 1.8,
+                    "damage": 1.05,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 3,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -3767,10 +3839,10 @@
                     "sizeRatio": 1.2,
                     "health": 5,
                     "damage": 0.3,
-                    "speed": 1.7,
+                    "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 2,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             }
         ],
@@ -3847,12 +3919,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 2.5,
                     "scatterRate": 0.5,
                     "lifeLength": 4,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             },
             {
@@ -3869,12 +3941,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 2.5,
                     "scatterRate": 0.5,
                     "lifeLength": 4,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -3951,12 +4023,12 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 8,
-                    "absorbtionFactor": 0.8
+                    "lifeLength": 6,
+                    "absorbtionFactor": 1
                 }
             },
             {
@@ -4208,7 +4280,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.55,
+                    "damage": 0.5,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4230,7 +4302,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.55,
+                    "damage": 0.5,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4252,7 +4324,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.55,
+                    "damage": 0.5,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4274,7 +4346,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.55,
+                    "damage": 0.5,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4296,7 +4368,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.55,
+                    "damage": 0.5,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4378,7 +4450,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4400,7 +4472,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4422,7 +4494,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4444,7 +4516,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4466,7 +4538,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4488,7 +4560,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4510,7 +4582,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4532,7 +4604,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4554,7 +4626,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4576,7 +4648,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.6,
+                    "damage": 0.55,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -4666,7 +4738,7 @@
         "borderWidth": 15,
         "barrels": [
             {
-                "angle": -0.39269908169872414,
+                "angle": -0.5235987755982988,
                 "offset": 0,
                 "size": 90,
                 "width": 42,
@@ -4688,7 +4760,7 @@
                 }
             },
             {
-                "angle": 0.39269908169872414,
+                "angle": 0.5235987755982988,
                 "offset": 0,
                 "size": 90,
                 "width": 42,
@@ -4732,7 +4804,7 @@
                 }
             },
             {
-                "angle": -2.748893571891069,
+                "angle": -3.6651914291880923,
                 "offset": 0,
                 "size": 90,
                 "width": 42,
@@ -4754,7 +4826,7 @@
                 }
             },
             {
-                "angle": 2.7488935718910694,
+                "angle": 3.6651914291880923,
                 "offset": 0,
                 "size": 90,
                 "width": 42,
@@ -5537,12 +5609,12 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 8,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -5623,7 +5695,7 @@
                     "damage": 0.2,
                     "speed": 1.2,
                     "scatterRate": 0,
-                    "lifeLength": 0.8,
+                    "lifeLength": 1,
                     "absorbtionFactor": 1
                 }
             },
@@ -5645,7 +5717,7 @@
                     "damage": 0.2,
                     "speed": 1.2,
                     "scatterRate": 0,
-                    "lifeLength": 0.8,
+                    "lifeLength": 1,
                     "absorbtionFactor": 1
                 }
             },
@@ -5667,7 +5739,7 @@
                     "damage": 0.2,
                     "speed": 1.2,
                     "scatterRate": 0,
-                    "lifeLength": 0.8,
+                    "lifeLength": 1,
                     "absorbtionFactor": 1
                 }
             },
@@ -5689,7 +5761,7 @@
                     "damage": 0.2,
                     "speed": 1.2,
                     "scatterRate": 0,
-                    "lifeLength": 0.8,
+                    "lifeLength": 1,
                     "absorbtionFactor": 1
                 }
             },
@@ -5711,7 +5783,7 @@
                     "damage": 0.2,
                     "speed": 1.2,
                     "scatterRate": 0,
-                    "lifeLength": 0.8,
+                    "lifeLength": 1,
                     "absorbtionFactor": 1
                 }
             }
@@ -5789,12 +5861,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.56,
-                    "damage": 1.8,
+                    "health": 0.84,
+                    "damage": 1.35,
                     "speed": 3.25,
                     "scatterRate": 0.3,
                     "lifeLength": 2.4,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             },
             {
@@ -5811,12 +5883,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.56,
-                    "damage": 1.8,
+                    "health": 0.84,
+                    "damage": 1.35,
                     "speed": 3.25,
                     "scatterRate": 0.3,
                     "lifeLength": 2.4,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             },
             {
@@ -5833,12 +5905,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.56,
-                    "damage": 1.8,
+                    "health": 0.84,
+                    "damage": 1.35,
                     "speed": 3.25,
                     "scatterRate": 0.3,
                     "lifeLength": 2.4,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -5915,12 +5987,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 1.4,
+                    "health": 1.8,
+                    "damage": 1.05,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 2.6,
-                    "absorbtionFactor": 0.8,
+                    "absorbtionFactor": 1,
                     "generalMultiplier": 1.5,
                     "barrels": [
                         {
@@ -5984,12 +6056,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 1.4,
+                    "health": 1.8,
+                    "damage": 1.05,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 2.6,
-                    "absorbtionFactor": 0.8,
+                    "absorbtionFactor": 1,
                     "generalMultiplier": 1.5,
                     "barrels": [
                         {
@@ -6209,7 +6281,7 @@
     },
     {
         "id": 52,
-        "name": "Swarmer",
+        "name": "Seeker",
         "upgradeMessage": "",
         "levelRequirement": 45,
         "upgrades": [],
@@ -6232,122 +6304,68 @@
         "borderWidth": 15,
         "barrels": [
             {
-                "angle": -1.0471975511965976,
-                "offset": 0,
-                "size": 85,
-                "width": 29.4,
-                "delay": 0.5,
-                "reload": 1,
-                "recoil": 1,
-                "isTrapezoid": true,
-                "trapezoidDirection": 3.141592653589793,
-                "addon": null,
-                "droneCount": 4294967295,
-                "canControlDrones": false,
-                "bullet": {
-                    "type": "swarm",
-                    "sizeRatio": 0.7,
-                    "health": 1,
-                    "damage": 0.15,
-                    "speed": 1,
-                    "scatterRate": 1,
-                    "lifeLength": 1.3,
-                    "absorbtionFactor": 1
-                }
-            },
-            {
-                "angle": 1.0471975511965976,
-                "offset": 0,
-                "size": 85,
-                "width": 29.4,
-                "delay": 0.5,
-                "reload": 1,
-                "recoil": 1,
-                "isTrapezoid": true,
-                "trapezoidDirection": 3.141592653589793,
-                "addon": null,
-                "droneCount": 4294967295,
-                "canControlDrones": false,
-                "bullet": {
-                    "type": "swarm",
-                    "sizeRatio": 0.7,
-                    "health": 1,
-                    "damage": 0.15,
-                    "speed": 1,
-                    "scatterRate": 1,
-                    "lifeLength": 1.3,
-                    "absorbtionFactor": 1
-                }
-            },
-            {
                 "angle": 3.141592653589793,
                 "offset": 0,
                 "size": 85,
-                "width": 29.4,
-                "delay": 0.5,
-                "reload": 1,
+                "width": 35.7,
+                "delay": 0,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": true,
                 "trapezoidDirection": 3.141592653589793,
                 "addon": null,
-                "droneCount": 4294967295,
-                "canControlDrones": false,
                 "bullet": {
-                    "type": "swarm",
-                    "sizeRatio": 0.7,
+                    "type": "seeker",
+                    "sizeRatio": 0.85,
                     "health": 1,
-                    "damage": 0.15,
-                    "speed": 1,
+                    "damage": 0.75,
+                    "speed": 0.5,
                     "scatterRate": 1,
-                    "lifeLength": 1.3,
+                    "lifeLength": 2,
                     "absorbtionFactor": 1
                 }
             },
             {
-                "angle": -2.0943951023931953,
+                "angle": -1.5707963267948966,
                 "offset": 0,
                 "size": 85,
-                "width": 29.4,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 1,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": true,
                 "trapezoidDirection": 3.141592653589793,
                 "addon": null,
-                "droneCount": 4294967295,
-                "canControlDrones": false,
                 "bullet": {
-                    "type": "swarm",
-                    "sizeRatio": 0.7,
+                    "type": "seeker",
+                    "sizeRatio": 0.85,
                     "health": 1,
-                    "damage": 0.15,
-                    "speed": 1,
+                    "damage": 0.75,
+                    "speed": 0.5,
                     "scatterRate": 1,
-                    "lifeLength": 1.3,
+                    "lifeLength": 2,
                     "absorbtionFactor": 1
                 }
             },
             {
-                "angle": 2.0943951023931953,
+                "angle": 1.5707963267948966,
                 "offset": 0,
                 "size": 85,
-                "width": 29.4,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 1,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": true,
                 "trapezoidDirection": 3.141592653589793,
                 "addon": null,
-                "droneCount": 4294967295,
-                "canControlDrones": false,
                 "bullet": {
-                    "type": "swarm",
-                    "sizeRatio": 0.7,
+                    "type": "seeker",
+                    "sizeRatio": 0.85,
                     "health": 1,
-                    "damage": 0.15,
-                    "speed": 1,
+                    "damage": 0.75,
+                    "speed": 0.5,
                     "scatterRate": 1,
-                    "lifeLength": 1.3,
+                    "lifeLength": 2,
                     "absorbtionFactor": 1
                 }
             },
@@ -6355,23 +6373,21 @@
                 "angle": 0,
                 "offset": 0,
                 "size": 85,
-                "width": 29.4,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 1,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": true,
                 "trapezoidDirection": 3.141592653589793,
                 "addon": null,
-                "droneCount": 4294967295,
-                "canControlDrones": false,
                 "bullet": {
-                    "type": "swarm",
-                    "sizeRatio": 0.7,
+                    "type": "seeker",
+                    "sizeRatio": 0.85,
                     "health": 1,
-                    "damage": 0.15,
-                    "speed": 1,
+                    "damage": 0.75,
+                    "speed": 0.5,
                     "scatterRate": 1,
-                    "lifeLength": 1.3,
+                    "lifeLength": 2,
                     "absorbtionFactor": 1
                 }
             }
@@ -6443,7 +6459,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 2,
-                "recoil": 3,
+                "recoil": 4,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -6509,7 +6525,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.8,
+        "fieldFactor": 0.75,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -6525,7 +6541,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 2,
-                "recoil": 3,
+                "recoil": 4,
                 "isTrapezoid": true,
                 "trapezoidDirection": 3.141592653589793,
                 "addon": null,
@@ -6591,7 +6607,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.9,
+        "fieldFactor": 0.8,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -6607,17 +6623,17 @@
                 "width": 50.4,
                 "delay": 0,
                 "reload": 6,
-                "recoil": 5,
+                "recoil": 12,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
                     "type": "bullet",
                     "sizeRatio": 1,
-                    "health": 1.3,
-                    "damage": 2,
-                    "speed": 1.7,
-                    "scatterRate": 0.3,
+                    "health": 2,
+                    "damage": 1.5,
+                    "speed": 1.5,
+                    "scatterRate": 0.2,
                     "lifeLength": 1,
                     "absorbtionFactor": 0.5
                 }
@@ -6661,7 +6677,7 @@
     null,
     {
         "id": 58,
-        "name": "Predator",
+        "name": "X Hunter",
         "upgradeMessage": "Use your right mouse button to look further in the direction you're facing",
         "levelRequirement": 45,
         "upgrades": [],
@@ -6787,7 +6803,7 @@
     },
     {
         "id": 59,
-        "name": "X Hunter",
+        "name": "Predator",
         "upgradeMessage": "",
         "levelRequirement": 45,
         "upgrades": [],
@@ -6815,20 +6831,20 @@
                 "size": 110,
                 "width": 42,
                 "delay": 0,
-                "reload": 2.5,
+                "reload": 2.25,
                 "recoil": 0.3,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
                     "type": "bullet",
-                    "sizeRatio": 0.8,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.75,
                     "speed": 1.5,
-                    "scatterRate": 0.3,
+                    "scatterRate": 0.1,
                     "lifeLength": 1,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 0.7
                 }
             },
             {
@@ -6837,20 +6853,20 @@
                 "size": 95,
                 "width": 54.6,
                 "delay": 0.2,
-                "reload": 2.5,
+                "reload": 2.25,
                 "recoil": 0.3,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
                     "type": "bullet",
-                    "sizeRatio": 0.8,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.75,
                     "speed": 1.5,
-                    "scatterRate": 0.3,
+                    "scatterRate": 0.1,
                     "lifeLength": 1,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 0.7
                 }
             }
         ],
@@ -6904,12 +6920,12 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.85,
+        "fieldFactor": 0.8,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
         "preAddon": null,
-        "postAddon": "blasterpronounced",
+        "postAddon": "blunderpronounced",
         "sides": 1,
         "borderWidth": 15,
         "barrels": [
@@ -6919,20 +6935,20 @@
                 "size": 110,
                 "width": 42,
                 "delay": 0,
-                "reload": 3.5,
-                "recoil": 2,
+                "reload": 3,
+                "recoil": 0.8,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
-                    "type": "triplebullet",
+                    "type": "blunderbuss",
                     "sizeRatio": 0.5,
-                    "health": 1,
-                    "damage": 0.5,
-                    "speed": 1,
-                    "scatterRate": 0.3,
+                    "health": 0.8,
+                    "damage": 0.4,
+                    "speed": 1.2,
+                    "scatterRate": 0.5,
                     "lifeLength": 1,
-                    "absorbtionFactor": 1
+                    "absorbtionFactor": 0.5
                 }
             },
             {
@@ -6941,20 +6957,20 @@
                 "size": 95,
                 "width": 56.7,
                 "delay": 0,
-                "reload": 3.5,
-                "recoil": 2,
+                "reload": 3,
+                "recoil": 0.8,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
-                    "type": "triplebullet",
+                    "type": "blunderbuss",
                     "sizeRatio": 0.5,
-                    "health": 1,
-                    "damage": 0.5,
-                    "speed": 1.2,
+                    "health": 0.8,
+                    "damage": 0.4,
+                    "speed": 1.3,
                     "scatterRate": 0.3,
                     "lifeLength": 1,
-                    "absorbtionFactor": 1
+                    "absorbtionFactor": 0.5
                 }
             }
         ],
@@ -7008,7 +7024,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.8,
+        "fieldFactor": 0.85,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -7053,12 +7069,12 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 1.4,
                     "scatterRate": 1,
-                    "lifeLength": 8,
-                    "absorbtionFactor": 0.8
+                    "lifeLength": 6,
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -7138,9 +7154,9 @@
                     "sizeRatio": 1,
                     "health": 4,
                     "damage": 1,
-                    "speed": 0.55,
+                    "speed": 0.63,
                     "scatterRate": 1,
-                    "lifeLength": 1.3,
+                    "lifeLength": 1.4,
                     "absorbtionFactor": 0.1
                 }
             }
@@ -7385,7 +7401,7 @@
                     "sizeRatio": 0.8,
                     "health": 1.25,
                     "damage": 1.25,
-                    "speed": 2.5,
+                    "speed": 2,
                     "scatterRate": 0.3,
                     "lifeLength": 1.75,
                     "absorbtionFactor": 0.5
@@ -7453,8 +7469,8 @@
             {
                 "angle": 0,
                 "offset": 0,
-                "size": 70,
-                "width": 39.9,
+                "size": 75,
+                "width": 35.7,
                 "delay": 0,
                 "reload": 2,
                 "recoil": 1,
@@ -7465,8 +7481,8 @@
                 "bullet": {
                     "type": "boomerang",
                     "sizeRatio": 1,
-                    "health": 0,
-                    "damage": 1.5,
+                    "health": 1.2,
+                    "damage": 0.9,
                     "speed": 1.75,
                     "scatterRate": 1,
                     "lifeLength": 8,
@@ -7545,9 +7561,9 @@
                 "addon": "reversetrap",
                 "bullet": {
                     "type": "striker",
-                    "sizeRatio": 0.8,
-                    "health": 1.5,
-                    "damage": 1.25,
+                    "sizeRatio": 1,
+                    "health": 0.72,
+                    "damage": 1.875,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 5,
@@ -7710,7 +7726,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.85,
+        "fieldFactor": 0.9,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -7734,12 +7750,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 0.5,
                     "lifeLength": 3,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             },
             {
@@ -7757,12 +7773,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 0.5,
                     "lifeLength": 3,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             },
             {
@@ -7771,8 +7787,8 @@
                 "size": 100,
                 "width": 42,
                 "delay": 0,
-                "reload": 1.2,
-                "recoil": 0.5,
+                "reload": 1,
+                "recoil": 0.3,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -7794,7 +7810,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 1,
-                "recoil": 2,
+                "recoil": 1.85,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -7816,7 +7832,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 1,
-                "recoil": 2,
+                "recoil": 1.85,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -7968,29 +7984,73 @@
         "speed": 1,
         "maxHealth": 50,
         "preAddon": null,
-        "postAddon": "blasterpronounced",
+        "postAddon": "megapronounced",
         "sides": 1,
         "borderWidth": 15,
         "barrels": [
             {
                 "angle": 0,
                 "offset": 0,
-                "size": 120,
+                "size": 125,
                 "width": 39.9,
                 "delay": 0,
                 "reload": 10,
-                "recoil": 40,
+                "recoil": 0.85,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": "invisibleBarrel",
+                "bullet": {
+                    "type": "megablast",
+                    "sizeRatio": 0.4,
+                    "health": 0.5,
+                    "damage": 0.8,
+                    "speed": 0.8,
+                    "scatterRate": 3.5,
+                    "lifeLength": 0.12,
+                    "absorbtionFactor": 0.2
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 125,
+                "width": 39.9,
+                "delay": 0,
+                "reload": 10,
+                "recoil": 0.85,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": "invisibleBarrel",
+                "bullet": {
+                    "type": "megablast",
+                    "sizeRatio": 0.5,
+                    "health": 0.5,
+                    "damage": 0.8,
+                    "speed": 0.75,
+                    "scatterRate": 1.8,
+                    "lifeLength": 0.12,
+                    "absorbtionFactor": 0.2
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 125,
+                "width": 39.9,
+                "delay": 0,
+                "reload": 10,
+                "recoil": 0.85,
                 "isTrapezoid": true,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
-                    "type": "shotgun20",
-                    "sizeRatio": 0.5,
-                    "health": 0.6,
+                    "type": "megablast",
+                    "sizeRatio": 0.6,
+                    "health": 0.5,
                     "damage": 0.8,
-                    "speed": 1.5,
-                    "scatterRate": 1.5,
-                    "lifeLength": 0.15,
+                    "speed": 0.7,
+                    "scatterRate": 0.8,
+                    "lifeLength": 0.12,
                     "absorbtionFactor": 0.2
                 }
             }
@@ -8326,7 +8386,7 @@
                 "angle": 0,
                 "offset": 0,
                 "size": 80,
-                "width": 63,
+                "width": 58.8,
                 "delay": 0.2,
                 "reload": 12,
                 "recoil": 1,
@@ -8337,13 +8397,13 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "minion",
-                    "sizeRatio": 1.15,
+                    "sizeRatio": 1.2,
                     "health": 4.5,
-                    "damage": 1.2,
-                    "speed": 0.6,
-                    "scatterRate": 0,
+                    "damage": 1.4,
+                    "speed": 0.5,
+                    "scatterRate": 1,
                     "lifeLength": -1,
-                    "absorbtionFactor": 0.25,
+                    "absorbtionFactor": 0.2,
                     "aiRange": 1125,
                     "barrels": [
                         {
@@ -8353,7 +8413,7 @@
                             "width": 71.4,
                             "delay": 0,
                             "reload": 4,
-                            "recoil": 10,
+                            "recoil": 4,
                             "isTrapezoid": false,
                             "trapezoidDirection": 0,
                             "addon": null,
@@ -8491,7 +8551,7 @@
     },
     {
         "id": 78,
-        "name": "Blaster",
+        "name": "Pellet Shot",
         "upgradeMessage": "",
         "levelRequirement": 45,
         "upgrades": [],
@@ -8503,7 +8563,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.9,
+        "fieldFactor": 0.85,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -8515,23 +8575,67 @@
             {
                 "angle": 0,
                 "offset": 0,
-                "size": 100,
-                "width": 71.4,
+                "size": 115,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 7.5,
-                "recoil": 14,
+                "reload": 4,
+                "recoil": 0.4,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
-                    "type": "shotgun10",
-                    "sizeRatio": 0.35,
-                    "health": 0.65,
-                    "damage": 0.8,
-                    "speed": 0.8,
-                    "scatterRate": 2,
-                    "lifeLength": 1,
-                    "absorbtionFactor": 0.4
+                    "type": "pellet",
+                    "sizeRatio": 1,
+                    "health": 0.2,
+                    "damage": 0.6,
+                    "speed": 1.2,
+                    "scatterRate": 3,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 0.75
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 100,
+                "width": 35.7,
+                "delay": 0,
+                "reload": 4,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "pellet",
+                    "sizeRatio": 0.7,
+                    "health": 0.2,
+                    "damage": 0.6,
+                    "speed": 1.1,
+                    "scatterRate": 1.8,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 0.75
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 100,
+                "width": 35.7,
+                "delay": 0,
+                "reload": 4,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "pellet",
+                    "sizeRatio": 0.7,
+                    "health": 0.2,
+                    "damage": 0.6,
+                    "speed": 1,
+                    "scatterRate": 0.75,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 0.75
                 }
             }
         ],
@@ -8589,53 +8693,143 @@
         "speed": 1,
         "maxHealth": 50,
         "preAddon": null,
-        "postAddon": "blasterpronounced",
+        "postAddon": "dualpronounced",
         "sides": 1,
         "borderWidth": 15,
         "barrels": [
             {
                 "angle": 0,
-                "offset": 15.225,
+                "offset": -20,
                 "size": 100,
-                "width": 30.45,
+                "width": 21,
                 "delay": 0,
                 "reload": 6,
-                "recoil": 6,
-                "isTrapezoid": false,
+                "recoil": 0.4,
+                "isTrapezoid": true,
                 "trapezoidDirection": 0,
-                "addon": null,
-                "inverseFire": true,
+                "addon": "invisibleBarrel",
                 "bullet": {
-                    "type": "shotgun4",
-                    "sizeRatio": 0.8,
-                    "health": 0.75,
-                    "damage": 0.5,
-                    "speed": 0.8,
-                    "scatterRate": 2,
-                    "lifeLength": 1,
-                    "absorbtionFactor": 0.4
+                    "type": "dual",
+                    "sizeRatio": 1.7091,
+                    "health": 0.3,
+                    "damage": 0.8,
+                    "speed": 1.1,
+                    "scatterRate": 2.75,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 1
                 }
             },
             {
                 "angle": 0,
-                "offset": -15.225,
+                "offset": -20,
                 "size": 100,
-                "width": 30.45,
+                "width": 21,
                 "delay": 0,
                 "reload": 6,
-                "recoil": 6,
-                "isTrapezoid": false,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": "invisibleBarrel",
+                "bullet": {
+                    "type": "dual",
+                    "sizeRatio": 1.7091,
+                    "health": 0.3,
+                    "damage": 0.8,
+                    "speed": 1,
+                    "scatterRate": 1.2,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 0,
+                "offset": -20,
+                "size": 100,
+                "width": 21,
+                "delay": 0,
+                "reload": 6,
+                "recoil": 0.4,
+                "isTrapezoid": true,
                 "trapezoidDirection": 0,
                 "addon": null,
                 "bullet": {
-                    "type": "shotgun4",
-                    "sizeRatio": 0.8,
-                    "health": 0.75,
-                    "damage": 0.5,
-                    "speed": 0.8,
-                    "scatterRate": 2,
-                    "lifeLength": 1,
-                    "absorbtionFactor": 0.4
+                    "type": "dual",
+                    "sizeRatio": 1.7091,
+                    "health": 0.3,
+                    "damage": 0.8,
+                    "speed": 0.9,
+                    "scatterRate": 0.5,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 20,
+                "size": 100,
+                "width": 21,
+                "delay": 0,
+                "reload": 6,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": "invisibleBarrel",
+                "inverseFire": true,
+                "bullet": {
+                    "type": "dual",
+                    "sizeRatio": 1.7091,
+                    "health": 0.3,
+                    "damage": 0.8,
+                    "speed": 1.1,
+                    "scatterRate": 2.75,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 20,
+                "size": 100,
+                "width": 21,
+                "delay": 0,
+                "reload": 6,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": "invisibleBarrel",
+                "inverseFire": true,
+                "bullet": {
+                    "type": "dual",
+                    "sizeRatio": 1.7091,
+                    "health": 0.3,
+                    "damage": 0.8,
+                    "speed": 1,
+                    "scatterRate": 1.2,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 20,
+                "size": 100,
+                "width": 21,
+                "delay": 0,
+                "reload": 6,
+                "recoil": 0.4,
+                "isTrapezoid": true,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "inverseFire": true,
+                "bullet": {
+                    "type": "dual",
+                    "sizeRatio": 1.7091,
+                    "health": 0.3,
+                    "damage": 0.8,
+                    "speed": 0.9,
+                    "scatterRate": 0.5,
+                    "lifeLength": 0.9,
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -8999,7 +9193,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2.5,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9007,11 +9201,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 1.92,
                     "absorbtionFactor": 1
                 }
             },
@@ -9021,7 +9215,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2.5,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9029,11 +9223,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 1.92,
                     "absorbtionFactor": 1
                 }
             },
@@ -9043,7 +9237,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2.5,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9051,11 +9245,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 1.92,
                     "absorbtionFactor": 1
                 }
             },
@@ -9065,7 +9259,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2.5,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9073,11 +9267,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 1.92,
                     "absorbtionFactor": 1
                 }
             },
@@ -9087,7 +9281,7 @@
                 "size": 60,
                 "width": 42,
                 "delay": 0,
-                "reload": 2.5,
+                "reload": 1.5,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9095,11 +9289,11 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
+                    "lifeLength": 1.92,
                     "absorbtionFactor": 1
                 }
             }
@@ -9176,12 +9370,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             },
             {
@@ -9198,12 +9392,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             },
             {
@@ -9220,12 +9414,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             },
             {
@@ -9242,12 +9436,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             },
             {
@@ -9264,12 +9458,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             },
             {
@@ -9286,12 +9480,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             },
             {
@@ -9308,12 +9502,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             },
             {
@@ -9330,12 +9524,12 @@
                 "bullet": {
                     "type": "bouncetrap",
                     "sizeRatio": 1.1,
-                    "health": 0.48,
-                    "damage": 2,
+                    "health": 0.72,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.8,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8
                 }
             }
         ],
@@ -9401,9 +9595,9 @@
                 "angle": 2.0943951023931953,
                 "offset": 0,
                 "size": 60,
-                 "width": 42,
+                "width": 42,
                 "delay": 0,
-                "reload": 4,
+                "reload": 3,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9411,12 +9605,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 1.4,
+                    "health": 1.8,
+                    "damage": 1.05,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
-                    "absorbtionFactor": 0.8,
+                    "lifeLength": 2.14,
+                    "absorbtionFactor": 1,
                     "barrels": [
                         {
                             "angle": 0,
@@ -9447,9 +9641,9 @@
                 "angle": -2.0943951023931953,
                 "offset": 0,
                 "size": 60,
-                 "width": 42,
+                "width": 42,
                 "delay": 0,
-                "reload": 4,
+                "reload": 3,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9457,12 +9651,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 1.4,
+                    "health": 1.8,
+                    "damage": 1.05,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
-                    "absorbtionFactor": 0.8,
+                    "lifeLength": 2.14,
+                    "absorbtionFactor": 1,
                     "barrels": [
                         {
                             "angle": 0,
@@ -9493,9 +9687,9 @@
                 "angle": 0,
                 "offset": 0,
                 "size": 60,
-                 "width": 42,
+                "width": 42,
                 "delay": 0,
-                "reload": 4,
+                "reload": 3,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
@@ -9503,12 +9697,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 1.4,
+                    "health": 1.8,
+                    "damage": 1.05,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3.2,
-                    "absorbtionFactor": 0.8,
+                    "lifeLength": 2.14,
+                    "absorbtionFactor": 1,
                     "barrels": [
                         {
                             "angle": 0,
@@ -9978,7 +10172,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.8,
+                    "damage": 0.6,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -10000,7 +10194,7 @@
                     "type": "bullet",
                     "sizeRatio": 1,
                     "health": 1,
-                    "damage": 0.8,
+                    "damage": 0.6,
                     "speed": 1,
                     "scatterRate": 1,
                     "lifeLength": 1,
@@ -10195,12 +10389,12 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.8,
-                    "damage": 2,
+                    "health": 1.2,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 8,
-                    "absorbtionFactor": 0.8
+                    "lifeLength": 6,
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -10425,7 +10619,7 @@
                 "size": 70,
                 "width": 42,
                 "delay": 0,
-                "reload": 6,
+                "reload": 8,
                 "recoil": 1,
                 "isTrapezoid": true,
                 "trapezoidDirection": 0,
@@ -10449,7 +10643,7 @@
                 "size": 70,
                 "width": 42,
                 "delay": 0,
-                "reload": 6,
+                "reload": 8,
                 "recoil": 1,
                 "isTrapezoid": true,
                 "trapezoidDirection": 0,
@@ -10473,7 +10667,7 @@
                 "size": 70,
                 "width": 42,
                 "delay": 0,
-                "reload": 6,
+                "reload": 8,
                 "recoil": 1,
                 "isTrapezoid": true,
                 "trapezoidDirection": 0,
@@ -10527,113 +10721,7 @@
             }
         ]
     },
-    {
-        "id": 93,
-        "name": "Overkill",
-        "upgradeMessage": "",
-        "levelRequirement": 45,
-        "upgrades": [],
-        "flags": {
-            "invisibility": false,
-            "zoomAbility": false,
-            "devOnly": false
-        },
-        "visibilityRateShooting": 0.23,
-        "visibilityRateMoving": 0.08,
-        "invisibilityRate": 0.03,
-        "fieldFactor": 0.9,
-        "absorbtionFactor": 1,
-        "speed": 1,
-        "maxHealth": 50,
-        "preAddon": null,
-        "postAddon": null,
-        "sides": 1,
-        "borderWidth": 15,
-        "barrels": [
-            {
-                "angle": -1.5707963267948966,
-                "offset": 0,
-                "size": 70,
-                "width": 58.8,
-                "delay": 0,
-                "reload": 10,
-                "recoil": 1,
-                "isTrapezoid": true,
-                "trapezoidDirection": 0,
-                "addon": null,
-                "droneCount": 3,
-                "canControlDrones": true,
-                "bullet": {
-                    "type": "drone",
-                    "sizeRatio": 1,
-                    "health": 2.25,
-                    "damage": 1,
-                    "speed": 0.75,
-                    "scatterRate": 0,
-                    "lifeLength": -1,
-                    "absorbtionFactor": 0.6
-                }
-            },
-            {
-                "angle": 1.5707963267948966,
-                "offset": 0,
-                "size": 70,
-                "width": 58.8,
-                "delay": 0,
-                "reload": 10,
-                "recoil": 1,
-                "isTrapezoid": true,
-                "trapezoidDirection": 0,
-                "addon": null,
-                "droneCount": 3,
-                "canControlDrones": true,
-                "bullet": {
-                    "type": "drone",
-                    "sizeRatio": 1,
-                    "health": 2.25,
-                    "damage": 1,
-                    "speed": 0.75,
-                    "scatterRate": 0,
-                    "lifeLength": -1,
-                    "absorbtionFactor": 0.6
-                }
-            }
-        ],
-        "stats": [
-            {
-                "name": "Movement Speed",
-                "max": 7
-            },
-            {
-                "name": "Reload",
-                "max": 7
-            },
-            {
-                "name": "Drone Damage",
-                "max": 7
-            },
-            {
-                "name": "Drone Health",
-                "max": 7
-            },
-            {
-                "name": "Drone Speed",
-                "max": 7
-            },
-            {
-                "name": "Body Damage",
-                "max": 7
-            },
-            {
-                "name": "Max Health",
-                "max": 7
-            },
-            {
-                "name": "Health Regen",
-                "max": 7
-            }
-        ]
-    },
+    null,
     {
         "id": 94,
         "name": "Manager",
@@ -10769,8 +10857,8 @@
             {
                 "angle": 0,
                 "offset": 0,
-                "size": 70,
-                "width": 52.5,
+                "size": 75,
+                "width": 42,
                 "delay": 0,
                 "reload": 6,
                 "recoil": 1,
@@ -10781,7 +10869,7 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "minion",
-                    "sizeRatio": 0.8,
+                    "sizeRatio": 1,
                     "health": 4,
                     "damage": 0.7,
                     "speed": 0.56,
@@ -10853,44 +10941,44 @@
                 "angle": 0,
                 "offset": 0,
                 "size": 70,
-                "width": 39.9,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 6,
+                "reload": 8,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": "minionLauncher",
-                "droneCount": 4,
-                "canControlDrones": false,
+                "droneCount": 3,
+                "canControlDrones": true,
                 "bullet": {
                     "type": "minion",
                     "sizeRatio": 1,
-                    "health": 1.1,
-                    "damage": 0.5,
+                    "health": 3,
+                    "damage": 0.7,
                     "speed": 0.7,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 1,
-                    "generalMultiplier": 0.5,
+                    "generalMultiplier": 0.85,
                     "barrels": [
                         {
                             "angle": 0,
                             "offset": 0,
-                            "size": 80,
+                            "size": 85,
                             "width": 42,
                             "delay": 0,
                             "reload": 1,
-                            "recoil": 1.35,
+                            "recoil": 1,
                             "isTrapezoid": false,
                             "trapezoidDirection": 0,
                             "addon": null,
                             "bullet": {
                                 "type": "bullet",
                                 "health": 0.4,
-                                "damage": 0.2,
-                                "speed": 0.95,
+                                "damage": 0.4,
+                                "speed": 0.8,
                                 "scatterRate": 1,
-                                "lifeLength": 0.8,
+                                "lifeLength": 1,
                                 "sizeRatio": 1,
                                 "absorbtionFactor": 1
                             }
@@ -10902,44 +10990,44 @@
                 "angle": 2.0943951023931953,
                 "offset": 0,
                 "size": 70,
-                "width": 39.9,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 6,
+                "reload": 8,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": "minionLauncher",
-                "droneCount": 4,
+                "droneCount": 3,
                 "canControlDrones": true,
                 "bullet": {
                     "type": "minion",
                     "sizeRatio": 1,
-                    "health": 1.1,
-                    "damage": 0.5,
+                    "health": 3,
+                    "damage": 0.7,
                     "speed": 0.7,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 1,
-                    "generalMultiplier": 0.5,
+                    "generalMultiplier": 0.85,
                     "barrels": [
                         {
                             "angle": 0,
                             "offset": 0,
-                            "size": 80,
+                            "size": 85,
                             "width": 42,
                             "delay": 0,
                             "reload": 1,
-                            "recoil": 1.35,
+                            "recoil": 1,
                             "isTrapezoid": false,
                             "trapezoidDirection": 0,
                             "addon": null,
                             "bullet": {
                                 "type": "bullet",
                                 "health": 0.4,
-                                "damage": 0.2,
-                                "speed": 0.95,
+                                "damage": 0.4,
+                                "speed": 0.8,
                                 "scatterRate": 1,
-                                "lifeLength": 0.8,
+                                "lifeLength": 1,
                                 "sizeRatio": 1,
                                 "absorbtionFactor": 1
                             }
@@ -10951,44 +11039,44 @@
                 "angle": -2.0943951023931953,
                 "offset": 0,
                 "size": 70,
-                "width": 39.9,
+                "width": 35.7,
                 "delay": 0,
-                "reload": 6,
+                "reload": 8,
                 "recoil": 1,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": "minionLauncher",
-                "droneCount": 4,
+                "droneCount": 3,
                 "canControlDrones": true,
                 "bullet": {
                     "type": "minion",
                     "sizeRatio": 1,
-                    "health": 1.1,
-                    "damage": 0.5,
+                    "health": 3,
+                    "damage": 0.7,
                     "speed": 0.7,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 1,
-                    "generalMultiplier": 0.5,
+                    "generalMultiplier": 0.85,
                     "barrels": [
                         {
                             "angle": 0,
                             "offset": 0,
-                            "size": 80,
+                            "size": 85,
                             "width": 42,
                             "delay": 0,
                             "reload": 1,
-                            "recoil": 1.35,
+                            "recoil": 1,
                             "isTrapezoid": false,
                             "trapezoidDirection": 0,
                             "addon": null,
                             "bullet": {
                                 "type": "bullet",
                                 "health": 0.4,
-                                "damage": 0.2,
-                                "speed": 0.95,
+                                "damage": 0.4,
+                                "speed": 0.8,
                                 "scatterRate": 1,
-                                "lifeLength": 0.8,
+                                "lifeLength": 1,
                                 "sizeRatio": 1,
                                 "absorbtionFactor": 1
                             }
@@ -11289,7 +11377,7 @@
                     "health": 4,
                     "damage": 0.42,
                     "speed": 0.8,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 0.4
                 }
@@ -11313,7 +11401,7 @@
                     "health": 4,
                     "damage": 0.42,
                     "speed": 0.8,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 0.4
                 }
@@ -11337,7 +11425,7 @@
                     "health": 4,
                     "damage": 0.42,
                     "speed": 0.8,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 0.4
                 }
@@ -11361,7 +11449,7 @@
                     "health": 4,
                     "damage": 0.42,
                     "speed": 0.8,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 0.4
                 }
@@ -11385,7 +11473,7 @@
                     "health": 4,
                     "damage": 0.42,
                     "speed": 0.8,
-                    "scatterRate": 0,
+                    "scatterRate": 1,
                     "lifeLength": -1,
                     "absorbtionFactor": 0.4
                 }
@@ -11463,9 +11551,9 @@
                 "addon": "trapLauncher",
                 "bullet": {
                     "type": "trap",
-                    "sizeRatio": 1.76,
-                    "health": 1.6,
-                    "damage": 4,
+                    "sizeRatio": 1.54,
+                    "health": 2.4,
+                    "damage": 3,
                     "speed": 1.7,
                     "scatterRate": 1,
                     "lifeLength": 8,
@@ -11546,12 +11634,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.68,
-                    "health": 1.6,
-                    "damage": 2.4,
+                    "health": 2.4,
+                    "damage": 1.5,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 3,
-                    "absorbtionFactor": 0.4,
+                    "absorbtionFactor": 0.6,
                     "aiRange": 1350,
                     "generalMultiplier": 1.425,
                     "barrels": [
@@ -11652,14 +11740,16 @@
                 "trapezoidDirection": 0,
                 "addon": "bombLauncher",
                 "bullet": {
-                    "type": "megabomb",
+                    "type": "bomb",
                     "sizeRatio": 1.4,
                     "health": 5,
                     "damage": 0.8,
                     "speed": 2,
                     "scatterRate": 1,
-                    "lifeLength": 3,
-                    "absorbtionFactor": 0.4
+                    "lifeLength": 2.8,
+                    "absorbtionFactor": 0.6,
+                    "generalMultiplier": 5,
+                    "explosionDamage": 5
                 }
             }
         ],
@@ -11736,12 +11826,12 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 1.4,
+                    "health": 1.8,
+                    "damage": 1.05,
                     "speed": 2,
                     "scatterRate": 1,
                     "lifeLength": 3,
-                    "absorbtionFactor": 0.8
+                    "absorbtionFactor": 1
                 }
             }
         ],
@@ -11821,10 +11911,12 @@
                     "sizeRatio": 1,
                     "health": 5,
                     "damage": 0.3,
-                    "speed": 1.7,
+                    "speed": 2.4,
                     "scatterRate": 1,
                     "lifeLength": 2,
-                    "absorbtionFactor": 0.5
+                    "absorbtionFactor": 0.8,
+                    "generalMultiplier": 3,
+                    "explosionDamage": 2.5
                 }
             }
         ],
@@ -11900,13 +11992,15 @@
                 "addon": "bombLauncher",
                 "bullet": {
                     "type": "mine",
-                    "sizeRatio": 1,
+                    "sizeRatio": 1.2,
                     "health": 3,
                     "damage": 0.3,
                     "speed": 2.4,
                     "scatterRate": 1,
-                    "lifeLength": 7,
-                    "absorbtionFactor": 0.5
+                    "lifeLength": 8,
+                    "absorbtionFactor": 0.5,
+                    "generalMultiplier": 9,
+                    "explosionDamage": 12
                 }
             }
         ],
@@ -11961,9 +12055,9 @@
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
         "fieldFactor": 0.9,
-        "absorbtionFactor": 0.3,
+        "absorbtionFactor": 0.5,
         "speed": 1,
-        "maxHealth": 65,
+        "maxHealth": 50,
         "preAddon": null,
         "postAddon": "megasmasher",
         "sides": 1,
@@ -12018,10 +12112,10 @@
         },
         "visibilityRateShooting": 0,
         "visibilityRateMoving": 0.16,
-        "invisibilityRate": 0.01,
+        "invisibilityRate": 0.004,
         "fieldFactor": 0.9,
-        "absorbtionFactor": 0.7,
-        "speed": 1,
+        "absorbtionFactor": 1,
+        "speed": 1.1,
         "maxHealth": 50,
         "preAddon": null,
         "postAddon": "landmine",
@@ -12079,7 +12173,7 @@
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
         "fieldFactor": 0.9,
-        "absorbtionFactor": 0.7,
+        "absorbtionFactor": 1,
         "speed": 1.1,
         "maxHealth": 50,
         "preAddon": null,
@@ -12138,8 +12232,8 @@
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
         "fieldFactor": 0.9,
-        "absorbtionFactor": 0.6,
-        "speed": 1,
+        "absorbtionFactor": 1,
+        "speed": 1.1,
         "maxHealth": 50,
         "preAddon": null,
         "postAddon": "spike",
@@ -12197,9 +12291,10 @@
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
         "fieldFactor": 0.9,
-        "absorbtionFactor": 1,
-        "speed": 1.95,
-        "maxHealth": 4 ,
+        "absorbtionFactor": 0.7,
+        "speed": 1.3,
+        "frictionOverride": 0.15,
+        "maxHealth": 35,
         "preAddon": null,
         "postAddon": "saw",
         "sides": 1,
@@ -12240,9 +12335,609 @@
             }
         ]
     },
-    null,
-    null,
-    null,
+    {
+        "id": 111,
+        "name": "Auto Spawner",
+        "upgradeMessage": "",
+        "levelRequirement": 45,
+        "upgrades": [],
+        "flags": {
+            "invisibility": false,
+            "zoomAbility": false,
+            "canClaimSquares": false,
+            "devOnly": false
+        },
+        "visibilityRateShooting": 0.23,
+        "visibilityRateMoving": 0.08,
+        "invisibilityRate": 0.03,
+        "fieldFactor": 0.9,
+        "absorbtionFactor": 1,
+        "speed": 1,
+        "maxHealth": 50,
+        "preAddon": null,
+        "postAddon": "autoturret",
+        "sides": 1,
+        "borderWidth": 15,
+        "barrels": [
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 70,
+                "width": 35.7,
+                "delay": 0,
+                "reload": 4,
+                "recoil": 1,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": "minionLauncher",
+                "droneCount": 4,
+                "canControlDrones": true,
+                "bullet": {
+                    "type": "minion",
+                    "sizeRatio": 1,
+                    "health": 3,
+                    "damage": 0.7,
+                    "speed": 0.7,
+                    "scatterRate": 1,
+                    "lifeLength": -1,
+                    "absorbtionFactor": 1,
+                    "generalMultiplier": 0.85,
+                    "barrels": [
+                        {
+                            "angle": 0,
+                            "offset": 0,
+                            "size": 85,
+                            "width": 42,
+                            "delay": 0,
+                            "reload": 1,
+                            "recoil": 1,
+                            "isTrapezoid": false,
+                            "trapezoidDirection": 0,
+                            "addon": null,
+                            "bullet": {
+                                "type": "bullet",
+                                "health": 0.4,
+                                "damage": 0.4,
+                                "speed": 0.8,
+                                "scatterRate": 1,
+                                "lifeLength": 1,
+                                "sizeRatio": 1,
+                                "absorbtionFactor": 1
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "stats": [
+            {
+                "name": "Movement Speed",
+                "max": 7
+            },
+            {
+                "name": "Reload",
+                "max": 7
+            },
+            {
+                "name": "Drone Damage",
+                "max": 7
+            },
+            {
+                "name": "Drone Health",
+                "max": 7
+            },
+            {
+                "name": "Drone Speed",
+                "max": 7
+            },
+            {
+                "name": "Body Damage",
+                "max": 7
+            },
+            {
+                "name": "Max Health",
+                "max": 7
+            },
+            {
+                "name": "Health Regen",
+                "max": 7
+            }
+        ]
+    },
+    {
+        "id": 112,
+        "name": "Deployer",
+        "upgradeMessage": "",
+        "levelRequirement": 45,
+        "upgrades": [],
+        "flags": {
+            "invisibility": false,
+            "zoomAbility": false,
+            "canClaimSquares": false,
+            "devOnly": false
+        },
+        "visibilityRateShooting": 0.23,
+        "visibilityRateMoving": 0.08,
+        "invisibilityRate": 0.03,
+        "fieldFactor": 0.9,
+        "absorbtionFactor": 1,
+        "speed": 1,
+        "maxHealth": 50,
+        "preAddon": null,
+        "postAddon": "launchermissile",
+        "sides": 1,
+        "borderWidth": 15,
+        "barrels": [
+          {
+            "angle": 0,
+            "offset": 0,
+            "size": 80,
+            "width": 52.5,
+            "delay": 0,
+            "reload": 4,
+            "recoil": 3,
+            "isTrapezoid": true,
+            "trapezoidDirection": 3.141592653589793,
+            "addon": null,
+            "bullet": {
+              "type": "flankmissile",
+              "sizeRatio": 1,
+              "health": 3,
+              "damage": 1,
+              "speed": 0.3,
+              "scatterRate": 1,
+              "lifeLength": 1.3,
+              "absorbtionFactor": 0.1
+            }
+          }
+        ],
+        "stats": [
+            {
+                "name": "Movement Speed",
+                "max": 7
+            },
+            {
+                "name": "Reload",
+                "max": 7
+            },
+            {
+                "name": "Bullet Damage",
+                "max": 7
+            },
+            {
+                "name": "Bullet Penetration",
+                "max": 7
+            },
+            {
+                "name": "Bullet Speed",
+                "max": 7
+            },
+            {
+                "name": "Body Damage",
+                "max": 7
+            },
+            {
+                "name": "Max Health",
+                "max": 7
+            },
+            {
+                "name": "Health Regen",
+                "max": 7
+            }
+        ]
+    },
+    {
+        "id": 113,
+        "name": "Hexadeca Tank",
+        "upgradeMessage": "",
+        "levelRequirement": 45,
+        "upgrades": [],
+        "flags": {
+            "invisibility": false,
+            "zoomAbility": false,
+            "canClaimSquares": false,
+            "devOnly": false
+        },
+        "visibilityRateShooting": 0.23,
+        "visibilityRateMoving": 0.08,
+        "invisibilityRate": 0.03,
+        "fieldFactor": 1,
+        "absorbtionFactor": 1,
+        "speed": 1,
+        "maxHealth": 50,
+        "preAddon": null,
+        "postAddon": null,
+        "sides": 1,
+        "borderWidth": 15,
+        "barrels": [
+            {
+                "angle": -2.748893571891069,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": -1.9634954084936207,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": -2.356194490192345,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 2.748893571891069,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 1.9634954084936207,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 2.356194490192345,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": -1.1780972450961724,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": -0.39269908169872414,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": -0.7853981633974483,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 1.1780972450961724,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 0.39269908169872414,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 0.7853981633974483,
+                "offset": 0,
+                "size": 85,
+                "width": 25.2,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 0.2,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 0.5,
+                    "damage": 0.5,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 3.141592653589793,
+                "offset": 0,
+                "size": 95,
+                "width": 42,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 1,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 1,
+                    "damage": 0.75,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": -1.5707963267948966,
+                "offset": 0,
+                "size": 95,
+                "width": 42,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 1,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 1,
+                    "damage": 0.75,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 1.5707963267948966,
+                "offset": 0,
+                "size": 95,
+                "width": 42,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 1,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 1,
+                    "damage": 0.75,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            },
+            {
+                "angle": 0,
+                "offset": 0,
+                "size": 95,
+                "width": 42,
+                "delay": 0,
+                "reload": 1.5,
+                "recoil": 1,
+                "isTrapezoid": false,
+                "trapezoidDirection": 0,
+                "addon": null,
+                "bullet": {
+                    "type": "bullet",
+                    "sizeRatio": 1,
+                    "health": 1,
+                    "damage": 0.75,
+                    "speed": 1,
+                    "scatterRate": 1,
+                    "lifeLength": 1,
+                    "absorbtionFactor": 1
+                }
+            }
+        ],
+        "stats": [
+            {
+                "name": "Movement Speed",
+                "max": 7
+            },
+            {
+                "name": "Reload",
+                "max": 7
+            },
+            {
+                "name": "Bullet Damage",
+                "max": 7
+            },
+            {
+                "name": "Bullet Penetration",
+                "max": 7
+            },
+            {
+                "name": "Bullet Speed",
+                "max": 7
+            },
+            {
+                "name": "Body Damage",
+                "max": 7
+            },
+            {
+                "name": "Max Health",
+                "max": 7
+            },
+            {
+                "name": "Health Regen",
+                "max": 7
+            }
+        ]
+    },
     null,
     null,
     null,
@@ -13294,8 +13989,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -13317,8 +14012,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -13340,8 +14035,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -14189,8 +14884,7 @@
         "name": "Magnetar-Celestial",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -14394,7 +15088,7 @@
             {
                 "angle": 3.141592653589793,
                 "offset": 0,
-                "size": 40,
+                "size": 42.5,
                 "width": 21,
                 "distance": 10,
                 "delay": 0,
@@ -15872,10 +16566,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -15897,10 +16591,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -15922,10 +16616,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -15947,10 +16641,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -15972,10 +16666,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -15997,10 +16691,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -16022,10 +16716,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -16047,10 +16741,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -16072,10 +16766,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -17135,8 +17829,7 @@
         "name": "Asteroid-Celestial",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -17169,8 +17862,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -17192,8 +17885,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -17215,8 +17908,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -17238,8 +17931,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -17261,8 +17954,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -17284,8 +17977,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -17307,8 +18000,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -17330,8 +18023,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -17353,8 +18046,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -17402,8 +18095,7 @@
         "name": "Charon-Celestial",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -17436,8 +18128,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -17459,8 +18151,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -17482,8 +18174,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -17531,8 +18223,7 @@
         "name": "Meteor-Celestial",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -17565,8 +18256,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -17636,8 +18327,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -17707,8 +18398,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -17804,8 +18495,7 @@
         "name": "Oort-Celestial",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -17837,9 +18527,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -17860,9 +18550,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -17883,9 +18573,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18025,8 +18715,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18048,8 +18738,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18071,8 +18761,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18163,8 +18853,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18186,8 +18876,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18209,8 +18899,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18299,8 +18989,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18322,8 +19012,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18345,8 +19035,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -18394,8 +19084,7 @@
         "name": "Nova-Galaxy",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -18524,8 +19213,7 @@
         "name": "Nova-Pollux",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -18654,8 +19342,7 @@
         "name": "Nova-Oberon",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -18784,8 +19471,7 @@
         "name": "Nova-Void",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -18915,8 +19601,7 @@
         "name": "Nova-Comet",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -19046,8 +19731,7 @@
         "name": "Nova-Abyss",
         "upgradeMessage": "",
         "levelRequirement": 80,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -19839,8 +20523,7 @@
         "name": "Magnetar-Nebula",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -20044,7 +20727,7 @@
             {
                 "angle": 3.141592653589793,
                 "offset": 0,
-                "size": 40,
+                "size": 42.5,
                 "width": 21,
                 "distance": 10,
                 "delay": 0,
@@ -20220,8 +20903,7 @@
         "name": "Pulsar-Galaxy",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -20419,8 +21101,7 @@
         "name": "Pulsar-Pollux",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -20618,8 +21299,7 @@
         "name": "Pulsar-Oberon",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -21219,8 +21899,7 @@
         "name": "Magnetar-Chasm",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -21426,7 +22105,7 @@
             {
                 "angle": 3.141592653589793,
                 "offset": 0,
-                "size": 40,
+                "size": 42.5,
                 "width": 21,
                 "distance": 10,
                 "delay": 0,
@@ -21602,8 +22281,7 @@
         "name": "Pulsar-Void",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -21802,8 +22480,7 @@
         "name": "Pulsar-Comet",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -22002,8 +22679,7 @@
         "name": "Pulsar-Abyss",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -22602,8 +23278,7 @@
         "name": "Magnetar-Triton",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -22807,7 +23482,7 @@
             {
                 "angle": 3.141592653589793,
                 "offset": 0,
-                "size": 40,
+                "size": 42.5,
                 "width": 21,
                 "distance": 10,
                 "delay": 0,
@@ -22983,8 +23658,7 @@
         "name": "Pulsar-Hyperion",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -23182,8 +23856,7 @@
         "name": "Pulsar-Neso",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -24064,10 +24737,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -24089,10 +24762,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -24114,10 +24787,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -24139,10 +24812,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -24164,10 +24837,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -24189,10 +24862,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -24214,10 +24887,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -24239,10 +24912,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -24264,10 +24937,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -24450,8 +25123,7 @@
         "name": "Satellite-Galaxy",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -24735,8 +25407,7 @@
         "name": "Satellite-Polluz",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -25020,8 +25691,7 @@
         "name": "Satellite-Oberon",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -25989,10 +26659,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -26014,10 +26684,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -26039,10 +26709,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -26064,10 +26734,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -26089,10 +26759,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -26114,10 +26784,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -26139,10 +26809,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -26164,10 +26834,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -26189,10 +26859,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -27920,10 +28590,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -27945,10 +28615,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -27970,10 +28640,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -27995,10 +28665,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -28020,10 +28690,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -28045,10 +28715,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -28070,10 +28740,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -28095,10 +28765,10 @@
                 "canControlDrones": false,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 0.8,
                     "damage": 0.6,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.3,
                     "absorbtionFactor": 1
@@ -28120,10 +28790,10 @@
                 "canControlDrones": true,
                 "bullet": {
                     "type": "swarm",
-                    "sizeRatio": 1,
+                    "sizeRatio": 0.7,
                     "health": 1,
                     "damage": 0.8,
-                    "speed": 1,
+                    "speed": 1.1,
                     "scatterRate": 1,
                     "lifeLength": 1.6,
                     "absorbtionFactor": 1
@@ -28878,8 +29548,7 @@
         "name": "Asteroid-Nebula",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -28912,8 +29581,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -28935,8 +29604,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -28958,8 +29627,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -28981,8 +29650,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -29004,8 +29673,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -29027,8 +29696,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -29050,8 +29719,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29073,8 +29742,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29096,8 +29765,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29145,8 +29814,7 @@
         "name": "Charon-Nebula",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -29179,8 +29847,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -29202,8 +29870,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -29225,8 +29893,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -29274,8 +29942,7 @@
         "name": "Meteor-Nebula",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -29308,8 +29975,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -29379,8 +30046,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -29450,8 +30117,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -29547,8 +30214,7 @@
         "name": "Oort-Nebula",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -29580,9 +30246,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29603,9 +30269,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29626,9 +30292,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29727,8 +30393,7 @@
         "name": "Debris-Galaxy",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -29761,8 +30426,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29784,8 +30449,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29807,8 +30472,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29856,8 +30521,7 @@
         "name": "Debris-Pollux",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -29890,8 +30554,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29913,8 +30577,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29936,8 +30600,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -29985,8 +30649,7 @@
         "name": "Debris-Oberon",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -30019,8 +30682,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30042,8 +30705,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30065,8 +30728,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30114,8 +30777,7 @@
         "name": "Asteroid-Chasm",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -30149,8 +30811,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -30172,8 +30834,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -30195,8 +30857,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -30218,8 +30880,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -30241,8 +30903,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -30264,8 +30926,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -30287,8 +30949,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30310,8 +30972,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30333,8 +30995,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30382,8 +31044,7 @@
         "name": "Charon-Chasm",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -30417,8 +31078,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -30440,8 +31101,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -30463,8 +31124,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -30512,8 +31173,7 @@
         "name": "Meteor-Chasm",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -30547,8 +31207,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -30618,8 +31278,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -30689,8 +31349,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -30786,8 +31446,7 @@
         "name": "Oort-Chasm",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -30820,9 +31479,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30843,9 +31502,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30866,9 +31525,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -30967,8 +31626,7 @@
         "name": "Debris-Void",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -31002,8 +31660,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31025,8 +31683,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31048,8 +31706,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31097,8 +31755,7 @@
         "name": "Debris-Comet",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -31132,8 +31789,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31155,8 +31812,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31178,8 +31835,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31227,8 +31884,7 @@
         "name": "Debris-Abyss",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -31262,8 +31918,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31285,8 +31941,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31308,8 +31964,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31357,8 +32013,7 @@
         "name": "Asteroid-Triton",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -31391,8 +32046,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -31414,8 +32069,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -31437,8 +32092,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -31460,8 +32115,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -31483,8 +32138,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -31506,8 +32161,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 0.6,
-                    "damage": 2,
+                    "health": 0.9,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.5,
@@ -31529,8 +32184,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31552,8 +32207,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31575,8 +32230,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -31624,8 +32279,7 @@
         "name": "Charon-Triton",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -31658,8 +32312,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -31681,8 +32335,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -31704,8 +32358,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.54,
-                    "health": 1.8,
-                    "damage": 5,
+                    "health": 2.7,
+                    "damage": 3.75,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 6,
@@ -31753,8 +32407,7 @@
         "name": "Meteor-Triton",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -31787,8 +32440,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -31858,8 +32511,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -31929,8 +32582,8 @@
                 "bullet": {
                     "type": "autotrap",
                     "sizeRatio": 1.2,
-                    "health": 1.2,
-                    "damage": 2,
+                    "health": 1.8,
+                    "damage": 1.5,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 2.75,
@@ -32026,8 +32679,7 @@
         "name": "Oort-Triton",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -32059,9 +32711,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32082,9 +32734,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32105,9 +32757,9 @@
                 "addon": "celestialTrapLauncher",
                 "bullet": {
                     "type": "boomerang",
-                    "sizeRatio": 0.8,
-                    "health": 1.2,
-                    "damage": 3,
+                    "sizeRatio": 1,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.25,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32206,8 +32858,7 @@
         "name": "Debris-Hyperion",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -32240,8 +32891,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32263,8 +32914,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32286,8 +32937,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32335,8 +32986,7 @@
         "name": "Debris-Neso",
         "upgradeMessage": "",
         "levelRequirement": 90,
-        "upgrades": [
-        ],
+        "upgrades": [],
         "flags": {
             "invisibility": false,
             "zoomAbility": false,
@@ -32369,8 +33019,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32392,8 +33042,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,
@@ -32415,8 +33065,8 @@
                 "bullet": {
                     "type": "trap",
                     "sizeRatio": 1.1,
-                    "health": 1.2,
-                    "damage": 3,
+                    "health": 1.8,
+                    "damage": 2.25,
                     "speed": 1.5,
                     "scatterRate": 1,
                     "lifeLength": 4.5,

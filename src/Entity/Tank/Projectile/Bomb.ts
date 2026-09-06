@@ -27,7 +27,7 @@ import { PI2 } from "../../../util";
 import Trap from "./Trap";
 import ObjectEntity from "../../Object";
 import Particle, { ParticleState } from "../../Misc/Particle";
-import Explosion from "./Explosion";
+import Explosion from "./../Explosion";
 import { CameraEntity } from "../../../Native/Camera";
 import { Inputs } from "../../AI";
 
@@ -52,35 +52,18 @@ export default class Bomb extends Trap implements BarrelBase  {
     /** How the proejctile should rotate*/
     public spinSpeed = 0.7;
     public direction = (Math.random() < .5 ? -1 : 1);
-    public ExplosionBarrelDefinition: BarrelDefinition = {
-        angle: 0,
-        offset: 0,
-        size: 70,
-        width: 100,
-        delay: 0.5,
-        reload: 0.75,
-        nonRandomRecoil: true,
-        recoil: 0,
-        isTrapezoid: false,
-        trapezoidDirection: 0,
-        addon: null,
-        forceFire: true,
-        bullet: {
-            type: "drone",
-            health: 1,
-            damage: 3.5,
-            speed: 0,
-            scatterRate: 0,
-            lifeLength: 0,
-            sizeRatio: 5,
-            absorbtionFactor: 1
-        }
-    };
+    explosionDamage: number;
+    explosionSize: number;
+
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
 
         this.cameraEntity = tank.cameraEntity;
         const bulletDefinition = barrel.definition.bullet;
+        const generalMultiplier = bulletDefinition.generalMultiplier?  bulletDefinition.generalMultiplier : 4.5;
+        const explosionDamage = bulletDefinition.explosionDamage? bulletDefinition.explosionDamage : 3.5;
+        this.explosionSize = this.physicsData.values.size * generalMultiplier
+        this.explosionDamage = explosionDamage
         this.physicsData.values.sides = 1;
         this.styleData.values.flags ^= StyleFlags.isStar;
         this.bouncetrap = true
@@ -134,11 +117,6 @@ export default class Bomb extends Trap implements BarrelBase  {
         super.destroy(animate);
     }
     public explode(){
-        let barrel = new Barrel(this, this.ExplosionBarrelDefinition);
-        let boom = new Explosion(barrel, this.tank, this.tankDefinition, 0)
-        barrel.delete();
-        const {x, y} = this.getWorldPosition();
-        boom.positionData.values.x = x;
-        boom.positionData.values.y = y;
+        let boom = new Explosion(this, this.tank, this.explosionDamage, this.explosionSize);
     }
 }

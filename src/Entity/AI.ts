@@ -101,6 +101,7 @@ export class AI {
     public targetFilterNonLiving = true;
     /** Target filter letting owner classes filter what can't be a target by position - false = not valid target */
     public targetFilter: (possibleTargetPos: VectorAbstract) => boolean;
+    public useOwerPosition = true;
 
     /** Stores a per-AI hash used to optimize ticking */
     private _aiHash: number;
@@ -151,7 +152,7 @@ export class AI {
         }
 
         // const entities = this.game.entities.inner.slice(0, this.game.entities.lastId);
-        const root = (this.owner.rootParent === this.owner && (this.owner.relationsData.values.owner as ObjectEntity)?.positionData) ? this.owner.relationsData.values.owner as ObjectEntity : this.owner.rootParent;
+        const root = (this.owner.rootParent === this.owner && this.useOwerPosition && (this.owner.relationsData.values.owner as ObjectEntity)?.positionData) ? this.owner.relationsData.values.owner as ObjectEntity : this.owner.rootParent;
         const entities = this.viewRange === Infinity
             ? PackedEntitySet.FULL_SET
             : this.game.entities.collisionManager.retrieve(
