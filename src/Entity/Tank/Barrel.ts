@@ -37,6 +37,8 @@ import CrocSkimmer from "./Projectile/CrocSkimmer";
 import { BarrelAddon, BarrelAddonById } from "./BarrelAddons";
 import { Swarm } from "./Projectile/Swarm";
 import NecromancerSquare from "./Projectile/NecromancerSquare";
+import Glider from "./Projectile/Glider";
+import Shell from "./Projectile/Shell";
 
 /**
  * Class that determines when barrels can shoot, and when they can't.
@@ -165,6 +167,12 @@ export default class Barrel extends ObjectEntity {
         let projectile: ObjectEntity | null = null;
 
         switch (this.definition.bullet.type) {
+            case "firework":
+                new Shell(this, this.tank, tankDefinition, angle);
+                break;
+            case "glider":
+                new Glider(this, this.tank, tankDefinition, angle);
+                break;
             case "skimmer":
                 projectile = new Skimmer(this, this.tank, tankDefinition, angle, this.tank.inputs.attemptingRepel() ? -Skimmer.BASE_ROTATION : Skimmer.BASE_ROTATION);
                 break;
@@ -219,13 +227,13 @@ export default class Barrel extends ObjectEntity {
     
     public calculateStatData() {
         const reloadTime = this.tank.reloadTime * this.definition.reload;
-
+        const bulletSpeed = (this.definition.bullet.speed instanceof Array) ? util.randomRange(this.definition.bullet.speed[0], this.definition.bullet.speed[1]) : this.definition.bullet.speed;
         if (reloadTime !== this.shootCycle.reloadTime) {
             this.shootCycle.pos *= reloadTime / this.shootCycle.reloadTime;
             this.shootCycle.reloadTime = this.barrelData.reloadTime = reloadTime;
         }
         
-        this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.BulletSpeed] || 0) * 3) * this.definition.bullet.speed;
+        this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.BulletSpeed] || 0) * 3) * bulletSpeed;
     }
 
     public tick(tick: number) {

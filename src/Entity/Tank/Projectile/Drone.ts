@@ -24,6 +24,7 @@ import { TankDefinition } from "../../../Const/TankDefinitions";
 import { Entity } from "../../../Native/Entity";
 import { AI, AIState } from "../../AI";
 import { BarrelBase } from "../TankBody";
+import { randomRange } from "../../../util";
 
 /**
  * The drone class represents the drone (projectile) entity in diep.
@@ -48,7 +49,9 @@ export default class Drone extends Bullet {
         super(barrel, tank, tankDefinition, shootAngle);
 
         const bulletDefinition = barrel.definition.bullet;
-
+        const absorbtionFactor = (bulletDefinition.absorbtionFactor instanceof Array) ? randomRange(bulletDefinition.absorbtionFactor[0], bulletDefinition.absorbtionFactor[1]) : bulletDefinition.absorbtionFactor;
+        const lifeLength = (bulletDefinition.lifeLength instanceof Array) ? randomRange(bulletDefinition.lifeLength[0], bulletDefinition.lifeLength[1]) : bulletDefinition.lifeLength;
+    
         this.usePosAngle = true;
         
         this.ai = new AI(this);
@@ -62,14 +65,14 @@ export default class Drone extends Bullet {
         this.styleData.values.flags &= ~StyleFlags.hasNoDmgIndicator;
 
         if (barrel.definition.bullet.lifeLength !== -1) {
-            this.lifeLength = 88 * barrel.definition.bullet.lifeLength;
+            this.lifeLength = 88 * lifeLength;
         } else {
             this.lifeLength = Infinity;
         }
         this.deathAccelFactor = 1;
 
         this.physicsData.values.pushFactor = 4;
-        this.physicsData.values.absorbtionFactor = bulletDefinition.absorbtionFactor;
+        this.physicsData.values.absorbtionFactor = absorbtionFactor;
 
         this.baseSpeed /= 3;
 

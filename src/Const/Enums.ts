@@ -125,7 +125,13 @@ export const enum Tank {
     Spike         = 51,
     Factory       = 52,
     Skimmer       = 54,
-    Rocketeer     = 55
+    Rocketeer     = 55,
+    AutoTank      = 58,
+    DualBarrel    = 60,
+    PelletShot    = 61,
+    Shotgun       = 62,
+    Glider        = 63,
+    Firework      = 64,
 }
 
 /**

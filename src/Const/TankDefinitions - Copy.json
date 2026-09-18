@@ -2699,7 +2699,7 @@
                     "health": 1,
                     "damage": 1,
                     "speed": 1.5,
-                    "scatterRate": 0.1,
+                    "scatterRate": 0.3,
                     "lifeLength": 1,
                     "absorbtionFactor": 1
                 }
@@ -2755,7 +2755,7 @@
         "visibilityRateShooting": 0.23,
         "visibilityRateMoving": 0.08,
         "invisibilityRate": 0.03,
-        "fieldFactor": 0.65,
+        "fieldFactor": 0.7,
         "absorbtionFactor": 1,
         "speed": 1,
         "maxHealth": 50,
@@ -2771,7 +2771,7 @@
                 "width": 42,
                 "delay": 0,
                 "reload": 2,
-                "recoil": 4,
+                "recoil": 3,
                 "isTrapezoid": false,
                 "trapezoidDirection": 0,
                 "addon": null,
@@ -2781,7 +2781,7 @@
                     "health": 1,
                     "damage": 1,
                     "speed": 1.5,
-                    "scatterRate": 0,
+                    "scatterRate": 0.3,
                     "lifeLength": 1,
                     "absorbtionFactor": 1
                 }

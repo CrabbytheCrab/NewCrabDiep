@@ -373,7 +373,96 @@ const CUSTOM_ADDONS = {
         rect2.physicsData.width = entity.physicsData.width * 1.25;
         rect2.physicsData.size = entity.physicsData.size * (35 / 50);
         rect2.positionData.x = (-entity.physicsData.size + rect2.physicsData.size) / 2;
-    }
+    },
+    "shotpronounced": entity => {
+        if(!(entity instanceof $Entity)) return;
+        const sizeRatio = 75;
+        const widthRatio = 42 * 1.19048;
+        const offsetRatio = 2.5;
+
+        const pronounced = entity.createChild(false);
+        pronounced.defaults();
+        pronounced.styleData.color = 1;
+        pronounced.physicsData.isTrapezoid = true;
+        pronounced.physicsData.sides = 2;
+        pronounced.physicsData.width = widthRatio
+        pronounced.physicsData.size = sizeRatio;
+        pronounced.positionData.x = offsetRatio + (pronounced.physicsData.size/2);
+    },
+    "pelletpronounced": entity => {
+        if(!(entity instanceof $Entity)) return;
+        const sizeRatio = 65;
+        const widthRatio = 42 * 1.19048;
+
+        const pronounced = entity.createChild(false);
+        pronounced.defaults();
+        pronounced.styleData.color = 1;
+        pronounced.physicsData.isTrapezoid = true;
+        pronounced.physicsData.sides = 2;
+        pronounced.physicsData.width = widthRatio
+        pronounced.physicsData.size = sizeRatio;
+        pronounced.positionData.x = (pronounced.physicsData.size/2);
+    },
+    "pelletlauncher": entity => {
+        if(!(entity instanceof $Entity)) return;
+        const sizeRatio = 95;
+        const widthRatio = 42 * 0.809524;
+
+        const launcher = entity.createChild(false);
+        launcher.defaults();
+        launcher.styleData.color = 1;
+        launcher.physicsData.isTrapezoid = true;
+        launcher.physicsData.sides = 2;
+        launcher.physicsData.width = widthRatio
+        launcher.physicsData.size = sizeRatio;
+        launcher.positionData.x = (launcher.physicsData.size/2);
+    },
+    "gliderlauncher": entity => {
+        if(!(entity instanceof $Entity)) return;
+        const sizeRatio = 65.5 * Math.SQRT2;
+        const widthRatio = 33.6;
+
+        const launcher = entity.createChild(false);
+        launcher.defaults();
+        launcher.styleData.color = 1;
+        launcher.physicsData.isTrapezoid = true;
+        launcher.physicsData.sides = 2;
+        launcher.physicsData.width = widthRatio
+        launcher.physicsData.size = sizeRatio;
+        launcher.positionData.x = (launcher.physicsData.size/2);
+        launcher.positionData.angle = Math.PI;
+    },
+    "fireworkpronounced": entity => {
+        if(!(entity instanceof $Entity)) return;
+        const sizeRatio = 45;
+        const widthRatio = 53.55;
+        const offsetRatio = 15;
+
+        const pronounced = entity.createChild(false);
+        pronounced.defaults();
+        pronounced.styleData.color = 1;
+        pronounced.physicsData.isTrapezoid = true;
+        pronounced.physicsData.sides = 2;
+        pronounced.physicsData.width = widthRatio
+        pronounced.physicsData.size = sizeRatio;
+        pronounced.positionData.x = offsetRatio + (pronounced.physicsData.size/2);
+        pronounced.positionData.angle = Math.PI;
+    },
+    "fireworklauncher": entity => {
+        if(!(entity instanceof $Entity)) return;
+        const sizeRatio = 80;
+        const widthRatio = 29.4;
+        const offsetRatio = 15;
+
+        const launcher = entity.createChild(false);
+        launcher.defaults();
+        launcher.styleData.color = 1;
+        launcher.physicsData.isTrapezoid = true;
+        launcher.physicsData.sides = 2;
+        launcher.physicsData.width = widthRatio
+        launcher.physicsData.size = sizeRatio;
+        launcher.positionData.x = offsetRatio + (launcher.physicsData.size/2);
+    },
 }
 
 const CUSTOM_COMMANDS = [
