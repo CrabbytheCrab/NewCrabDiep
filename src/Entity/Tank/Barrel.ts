@@ -37,8 +37,6 @@ import CrocSkimmer from "./Projectile/CrocSkimmer";
 import { BarrelAddon, BarrelAddonById } from "./BarrelAddons";
 import { Swarm } from "./Projectile/Swarm";
 import NecromancerSquare from "./Projectile/NecromancerSquare";
-import Glider from "./Projectile/Glider";
-import Shell from "./Projectile/Shell";
 
 /**
  * Class that determines when barrels can shoot, and when they can't.
@@ -167,12 +165,6 @@ export default class Barrel extends ObjectEntity {
         let projectile: ObjectEntity | null = null;
 
         switch (this.definition.bullet.type) {
-            case "firework":
-                new Shell(this, this.tank, tankDefinition, angle);
-                break;
-            case "glider":
-                new Glider(this, this.tank, tankDefinition, angle);
-                break;
             case "skimmer":
                 projectile = new Skimmer(this, this.tank, tankDefinition, angle, this.tank.inputs.attemptingRepel() ? -Skimmer.BASE_ROTATION : Skimmer.BASE_ROTATION);
                 break;
