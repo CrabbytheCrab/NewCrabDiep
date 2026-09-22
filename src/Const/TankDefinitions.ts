@@ -43,11 +43,11 @@ export interface BulletDefinition {
     /** The type of the bullet that the barrel shoots. */
     type: projectileId;
     /** Size of the bullet shot out of the barrel in relation to the barrel's size. Can be an Array of 2 Values.*/
-    sizeRatio: number| number[];
+    sizeRatio: number | number[];
     /** Used to calculate the health of the bullet that the barrel shoots. Can be an Array of 2 Values.*/
-    health: number| number[];
+    health: number | number[];
     /** Used to calculate the damage of the bullet that the barrel shoots. Can be an Array of 2 Values.*/
-    damage: number| number[];
+    damage: number | number[];
     /** Used to calculate the speed of the bullet that the barrel shoots. Can be an Array of 2 Values.*/
     speed: number | number[];
     /** Used to calculate the scattering rate / spread of the bullets. */
