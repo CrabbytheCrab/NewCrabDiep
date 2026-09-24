@@ -54,7 +54,7 @@ export interface BulletDefinition {
     scatterRate: number;
     /** Used to calculate the life length of a bullet that the barrel shoots. */
     lifeLength: number;
-    /** Knockback factor field of the bullet.*/
+    /** Knockback factor field of the bullet. */
     absorbtionFactor: number;
     /** Projectile color - by default this is set to parent's body color. */
     color?: Color;
@@ -72,7 +72,7 @@ export interface BarrelDefinition {
     angle: number;
     /** The x offset of the barrel (think of Twin's barrels for example) at base radius (50).  */
     offset: number;
-    /** The y offset of the barrel (distance from the tanks main body) at base radius (50). Will have no effect on clientside tankrendering.*/
+    /** The y offset of the barrel (distance from the tanks main body) at base radius (50). Will have no effect on clientside tankrendering. */
     distance?: number;
     /** The size of the barrel. Think of Sniper, the longer side is the size.  */
     size: number;
