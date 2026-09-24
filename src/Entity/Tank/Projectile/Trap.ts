@@ -23,7 +23,7 @@ import { PhysicsFlags, StyleFlags } from "../../../Const/Enums";
 import { TankDefinition } from "../../../Const/TankDefinitions";
 import { BarrelBase } from "../TankBody";
 import { DevTank } from "../../../Const/DevTankDefinitions";
-import { PI2, randomRange } from "../../../util";
+import { PI2 } from "../../../util";
 
 /**
  * The trap class represents the trap (projectile) entity in diep.
@@ -36,7 +36,6 @@ export default class Trap extends Bullet {
         super(barrel, tank, tankDefinition, shootAngle);
 
         const bulletDefinition = barrel.definition.bullet;
-        const lifeLength = (bulletDefinition.lifeLength instanceof Array) ? randomRange(bulletDefinition.lifeLength[0], bulletDefinition.lifeLength[1]) : bulletDefinition.lifeLength;
 
         this.baseSpeed = (barrel.bulletAccel / 2) + 30 - Math.random() * barrel.definition.bullet.scatterRate;
         this.baseAccel = 0;
@@ -47,7 +46,7 @@ export default class Trap extends Bullet {
         this.styleData.values.flags &= ~StyleFlags.hasNoDmgIndicator;
 
         this.collisionEnd = this.lifeLength >> 3;
-        this.lifeLength = (600 * lifeLength) >> 3;
+        this.lifeLength = (600 * barrel.definition.bullet.lifeLength) >> 3;
         if (tankDefinition && tankDefinition.id === DevTank.Bouncy) this.collisionEnd = this.lifeLength - 1;
         
         // Check this?

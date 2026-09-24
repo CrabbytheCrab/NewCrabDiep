@@ -21,13 +21,10 @@ import Bullet from "./Bullet";
 
 import { TankDefinition } from "../../../Const/TankDefinitions";
 import { BarrelBase } from "../TankBody";
-import { randomRange } from "../../../util";
 
 export default class Flame extends Bullet {
     public constructor(barrel: Barrel, tank: BarrelBase, tankDefinition: TankDefinition | null, shootAngle: number) {
         super(barrel, tank, tankDefinition, shootAngle);
-        const bulletDefinition = barrel.definition.bullet;
-        const lifeLength = (bulletDefinition.lifeLength instanceof Array) ? randomRange(bulletDefinition.lifeLength[0], bulletDefinition.lifeLength[1]) : bulletDefinition.lifeLength
 
         this.baseSpeed *= 2;
         this.baseAccel = 0;
@@ -35,7 +32,7 @@ export default class Flame extends Bullet {
         
         this.physicsData.values.sides = 4;
         this.physicsData.values.absorbtionFactor = this.physicsData.values.pushFactor = 0;
-        this.lifeLength = 25 * lifeLength;
+        this.lifeLength = 25 * barrel.definition.bullet.lifeLength;
     }
 
     public destroy(animate?: boolean): void {

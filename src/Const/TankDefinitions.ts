@@ -42,26 +42,26 @@ export const visibilityRateDamage = 0.2;
 export interface BulletDefinition {
     /** The type of the bullet that the barrel shoots. */
     type: projectileId;
-    /** Size of the bullet shot out of the barrel in relation to the barrel's size. Can be an Array of 2 Values.*/
-    sizeRatio: number | number[];
-    /** Used to calculate the health of the bullet that the barrel shoots. Can be an Array of 2 Values.*/
-    health: number | number[];
-    /** Used to calculate the damage of the bullet that the barrel shoots. Can be an Array of 2 Values.*/
-    damage: number | number[];
-    /** Used to calculate the speed of the bullet that the barrel shoots. Can be an Array of 2 Values.*/
-    speed: number | number[];
+    /** Size of the bullet shot out of the barrel in relation to the barrel's size.*/
+    sizeRatio: number;
+    /** Used to calculate the health of the bullet that the barrel shoots.*/
+    health: number;
+    /** Used to calculate the damage of the bullet that the barrel shoots.*/
+    damage: number;
+    /** Used to calculate the speed of the bullet that the barrel shoots.*/
+    speed: number;
     /** Used to calculate the scattering rate / spread of the bullets. */
     scatterRate: number;
-    /** Used to calculate the life length of a bullet that the barrel shoots. Can be an Array of 2 Values.*/
-    lifeLength: number | number[];
-    /** Knockback factor field of the bullet. Can be an Array of 2 Values.*/
-    absorbtionFactor: number | number[];
+    /** Used to calculate the life length of a bullet that the barrel shoots.*/
+    lifeLength: number;
+    /** Knockback factor field of the bullet.*/
+    absorbtionFactor: number;
     /** Projectile color - by default this is set to parent's body color. */
     color?: Color;
     /** Overrides number of sides for projectile. */
     sides?: number;
-    /** Used to calculate the initial burst of speed of the bullet that the barrel shoots. Can be an Array of 2 Values.*/
-    launchSpeed?: number | number[];
+    /** Used to calculate the initial burst of speed of the bullet that the barrel shoots.*/
+    launchSpeed?: number;
 }
 
 /**

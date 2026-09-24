@@ -297,7 +297,7 @@ class PronouncedAddon extends Addon {
         const pronounce = new ObjectEntity(this.game);
         const sizeRatio = 50 / 50;
         const widthRatio = 42 / 50;
-        const offsetRatio = 3 / 10;
+        const offsetRatio = 40 / 50;
         const size = this.owner.physicsData.values.size;
 
         pronounce.setParent(this.owner);
@@ -306,7 +306,7 @@ class PronouncedAddon extends Addon {
 
         pronounce.physicsData.values.size = sizeRatio * size;
         pronounce.physicsData.values.width = widthRatio * size;
-        pronounce.positionData.values.x = (pronounce.physicsData.values.size / 2) + (offsetRatio * size);
+        pronounce.positionData.values.x = offsetRatio * size;
         pronounce.positionData.values.angle = Math.PI;
 
         pronounce.styleData.values.color = Color.Barrel;

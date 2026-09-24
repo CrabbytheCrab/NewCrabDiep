@@ -23,7 +23,6 @@ import { HealthFlags, PositionFlags, PhysicsFlags, Stat, StyleFlags } from "../.
 import { TankDefinition } from "../../../Const/TankDefinitions";
 import { BarrelBase } from "../TankBody";
 import { EntityStateFlags } from "../../../Native/Entity";
-import { randomRange } from "../../../util";
 
 /**
  * The bullet class represents the bullet entity in diep.
@@ -69,39 +68,32 @@ export default class Bullet extends LivingEntity {
         const scaleFactor = tank.scaleFactor;
         const statLevels = tank.cameraEntity.cameraData?.values.statLevels.values;
 
-
-        const launchSpeed = (bulletDefinition.launchSpeed instanceof Array) ? randomRange(bulletDefinition.launchSpeed[0], bulletDefinition.launchSpeed[1]) : bulletDefinition.launchSpeed ?? 1;
-        const absorbtionFactor = (bulletDefinition.absorbtionFactor instanceof Array) ? randomRange(bulletDefinition.absorbtionFactor[0], bulletDefinition.absorbtionFactor[1]) : bulletDefinition.absorbtionFactor;
-        const damage = (bulletDefinition.damage instanceof Array) ? randomRange(bulletDefinition.damage[0], bulletDefinition.damage[1]) : bulletDefinition.damage;
-        const health = (bulletDefinition.health instanceof Array) ? randomRange(bulletDefinition.health[0], bulletDefinition.health[1]) : bulletDefinition.health;
-        const sizeRatio = (bulletDefinition.sizeRatio instanceof Array) ? randomRange(bulletDefinition.sizeRatio[0], bulletDefinition.sizeRatio[1]) : bulletDefinition.sizeRatio;
-        const lifeLength = (bulletDefinition.lifeLength instanceof Array) ? randomRange(bulletDefinition.lifeLength[0], bulletDefinition.lifeLength[1]) : bulletDefinition.lifeLength;
-
         this.relationsData.values.team = barrel.relationsData.values.team;
         this.relationsData.values.owner = tank;
 
         this.physicsData.values.sides = 1;
         this.physicsData.values.flags |= PhysicsFlags.noOwnTeamCollision | PhysicsFlags.canEscapeArena;
         if (tank.positionData.values.flags & PositionFlags.canMoveThroughWalls) this.positionData.values.flags |= PositionFlags.canMoveThroughWalls
-        this.physicsData.values.size = (barrel.physicsData.values.width / 2) * sizeRatio;
+        this.physicsData.values.size = (barrel.physicsData.values.width / 2) * bulletDefinition.sizeRatio;
         this.styleData.values.color = tank.rootParent.styleData.values.color;
         this.styleData.values.flags |= StyleFlags.hasNoDmgIndicator;
         this.healthData.values.flags = HealthFlags.hiddenHealthbar;
 
         const bulletDamage = statLevels ? statLevels[Stat.BulletDamage] : 0;
         const bulletPenetration = statLevels ? statLevels[Stat.BulletPenetration] : 0;
-        this.physicsData.values.absorbtionFactor = absorbtionFactor;
-        this.physicsData.values.pushFactor = ((7 / 3) + bulletDamage) * damage * absorbtionFactor
+
+        this.physicsData.values.absorbtionFactor = bulletDefinition.absorbtionFactor;
+        this.physicsData.values.pushFactor = ((7 / 3) + bulletDamage) * bulletDefinition.damage * bulletDefinition.absorbtionFactor;
 
         this.baseAccel = barrel.bulletAccel;
-        this.baseSpeed = barrel.bulletAccel + (30 - Math.random() * bulletDefinition.scatterRate) * launchSpeed;
+        this.baseSpeed = barrel.bulletAccel + (30 - Math.random() * bulletDefinition.scatterRate) * (bulletDefinition.launchSpeed ?? 1);
 
-        this.healthData.values.health = this.healthData.values.maxHealth = (1.5 * bulletPenetration + 2) * health;
-        this.damagePerTick = (7 + bulletDamage * 3) * damage;
+        this.healthData.values.health = this.healthData.values.maxHealth = (1.5 * bulletPenetration + 2) * bulletDefinition.health;
+        this.damagePerTick = (7 + bulletDamage * 3) * bulletDefinition.damage;
         this.minDamageMultiplier = 0.25;
         this.maxDamageMultiplier = 1;
 		
-        this.lifeLength = lifeLength * 75;
+        this.lifeLength = bulletDefinition.lifeLength * 75;
 
         const {x, y} = tank.getWorldPosition();
         

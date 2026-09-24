@@ -24,7 +24,6 @@ import { TankDefinition } from "../../../Const/TankDefinitions";
 import { AI } from "../../AI";
 import { BarrelBase } from "../TankBody";
 import LivingEntity from "../../Live";
-import { randomRange } from "../../../util";
 
 /**
  * The drone class represents the drone (projectile) entity in diep.
@@ -34,8 +33,7 @@ export default class NecromancerSquare extends Drone {
         super(barrel, tank, tankDefinition, shootAngle);
 
         const bulletDefinition = barrel.definition.bullet;
-        const absorbtionFactor = (bulletDefinition.absorbtionFactor instanceof Array) ? randomRange(bulletDefinition.absorbtionFactor[0], bulletDefinition.absorbtionFactor[1]) : bulletDefinition.absorbtionFactor;
-
+        
         this.ai = new AI(this);
         this.ai.viewRange = 900;
 
@@ -51,7 +49,7 @@ export default class NecromancerSquare extends Drone {
         this.maxDamageMultiplier = 4;
 
         this.physicsData.values.pushFactor = 4;
-        this.physicsData.values.absorbtionFactor = absorbtionFactor;
+        this.physicsData.values.absorbtionFactor = bulletDefinition.absorbtionFactor;
 
         this.baseSpeed = 0;
     }

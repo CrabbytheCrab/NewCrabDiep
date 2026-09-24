@@ -219,13 +219,12 @@ export default class Barrel extends ObjectEntity {
     
     public calculateStatData() {
         const reloadTime = this.tank.reloadTime * this.definition.reload;
-        const bulletSpeed = (this.definition.bullet.speed instanceof Array) ? util.randomRange(this.definition.bullet.speed[0], this.definition.bullet.speed[1]) : this.definition.bullet.speed;
         if (reloadTime !== this.shootCycle.reloadTime) {
             this.shootCycle.pos *= reloadTime / this.shootCycle.reloadTime;
             this.shootCycle.reloadTime = this.barrelData.reloadTime = reloadTime;
         }
         
-        this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.BulletSpeed] || 0) * 3) * bulletSpeed;
+        this.bulletAccel = (20 + (this.tank.cameraEntity.cameraData?.values.statLevels.values[Stat.BulletSpeed] || 0) * 3) * this.definition.bullet.speed;
     }
 
     public tick(tick: number) {
